@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="faqr_dark_Background">#FF292929</color>
+    <color name="gamefaqs_color">#FF6464ff</color>
+    <color name="gamefaqs_color_trans">#666464ff</color>
+    <color name="gamefaqs_light_color">#FFb0b0ff</color>
+    <color name="gamefaqs_light_color_trans">#66b0b0ff</color>
+    <color name="gamefaqs_dark_color">#FF2b2bff</color>
+    <color name="gamefaqs_dark_color_trans">#662b2bff</color>
+    <color name="faqr_donate_color">#FFFBEC5D</color>
+    <color name="sepia_theme_color">#FFB7410E</color>
+    
+</resources>

@@ -1,0 +1,93 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_prev"
+        android:icon="@drawable/ic_navigation_collapse"
+        android:showAsAction="always"
+        android:title="@string/menu_prev"/>
+    <item
+        android:id="@+id/menu_next"
+        android:icon="@drawable/ic_navigation_expand"
+        android:showAsAction="always"
+        android:title="@string/menu_next"/>
+    <item
+        android:id="@+id/menu_goto_prev"
+        android:icon="@drawable/ic_navigation_collapse"
+        android:showAsAction="always"
+        android:title="@string/menu_prev"/>
+    <item
+        android:id="@+id/menu_goto_next"
+        android:icon="@drawable/ic_navigation_expand"
+        android:showAsAction="always"
+        android:title="@string/menu_next"/>
+    <item
+        android:id="@+id/menu_goto_close"
+        android:icon="@drawable/ic_navigation_cancel"
+        android:showAsAction="always"
+        android:title="@string/menu_close"/>
+    
+    
+    
+    <item
+        android:id="@+id/menu_display_options"
+        android:icon="@drawable/ic_menu_settings_dark"
+        android:showAsAction="never"
+        android:title="Display Options"/>
+
+    <!--
+         <item
+        android:id="@+id/menu_search"
+        android:icon="@drawable/ic_menu_search"
+        android:showAsAction="collapseActionView|never"
+        android:title="@string/menu_search"/>
+    -->
+    <!--
+         <item
+        android:id="@+id/menu_downloads"
+        android:icon="@drawable/ic_menu_download"
+        android:showAsAction="collapseActionView|never"
+        android:title="@string/menu_saved"/>
+    -->
+    <item
+        android:id="@+id/menu_faqmarks"
+        android:icon="@drawable/ic_menu_star"
+        android:showAsAction="never"
+        android:title="@string/menu_faqmarks"/>
+    <item
+        android:id="@+id/menu_find"
+        android:actionViewClass="com.actionbarsherlock.widget.SearchView"
+        android:icon="@drawable/ic_menu_search_dark"
+        android:showAsAction="collapseActionView|ifRoom"
+        android:title="@string/menu_find"/>
+    
+    <item
+        android:id="@+id/menu_browser"
+        android:icon="@drawable/ic_menu_view"
+        android:showAsAction="never"
+        android:title="@string/menu_browser"/>
+    <!-- <item
+        android:id="@+id/menu_goto"
+        android:icon="@drawable/ic_menu_goto"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_goto"/> -->
+    <!--
+         <item
+        android:id="@+id/menu_lock"
+        android:icon="@drawable/ic_menu_login"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_lock"/>
+    -->
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/ic_menu_preferences"
+        android:showAsAction="never"
+        android:title="@string/menu_settings"/>
+    <item
+        android:id="@+id/menu_about"
+        android:icon="@drawable/ic_menu_info_details"
+        android:showAsAction="never"
+        android:title="@string/menu_about"/>
+
+</menu>

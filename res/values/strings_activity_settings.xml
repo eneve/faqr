@@ -1,0 +1,242 @@
+<resources>
+
+    <!-- Strings related to Settings -->
+
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+    <string name="faq_url_title">FAQ URL</string>
+    <string name="faq_url_summary">The URL of the currently saved FAQ</string>
+    <!-- <string name="faq_url_default">http://www.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211</string> -->
+    <string name="faq_url_default"></string>
+
+    <!-- general -->
+    <string name="auto_open_title">Auto Open</string>
+    <string name="auto_open_summary">Open last FAQ when starting the app</string>
+    <string name="show_tips_title">Show Tips</string>
+    <string name="show_tips_summary">Show tips in the app</string>
+    <string name="quit_confirmation_title">Quit Confirmation</string>
+    <string name="quit_confirmation_summary">Show dialog before exiting the app</string>
+
+    <!-- saved position -->
+    <string name="pref_header_saved_pos">FAQmarks</string>
+    
+    
+    <string name="highlight_faqmark_title">Highlight FAQmark</string>
+    <string name="highlight_faqmark_summary">Highlight text</string>
+    
+    <string-array name="highlight_faqmark_list_titles">
+        <item>Highlight text</item>
+        <item>Highlight corner fold</item>
+        <item>Highlight text and corner fold</item>
+        <item>Do not highlight</item>
+    </string-array>
+    <string-array name="highlight_faqmark_list_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    
+    <string name="highlight_saved_pos_title">Highlight FAQmark</string>
+    <string name="highlight_saved_pos_summary">Highlight the saved position with a different color</string>
+    <string name="saved_pos_background_title">FAQmark Background</string>
+    <string name="saved_pos_background_summary">Highlight the saved position with a different background</string>
+    <!--
+    <string name="multi_saved_pos_title">Multiple FAQmarks</string>
+    <string name="multi_saved_pos_summary">Allow for multiple saved positions</string>
+    -->
+    <string name="saved_pos_preview_title">My FAQmarks Preview Size</string>
+    <string name="saved_pos_preview_summary">The number of lines to show in the preview on My FAQmarks</string>
+
+    <string-array name="saved_pos_preview_list_titles">
+        <item>3 lines</item>
+        <item>4 lines</item>
+        <item>5 lines</item>
+        <item>6 lines</item>
+        <item>7 lines</item>
+        <item>8 lines</item>
+        <item>9 lines</item>
+        <item>10 lines</item>
+        <item>11 lines</item>
+        <item>12 lines</item>
+        <item>13 lines</item>
+        <item>14 lines</item>
+        <item>15 lines</item>
+        <item>16 lines</item>
+        <item>17 lines</item>
+        <item>18 lines</item>
+        <item>19 lines</item>
+        <item>20 lines</item>
+    </string-array>
+    <string-array name="saved_pos_preview_list_values">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+    </string-array>
+
+    <!-- screen -->
+    <string name="pref_header_screen">Display</string>
+    
+    <string name="use_dark_theme_title">Use Dark Theme</string>
+    <string name="use_dark_theme_summary">Use dark background with light text</string>
+    <string name="use_true_black_title">Use True Black</string>
+    <string name="use_true_black_summary">Useful for AMOLED screens</string>
+    <string name="use_lights_out_title">Use Low Profile</string>
+    <string name="use_lights_out_summary">Dim the notification bar while reading</string>
+    <string name="use_immersive_mode_title">Use Immersive Mode</string>
+    <string name="use_immersive_mode_summary">Use immersive reading mode</string>
+    <string name="hide_status_bar_title">Hide Notification Bar</string>
+    <string name="hide_status_bar_summary">Hide the notification bar</string>
+    <string name="hide_status_bar_land_title">Hide Notification Bar Landscape</string>
+    <string name="hide_status_bar_land_summary">Hide the notification bar only in landscape</string>
+    <string name="hide_action_bar_title">Hide Action Bar</string>
+    <string name="hide_action_bar_summary">Hide the action bar on scroll</string>
+    <string name="keep_screen_on_title">Keep Screen On</string>
+    <string name="keep_screen_on_summary">Prevent device from sleeping</string>
+    
+    
+    
+    
+    <string name="theme_title">Theme</string>
+    <string name="theme_summary">Day</string>
+    
+    <string-array name="theme_titles">
+        <item>Day</item>
+        <item>Night</item>
+        <item>Dark</item>
+        <item>Sepia</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    
+    <string name="hide_notification_bar_title">Hide Notification Bar</string>
+    <string name="hide_notification_bar_summary">Always show</string>
+    
+    <string-array name="hide_notification_bar_titles">
+        <item>Always show</item>
+        <item>Always hide</item>
+        <item>Hide in landscape</item>
+    </string-array>
+    <string-array name="hide_notification_bar_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    
+    
+    <string name="auto_rotate_screen_title">Auto-rotate screen</string>
+    <string name="auto_rotate_screen_summary">Use system setting</string>
+    
+    <string-array name="auto_rotate_screen_titles">
+        <item>Use system setting</item>
+        <item>Lock in portrait</item>
+        <item>Lock in landscape</item>
+    </string-array>
+    <string-array name="auto_rotate_screen_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <!-- fonts -->
+    
+     <string name="typeface_title">Typeface</string>
+    <string name="typeface_summary">Mono</string>
+    
+    <string-array name="typeface_list_titles">
+        <item>Mono</item>
+        <item>Variable Sans</item>
+        <item>Variable Serif</item>
+    </string-array>
+    <string-array name="typeface_list_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    
+    
+    
+    <string name="pref_header_fonts">Fonts</string>
+    <string name="mono_font_size_title">Mono Spaced Font Size</string>
+    <string name="mono_font_size_summary">The font size for the mono spaced font</string>
+    <string name="use_variable_font_title">Use Variable Spaced Font</string>
+    <string name="use_variable_font_summary">Use a variable spaced font only on text based sections</string>
+    <string name="variable_font_size_title">Variable Spaced Font Size</string>
+    <string name="variable_font_size_summary">The font size for the variable spaced font</string>
+    <string name="use_serif_font_title">Use Serif Font</string>
+    <string name="use_serif_font_summary">Use a serif font for the variable spaced font</string>
+
+    <string-array name="font_size_list_titles">
+        <item>Auto</item>
+        <item>5 pt</item>
+        <item>5.5 pt</item>
+        <item>6 pt</item>
+        <item>6.5 pt</item>
+        <item>7 pt</item>
+        <item>7.5 pt</item>
+        <item>8 pt</item>
+        <item>8.5 pt</item>
+        <item>9 pt</item>
+        <item>9.5 pt</item>
+        <item>10 pt</item>
+        <item>10.5 pt</item>
+        <item>11 pt</item>
+        <item>11.5 pt</item>
+        <item>12 pt</item>
+        <item>13 pt</item>
+        <item>14 pt</item>
+        <item>15 pt</item>
+        <item>16 pt</item>
+        <item>17 pt</item>
+        <item>18 pt</item>
+        <item>19 pt</item>
+        <item>20 pt</item>
+    </string-array>
+    <string-array name="font_size_list_values">
+        <item>Auto</item>
+        <item>5</item>
+        <item>5.5</item>
+        <item>6</item>
+        <item>6.5</item>
+        <item>7</item>
+        <item>7.5</item>
+        <item>8</item>
+        <item>8.5</item>
+        <item>9</item>
+        <item>9.5</item>
+        <item>10</item>
+        <item>10.5</item>
+        <item>11</item>
+        <item>11.5</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+    </string-array>
+
+</resources>
