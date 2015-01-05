@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+     ==========================================
+
+    SET ALL APPLICATION DEFAULT SETTINGS VALUES
+    
+    ===========================================
+    -->
+
+
+    <!-- general defaults -->
+    <bool name="auto_open_default">true</bool>
+    <bool name="show_tips_default">true</bool>
+    <bool name="quit_confirmation_default">true</bool>
+    
+    <!--  saved position defaults -->
+
+	<string name="highlight_faqmark_default">1</string>
+
+    <bool name="highlight_saved_position_default">true</bool>
+    <bool name="saved_position_background_default">false</bool>
+    <bool name="multi_saved_position_default">true</bool>
+    <string name="saved_pos_preview_default">6</string>
+    
+    <!-- screen defaults -->
+    
+    <bool name="use_dark_theme_default">false</bool>
+    <bool name="use_true_black_default">false</bool>
+    <bool name="use_lights_out_default">false</bool>
+    <bool name="use_immersive_mode_default">false</bool>
+    <bool name="hide_status_bar_default">false</bool>
+    <bool name="hide_status_bar_land_default">false</bool>
+    <bool name="hide_action_bar_default">false</bool>
+    <bool name="keep_screen_on_default">false</bool>
+    
+    <string name="theme_default">1</string>
+    <string name="hide_notification_bar_default">1</string>
+    <string name="auto_rotate_screen_default">1</string>
+
+    <!-- fonts defaults -->
+    <string name="typeface_default">1</string>
+    
+    <string name="mono_font_size_default">Auto</string>
+
+    <bool name="use_variable_font_default">false</bool>
+
+    <string name="variable_font_size_default">Auto</string>
+
+    <bool name="use_serif_font_default">false</bool>
+
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/faqr.iml" filepath="$PROJECT_DIR$/faqr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/faqr/faqr-faqr.iml" filepath="$PROJECT_DIR$/faqr/faqr-faqr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stickyListHeaders_lib/stickyListHeaders_lib.iml" filepath="$PROJECT_DIR$/stickyListHeaders_lib/stickyListHeaders_lib.iml" />
+    </modules>
+  </component>
+</project>
+

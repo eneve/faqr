@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- Strings related to Help -->
+
+
+    <!-- about -->
+    <string name="about_options_title">EXPLANATION OF OPTIONS</string>
+    <string name="about_search_title">Search for FAQ</string>
+    <string name="about_search_summary">Search the web for new GameFAQs by game title. Navigate the FAQ selection screens, and then the FAQ will be automatically downloaded for offline reading.</string>
+    <string name="about_find_title">Find in FAQ</string>
+    <string name="about_find_summary">Search the FAQ for the query string. When you are typing you will see that term highlighted in the FAQ. Use the Previous and Next buttons to cycle through all occurrences of the term throughout the FAQ.</string>
+    <string name="about_saved_title">Go to FAQmark</string>
+    <string name="about_saved_summary">You can save any location in the FAQ by simply tapping the section that you wish to save. You will see a confimation that the section is saved. Later you can use the Go to Saved location to take you back to the saved position. You can toggle whether you want the saved section to have a different color in Settings.</string>
+    <string name="about_lock_title">Lock Orientation</string>
+    <string name="about_lock_summary">You can lock the current orientation of the screen by tapping Lock. Later you can unlock the orientation by tapping Unlock in the menu.</string>
+    <string name="about_reload_title">Reload</string>
+    <string name="about_reload_summary">You can reload the FAQ from the web using this menu option if you need to. WARNING This will also erase all your current and saved position information.</string>
+    <string name="about_settings_title">Settings</string>
+    <string name="about_settings_summary">You can toggle various options in the Settings menu. Here you can change you theme (Dark or Light), hide the Android notification and action bar, keep the screen on, choose to use a variable font, set the font size for monospace and variable space fonts separately, choose to use a serif or sans font for the variable spaced font, and choose whether to highlight the saved position with a different color.</string>
+
+</resources>
