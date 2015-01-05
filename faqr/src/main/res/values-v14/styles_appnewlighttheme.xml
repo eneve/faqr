@@ -43,10 +43,10 @@
         <item name="android:textColor">#FFFFFFFF</item>
 	</style>
 	
-	<style name="listviewfastscrollstyle" parent="Appnewlighttheme">
-	    <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_thumb_faqr_dark</item>
-	    <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_faqr_dark</item>
-	</style>
+	<!--<style name="listviewfastscrollstyle" parent="Appnewlighttheme">-->
+	    <!--<item name="android:fastScrollTrackDrawable">@drawable/fastscroll_thumb_faqr_dark</item>-->
+	    <!--<item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_faqr_dark</item>-->
+	<!--</style>-->
 
     <style name="ActionBar.Solid.Appnewlighttheme" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/ab_solid_appnewlighttheme</item>

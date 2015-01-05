@@ -84,11 +84,11 @@
         <item name="android:windowBackground">@color/faqr_dark_Background</item>
     	<item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_faqr_dark</item>
     </style>
-  
-	<style name="listviewfastscrollstyle" parent="AppDarkTheme">
-	    <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_thumb_faqr_dark</item>
-	    <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_faqr_dark</item>
-	</style>
+
+	<!--<style name="listviewfastscrollstyle" parent="AppDarkTheme">-->
+	    <!--<item name="android:fastScrollTrackDrawable">@drawable/fastscroll_thumb_faqr_dark</item>-->
+	    <!--<item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_faqr_dark</item>-->
+	<!--</style>-->
 
     <style name="faqr_dark_transparent_ActionBar" parent="@android:style/Widget.Holo.ActionBar">
         <item name="android:background">@drawable/ab_transparent_faqr_dark</item>

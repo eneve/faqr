@@ -27,10 +27,10 @@
         <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_faqr_dark</item>
     </style>
 
-    <style name="listviewfastscrollstyle" parent="AppLightTheme">
-        <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_thumb_faqr_dark</item>
-        <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_faqr_dark</item>
-    </style>
+    <!--<style name="listviewfastscrollstyle" parent="AppLightTheme">-->
+        <!--<item name="android:fastScrollTrackDrawable">@drawable/fastscroll_thumb_faqr_dark</item>-->
+        <!--<item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_faqr_dark</item>-->
+    <!--</style>-->
 
     <style name="faq_light_solid_ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
         <item name="android:background">@drawable/ab_solid_faq_light</item>

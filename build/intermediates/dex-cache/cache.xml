@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/stephen/dev/android-sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
+        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/support-v4-18.0.0-4230f51946f4eeef9d71c47e7f334bfa75456daa.jar" />
+    </item>
+    <item
+        jar="/Users/stephen/dev/faqr/faqr/libs/libGoogleAnalyticsV2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8d04da1c73876c93ccce8ffd39add84f9415b64c">
+        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/libGoogleAnalyticsV2-b9b739cfac65bb2bc808eb1669749f1445f12769.jar" />
+    </item>
+    <item
+        jar="/Users/stephen/dev/faqr/faqr/build/intermediates/exploded-aar/faqr/stickyListHeaders_lib/unspecified/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="aa040fc5ba7d89d887d7aa25abb8f6a6a3c59918">
+        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/classes-0d66d867e050003330dc379a805e387950dcca30.jar" />
+    </item>
+    <item
+        jar="/Users/stephen/dev/faqr/faqr/libs/jsoup-1.7.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="99351550d1fa2e8147319dbafd3f3a79d4f4c6e5">
+        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/jsoup-1.7.1-394872aca7cf5b906888d206c748297b2e0d99b2.jar" />
+    </item>
+    <item
+        jar="/Users/stephen/dev/faqr/faqr/libs/GoogleAdMobAdsSdk-6.2.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="40ffb9188343d72dc46d596836a8dd8d464b41a3">
+        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/GoogleAdMobAdsSdk-6.2.1-baf5fb4fba0324705f3cce81898d92f1c2d91173.jar" />
+    </item>
+    <item
+        jar="/Users/stephen/dev/faqr/faqr/build/intermediates/exploded-aar/com.actionbarsherlock/actionbarsherlock/4.4.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="af64527b748983a75de9c0756e9768b56b240a49">
+        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/classes-16d2ff8ed76333e1230be8c91d5731aac48eac6e.jar" />
+    </item>
+
+</items>

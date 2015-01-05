@@ -1,0 +1,7 @@
+/Users/stephen/dev/faqr/faqr/build/intermediates/classes/debug
+/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/classes-0d66d867e050003330dc379a805e387950dcca30.jar
+/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/libGoogleAnalyticsV2-b9b739cfac65bb2bc808eb1669749f1445f12769.jar
+/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/GoogleAdMobAdsSdk-6.2.1-baf5fb4fba0324705f3cce81898d92f1c2d91173.jar
+/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/jsoup-1.7.1-394872aca7cf5b906888d206c748297b2e0d99b2.jar
+/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/classes-16d2ff8ed76333e1230be8c91d5731aac48eac6e.jar
+/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/support-v4-18.0.0-4230f51946f4eeef9d71c47e7f334bfa75456daa.jar

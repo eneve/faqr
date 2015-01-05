@@ -1,0 +1,12 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    style="?android:attr/dropDownItemStyle"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:ellipsize="marquee"
+    android:padding="10dip"
+    android:singleLine="true"
+    android:background="@drawable/ab_bottom_solid_faqr_dark"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:textColor="#FFFFFF" />
+<!-- From: file:/Users/stephen/dev/faqr/faqr/src/main/res/layout/simple_dropdown_item_1line_faqr.xml -->

@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_delete"
+        android:icon="@drawable/ic_menu_delete"
+        android:title="@string/menu_delete_faqmarks"/>
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/ic_menu_preferences"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_settings"/>
+    <item
+        android:id="@+id/menu_about"
+        android:icon="@drawable/ic_menu_info_details"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_about"/>
+
+</menu><!-- From: file:/Users/stephen/dev/faqr/faqr/src/main/res/menu/activity_faqmarks.xml -->
