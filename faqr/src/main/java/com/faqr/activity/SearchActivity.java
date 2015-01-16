@@ -4,8 +4,6 @@
 
 package com.faqr.activity;
 
-import java.io.File;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,10 +19,11 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.faqr.Faqr;
+import com.faqr.FaqrApp;
 import com.faqr.R;
 import com.faqr.activity.base.BaseActivity;
-import com.google.analytics.tracking.android.EasyTracker;
+
+import java.io.File;
 
 /**
  * This Activity provides a help screen for the app
@@ -44,7 +43,7 @@ public class SearchActivity extends BaseActivity {
 
         ActionBar actionBar = getSupportActionBar();
 
-        File[] files = Faqr.getFaqrFiles(getFilesDir().listFiles());
+        File[] files = FaqrApp.getFaqrFiles(getFilesDir().listFiles());
         if (files.length > 0)
             // if (!TextUtils.isEmpty(currFaq)) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -203,13 +202,13 @@ public class SearchActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        EasyTracker.getInstance().activityStart(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStart(this); // Add this method.
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EasyTracker.getInstance().activityStop(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override

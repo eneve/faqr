@@ -8,13 +8,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.faqr.R;
 import com.faqr.activity.base.BaseActivity;
-import com.google.analytics.tracking.android.EasyTracker;
 
 /**
  * This Activity determines which activity to forward to on app start
@@ -71,13 +68,13 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        EasyTracker.getInstance().activityStart(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStart(this); // Add this method.
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EasyTracker.getInstance().activityStop(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override

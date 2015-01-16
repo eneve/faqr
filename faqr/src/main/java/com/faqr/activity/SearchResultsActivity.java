@@ -4,17 +4,6 @@
 
 package com.faqr.activity;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -45,14 +34,24 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
 import com.actionbarsherlock.widget.SearchView;
 import com.actionbarsherlock.widget.SearchView.SearchAutoComplete;
-import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
-import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
-import com.faqr.Faqr;
+import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
+import com.faqr.FaqrApp;
 import com.faqr.R;
 import com.faqr.activity.base.BaseActivity;
 import com.faqr.adapter.SectionListAdapter;
 import com.faqr.adapter.SectionListAdapter.SectionListAdapterDelegate;
-import com.google.analytics.tracking.android.EasyTracker;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * This Activity provides a help screen for the app
@@ -124,7 +123,7 @@ public class SearchResultsActivity extends BaseActivity {
             game = extras.getString("game");
         }
 
-        String title = Faqr.toTitleCase(game);
+        String title = FaqrApp.toTitleCase(game);
         setTitle(title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             setTitle("");
@@ -173,16 +172,16 @@ public class SearchResultsActivity extends BaseActivity {
                     // faqsMeta = faqsMeta + " === ";
 
                     SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("curr_faq", Faqr.validFileName(href));
+                    editor.putString("curr_faq", FaqrApp.validFileName(href));
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
-                    editor.putString(Faqr.validFileName(href) + "___last_read", sdf.format(new Date()));
+                    editor.putString(FaqrApp.validFileName(href) + "___last_read", sdf.format(new Date()));
 
-                    Log.i(TAG, Faqr.validFileName(href) + " " + title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
+                    Log.i(TAG, FaqrApp.validFileName(href) + " " + title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
                     // Toast.makeText(getApplicationContext(), Faqr.validFileName(href) + " " + title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href, Toast.LENGTH_SHORT).show();
                     // we might have it already
-                    if (TextUtils.isEmpty(prefs.getString(Faqr.validFileName(href), "")))
-                        editor.putString(Faqr.validFileName(href), title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
+                    if (TextUtils.isEmpty(prefs.getString(FaqrApp.validFileName(href), "")))
+                        editor.putString(FaqrApp.validFileName(href), title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
                     editor.commit();
                     // sectionData.add(title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
                 }
@@ -196,7 +195,7 @@ public class SearchResultsActivity extends BaseActivity {
                 }
 
                 // external url
-                if (!url.contains(Faqr.GAMEFAQS_URL)) {
+                if (!url.contains(FaqrApp.GAMEFAQS_URL)) {
 
                     Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
                     // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -293,7 +292,7 @@ public class SearchResultsActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        EasyTracker.getInstance().activityStart(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStart(this); // Add this method.
 
         if (searchView != null)
             searchView.clearFocus();
@@ -302,7 +301,7 @@ public class SearchResultsActivity extends BaseActivity {
     @Override
     public void onStop() {
         super.onStop();
-        EasyTracker.getInstance().activityStop(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override
@@ -849,16 +848,16 @@ public class SearchResultsActivity extends BaseActivity {
                 // faqsMeta = faqsMeta + " === ";
 
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("curr_faq", Faqr.validFileName(href));
+                editor.putString("curr_faq", FaqrApp.validFileName(href));
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
-                editor.putString(Faqr.validFileName(href) + "___last_read", sdf.format(new Date()));
+                editor.putString(FaqrApp.validFileName(href) + "___last_read", sdf.format(new Date()));
 
-                Log.i(TAG, Faqr.validFileName(href) + " " + title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
+                Log.i(TAG, FaqrApp.validFileName(href) + " " + title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
                 // Toast.makeText(getApplicationContext(), Faqr.validFileName(href) + " " + title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href, Toast.LENGTH_SHORT).show();
                 // we might have it already
-                if (TextUtils.isEmpty(prefs.getString(Faqr.validFileName(href), "")))
-                    editor.putString(Faqr.validFileName(href), title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
+                if (TextUtils.isEmpty(prefs.getString(FaqrApp.validFileName(href), "")))
+                    editor.putString(FaqrApp.validFileName(href), title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
                 editor.commit();
                 // sectionData.add(title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
             }
@@ -872,7 +871,7 @@ public class SearchResultsActivity extends BaseActivity {
             }
 
             // external url
-            if (!url.contains(Faqr.GAMEFAQS_URL)) {
+            if (!url.contains(FaqrApp.GAMEFAQS_URL)) {
 
                 Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
                 // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -942,7 +941,7 @@ public class SearchResultsActivity extends BaseActivity {
                 } else {
                     // String userAgent = new WebView(getApplicationContext()).getSettings().getUserAgentString();
                     // Document doc = Jsoup.connect(SEARCH_URL + gameParam).userAgent(userAgent).referrer("http://www.google.com").timeout(10000).get();
-                    doc = Jsoup.connect(Faqr.SEARCH_URL + gameParam).timeout(10000).get();
+                    doc = Jsoup.connect(FaqrApp.SEARCH_URL + gameParam).timeout(10000).get();
                 }
 
                 String[] split = url.split("/");
@@ -985,7 +984,7 @@ public class SearchResultsActivity extends BaseActivity {
                                     if (count == 0) {
                                         href = tdElem.select("a").attr("href");
                                         if (href.startsWith("/"))
-                                            href = Faqr.GAMEFAQS_URL + href;
+                                            href = FaqrApp.GAMEFAQS_URL + href;
                                     } else if (count == 1) {
                                         title = tdElem.select(".faqtitle").text();
                                         title += " by " + tdElem.select(".faqauthor").text();
@@ -1004,7 +1003,7 @@ public class SearchResultsActivity extends BaseActivity {
                                         img = tdElem.select("img").attr("src");
                                         href = tdElem.select("a").attr("href");
                                         if (href.startsWith("/"))
-                                            href = Faqr.GAMEFAQS_URL + href;
+                                            href = FaqrApp.GAMEFAQS_URL + href;
                                     } else if (count == 1) {
                                         date = tdElem.text();
                                     } else if (count == 2) {
@@ -1061,12 +1060,12 @@ public class SearchResultsActivity extends BaseActivity {
                                 } else if (count == 1) {
                                     title = tdElem.select("a").get(0).text();
                                 } else if (count == 2) {
-                                    href = Faqr.GAMEFAQS_URL + tdElem.select("a").attr("href");
+                                    href = FaqrApp.GAMEFAQS_URL + tdElem.select("a").attr("href");
                                 }
                                 count++;
                             }
                             if (!TextUtils.isEmpty(href)) {
-                                sectionData.add(Faqr.getConsoleFullName(platform) + " --- " + title + " --- " + href);
+                                sectionData.add(FaqrApp.getConsoleFullName(platform) + " --- " + title + " --- " + href);
                                 // adapterData.add(platform + " --- " + title + " --- " + href);
                             }
                         }

@@ -12,7 +12,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.faqr.R;
 import com.faqr.activity.base.BaseActivity;
-import com.google.analytics.tracking.android.EasyTracker;
+
 
 /**
  * This Activity provides an about screen for the app
@@ -64,13 +64,22 @@ public class AboutActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        EasyTracker.getInstance().activityStart(this); // Add this method.
+        // EasyTracker.getInstance(this).activityStart(this); // Add this method.
+
+        // Get tracker.
+//        Tracker t = ((FaqrApp) getApplication()).getTracker(FaqrApp.TrackerName.GLOBAL_TRACKER);
+
+        // Set screen name.
+//        t.setScreenName(getClass().getName());
+
+        // Send a screen view.
+//        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EasyTracker.getInstance().activityStop(this); // Add this method.
+        // EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override

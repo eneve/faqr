@@ -48,8 +48,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
 import com.actionbarsherlock.widget.SearchView;
 import com.actionbarsherlock.widget.SearchView.SearchAutoComplete;
-import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
-import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
+import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 import com.faqr.Faqr;
 import com.faqr.R;
 import com.faqr.activity.base.BaseActivity;
@@ -294,13 +294,13 @@ public class MyFaqsActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        EasyTracker.getInstance().activityStart(this); // Add this method.
+        EasyTracker.getInstance(this).activityStart(this); // Add this method.
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EasyTracker.getInstance().activityStop(this); // Add this method.
+        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override

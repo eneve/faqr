@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.faqr"
-    android:versionCode="47"
-    android:versionName="1.8.4" >
+    android:versionCode="48"
+    android:versionName="2.0.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="19" />
+        android:minSdkVersion="15"
+        android:targetSdkVersion="21" />
+
+    <!-- <uses-sdk -->
+    <!-- android:minSdkVersion="8" -->
+    <!-- android:targetSdkVersion="19" /> -->
+
 
     <!-- permissions -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -67,9 +72,12 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/menu_about" >
         </activity>
-        <activity
-            android:name="com.google.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        <!-- <activity -->
+        <!-- android:name="com.google.ads.AdActivity" -->
+        <!-- android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" /> -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

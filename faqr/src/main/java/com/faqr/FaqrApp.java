@@ -4,6 +4,12 @@
 
 package com.faqr;
 
+import android.app.Application;
+import android.text.TextUtils;
+
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,21 +19,49 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
-import android.text.TextUtils;
 
 /**
  * This provides data and service methods for FAQr
  * 
  * @author eneve
  */
-public class Faqr {
+public class FaqrApp extends Application {
 
     // these should be resources
     public static final String GAMEFAQS_URL = "http://m.gamefaqs.com";
     public static final String SEARCH_URL = GAMEFAQS_URL + "/search/index.html?game=";
+
+    /**
+     * Enum used to identify the tracker that needs to be used for tracking.
+     *
+     * A single tracker is usually enough for most purposes. In case you do need multiple trackers,
+     * storing them all in Application object helps ensure that they are created only once per
+     * application instance.
+     */
+    public static enum TrackerName {
+        APP_TRACKER, // Tracker used only in this app.
+        GLOBAL_TRACKER, // Tracker used by all the apps from a company. eg: roll-up tracking.
+        ECOMMERCE_TRACKER, // Tracker used by all ecommerce transactions from a company.
+    }
+
+    HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
+
+    public synchronized Tracker getTracker(TrackerName trackerId) {
+        if (!mTrackers.containsKey(trackerId)) {
+
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+//            Tracker t = (trackerId == TrackerName.APP_TRACKER) ? analytics.newTracker(PROPERTY_ID)
+//                    : (trackerId == TrackerName.GLOBAL_TRACKER) ? analytics.newTracker(R.xml.global_tracker)
+//                    : analytics.newTracker(R.xml.ecommerce_tracker);
+            Tracker t = analytics.newTracker(R.xml.global_tracker);
+            mTrackers.put(trackerId, t);
+
+        }
+        return mTrackers.get(trackerId);
+    }
 
     /**
      * Sort the FAQr data files from other meta data in the files dir
@@ -234,7 +268,7 @@ public class Faqr {
         boolean useFixedWidthFont = false;
 
         // four or more special characters in a row is a good clue
-        if (content.contains("----") || content.contains("====") || content.contains("____") || content.contains("....") || content.contains("    ") || content.contains("øøøø")) {
+        if (content.contains("----") || content.contains("====") || content.contains("____") || content.contains("....") || content.contains("    ")) { // || content.contains("ï¿½ï¿½ï¿½ï¿½")) {
             useFixedWidthFont = true;
         }
 

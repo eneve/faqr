@@ -4,23 +4,10 @@
 
 package com.faqr.activity;
 
-import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -38,7 +25,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,13 +34,23 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
 import com.actionbarsherlock.widget.SearchView;
 import com.actionbarsherlock.widget.SearchView.SearchAutoComplete;
-import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
-import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
-import com.faqr.Faqr;
+import com.faqr.FaqrApp;
 import com.faqr.R;
 import com.faqr.activity.base.BaseActivity;
 import com.faqr.adapter.SectionListAdapter.IndexPath;
-import com.google.analytics.tracking.android.EasyTracker;
+
+import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+
+import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * This Activity provides a list of the saved FAQs
@@ -123,6 +119,7 @@ public class MyFaqsActivity extends BaseActivity {
         // setListAdapter(sectionAdapter);
         listView = (StickyListHeadersListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
+
 
         // extras = getIntent().getExtras();
         // if (extras != null) {
@@ -199,7 +196,7 @@ public class MyFaqsActivity extends BaseActivity {
                         SharedPreferences.Editor editor = prefs.edit();
 
                         File file = null;
-                        File[] files = Faqr.getFaqrFiles(getFilesDir().listFiles());
+                        File[] files = FaqrApp.getFaqrFiles(getFilesDir().listFiles());
                         for (int i = 0; i < files.length; i++) {
                             File f = files[i];
                             if (f.getName().equals(metaView.getText().toString())) {
@@ -294,13 +291,22 @@ public class MyFaqsActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        EasyTracker.getInstance().activityStart(this); // Add this method.
+        // EasyTracker.getInstance(this).activityStart(this); // Add this method.
+
+        // Get tracker.
+//        Tracker t = ((FaqrApp) getApplication()).getTracker(FaqrApp.TrackerName.GLOBAL_TRACKER);
+
+        // Set screen name.
+//        t.setScreenName(getClass().getName());
+
+        // Send a screen view.
+//        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EasyTracker.getInstance().activityStop(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override
@@ -1059,7 +1065,7 @@ public class MyFaqsActivity extends BaseActivity {
         @Override
         protected String doInBackground(String... strings) {
             String result = "";
-            File[] files = Faqr.getFaqrFiles(getFilesDir().listFiles());
+            File[] files = FaqrApp.getFaqrFiles(getFilesDir().listFiles());
             allData = Arrays.asList(files);
 
             // current sorting
@@ -1328,7 +1334,7 @@ public class MyFaqsActivity extends BaseActivity {
         protected String doInBackground(String... strings) {
             String result = "";
             SharedPreferences.Editor editor = prefs.edit();
-            File[] files = Faqr.getFaqrFiles(getFilesDir().listFiles());
+            File[] files = FaqrApp.getFaqrFiles(getFilesDir().listFiles());
             for (File file : files) {
                 // kill the metadata
                 editor.remove(file.getName());

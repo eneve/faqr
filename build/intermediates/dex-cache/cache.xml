@@ -2,39 +2,18 @@
 <items version="2" >
 
     <item
-        jar="/Users/stephen/dev/android-sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
+        jar="/Users/stephen/dev/android-sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
-        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/support-v4-18.0.0-4230f51946f4eeef9d71c47e7f334bfa75456daa.jar" />
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-0417376ee4107182be5ef8dabd699241e656d919.jar" />
     </item>
     <item
-        jar="/Users/stephen/dev/faqr/faqr/libs/libGoogleAnalyticsV2.jar"
+        jar="/Users/stephen/dev/faqr/faqr/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="8d04da1c73876c93ccce8ffd39add84f9415b64c">
-        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/libGoogleAnalyticsV2-b9b739cfac65bb2bc808eb1669749f1445f12769.jar" />
-    </item>
-    <item
-        jar="/Users/stephen/dev/faqr/faqr/build/intermediates/exploded-aar/faqr/stickyListHeaders_lib/unspecified/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="aa040fc5ba7d89d887d7aa25abb8f6a6a3c59918">
-        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/classes-0d66d867e050003330dc379a805e387950dcca30.jar" />
-    </item>
-    <item
-        jar="/Users/stephen/dev/faqr/faqr/libs/jsoup-1.7.1.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="99351550d1fa2e8147319dbafd3f3a79d4f4c6e5">
-        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/jsoup-1.7.1-394872aca7cf5b906888d206c748297b2e0d99b2.jar" />
-    </item>
-    <item
-        jar="/Users/stephen/dev/faqr/faqr/libs/GoogleAdMobAdsSdk-6.2.1.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="40ffb9188343d72dc46d596836a8dd8d464b41a3">
-        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/GoogleAdMobAdsSdk-6.2.1-baf5fb4fba0324705f3cce81898d92f1c2d91173.jar" />
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/classes-ecfb80f809f4962ed18ffd74f4e285b2603957e8.jar" />
     </item>
     <item
         jar="/Users/stephen/dev/faqr/faqr/build/intermediates/exploded-aar/com.actionbarsherlock/actionbarsherlock/4.4.0/classes.jar"
@@ -42,6 +21,34 @@
         revision="21.1.2"
         sha1="af64527b748983a75de9c0756e9768b56b240a49">
         <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/classes-16d2ff8ed76333e1230be8c91d5731aac48eac6e.jar" />
+    </item>
+    <item
+        jar="/Users/stephen/dev/faqr/faqr/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/classes-0a03f8f2567135e09ac8d6ab89f966594b808c87.jar" />
+    </item>
+    <item
+        jar="/Users/stephen/dev/faqr/faqr/build/intermediates/exploded-aar/se.emilsjolander/stickylistheaders/2.5.2/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9f0808c3f609d8fe93018a8108d5a3d7c9cb5458">
+        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/classes-7e5e93ae6ef602ffaff91dfa7cd5e7b5e7921907.jar" />
+    </item>
+    <item
+        jar="/Users/stephen/dev/faqr/faqr/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-53a89d9f1d499abc7ccc5a12e05ff048c4a5cb1f.jar" />
+    </item>
+    <item
+        jar="/Users/stephen/.gradle/caches/modules-2/files-2.1/org.jsoup/jsoup/1.7.2/d7e275ba05aa380ca254f72d0c0ffebaedc3adcf/jsoup-1.7.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d7e275ba05aa380ca254f72d0c0ffebaedc3adcf">
+        <dex dex="/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/jsoup-1.7.2-cf03e0883ccc415c796d8a96c065e085f9587fc5.jar" />
     </item>
 
 </items>

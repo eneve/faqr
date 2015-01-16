@@ -4,24 +4,6 @@
 
 package com.faqr.activity;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.nodes.TextNode;
-import org.jsoup.select.Elements;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -96,10 +78,27 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
 import com.actionbarsherlock.widget.SearchView;
-import com.faqr.Faqr;
+import com.faqr.FaqrApp;
 import com.faqr.R;
 import com.faqr.activity.base.BaseActivity;
-import com.google.analytics.tracking.android.EasyTracker;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.TextNode;
+import org.jsoup.select.Elements;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Faqr - The ultimate GameFAQs reader application for Android 5 Trillion
@@ -778,13 +777,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        EasyTracker.getInstance().activityStart(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStart(this); // Add this method.
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EasyTracker.getInstance().activityStop(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override
@@ -920,7 +919,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         }
 
         // if faqmarks
-        if (!TextUtils.isEmpty(prefs.getString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", ""))) {
+        if (!TextUtils.isEmpty(prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", ""))) {
 
         } else {
             faqmarksItem.setEnabled(false);
@@ -1203,7 +1202,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         case R.id.menu_faqmarks:
 
-            if (!prefs.getString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", "").equals("")) {
+            if (!prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "").equals("")) {
 
                 intent = new Intent(this, FaqmarksActivity.class);
                 startActivity(intent);
@@ -1387,7 +1386,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             // name
             TextView nameView = (TextView) view.findViewById(R.id.name);
 
-            if (prefs.getString("typeface", getResources().getString(R.string.typeface_default)).equals("1") || Faqr.useFixedWidthFont(line)) {
+            if (prefs.getString("typeface", getResources().getString(R.string.typeface_default)).equals("1") || FaqrApp.useFixedWidthFont(line)) {
 
                 // if (!prefs.getBoolean("use_variable_font", getResources().getBoolean(R.bool.use_variable_font_default)) || Faqr.useFixedWidthFont(line)) {
                 // //////////
@@ -1554,7 +1553,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             // }
             // }
 
-            String savedPosMulti = prefs.getString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
+            String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
             String[] savedPosMultiArray = savedPosMulti.split(",");
             if (prefs.getString("highlight_faqmark", "1").equals("1")) {
                 if (Arrays.asList(savedPosMultiArray).contains(Integer.valueOf(position).toString())) {
@@ -1669,7 +1668,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             try {
                 Log.w(TAG, "===============================================");
-                Log.w(TAG, "READING FROM FILE " + getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath());
+                Log.w(TAG, "READING FROM FILE " + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
 
                 if (currFaqMeta.length == 8 && currFaqMeta[7].trim().equals("TYPE=IMAGE")) {
 
@@ -1685,9 +1684,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                     // ASCII FAQ
 
-                    String filecontent = Faqr.readSavedData(openFileInput(Faqr.validFileName(currFaq)));
+                    String filecontent = FaqrApp.readSavedData(openFileInput(FaqrApp.validFileName(currFaq)));
                     if (!TextUtils.isEmpty(filecontent)) {
-                        lines = Faqr.getLinesFile(filecontent);
+                        lines = FaqrApp.getLinesFile(filecontent);
                         origLines = new String[lines.length];
                         System.arraycopy(lines, 0, origLines, 0, lines.length);
                         success = true;
@@ -1727,12 +1726,12 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                             // editor.putString("faq_title", title);
                             // editor.commit();
 
-                            String faqMeta = prefs.getString(Faqr.validFileName(currFaqURL), "");
-                            Log.i(TAG, Faqr.validFileName(currFaqURL) + " " + faqMeta);
+                            String faqMeta = prefs.getString(FaqrApp.validFileName(currFaqURL), "");
+                            Log.i(TAG, FaqrApp.validFileName(currFaqURL) + " " + faqMeta);
                             // Toast.makeText(getApplicationContext(), Faqr.validFileName(faqURL) + " " + faqMeta, Toast.LENGTH_SHORT).show();
                             if (faqMeta.split(" --- ").length == 6)
                                 faqMeta = faqMeta + " --- " + title;
-                            editor.putString(Faqr.validFileName(currFaqURL), faqMeta);
+                            editor.putString(FaqrApp.validFileName(currFaqURL), faqMeta);
                             editor.commit();
 
                             // update our copy of faqr metadata
@@ -1763,7 +1762,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                                         InputStream in = new URL(imagePath).openConnection().getInputStream();
 
-                                        File fileUri = new File(getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath());
+                                        File fileUri = new File(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
                                         FileOutputStream outStream = null;
                                         outStream = new FileOutputStream(fileUri);
 
@@ -1776,13 +1775,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                                         // write the image to the disk
                                         Log.w(TAG, "===============================================");
-                                        Log.w(TAG, "WRITING FILE " + getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath());
+                                        Log.w(TAG, "WRITING FILE " + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
                                         Log.w(TAG, "===============================================");
 
                                         // append the image information to the url;
                                         if (faqMeta.split(" --- ").length == 7)
                                             faqMeta = faqMeta + " --- " + "TYPE=IMAGE";
-                                        editor.putString(Faqr.validFileName(currFaqURL), faqMeta);
+                                        editor.putString(FaqrApp.validFileName(currFaqURL), faqMeta);
                                         editor.commit();
 
                                         // return a new status code
@@ -1794,7 +1793,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                                 return "-99";
                             }
 
-                            lines = Faqr.getLines(content);
+                            lines = FaqrApp.getLines(content);
                             origLines = new String[lines.length];
                             System.arraycopy(lines, 0, origLines, 0, lines.length);
 
@@ -1825,12 +1824,12 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     if (success) {
                         try {
                             Log.w(TAG, "===============================================");
-                            Log.w(TAG, "WRITING FILE " + getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath());
+                            Log.w(TAG, "WRITING FILE " + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
                             Log.w(TAG, "===============================================");
 
                             // delete and refresh
                             // getFileStreamPath(validFileName(prefs.getString("faq_title", ""))).delete();
-                            Faqr.writeData(openFileOutput(Faqr.validFileName(currFaqURL), Context.MODE_PRIVATE), content);
+                            FaqrApp.writeData(openFileOutput(FaqrApp.validFileName(currFaqURL), Context.MODE_PRIVATE), content);
 
                             result = "1";
 
@@ -1869,24 +1868,24 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                 webViewActive = true;
 
-                File file = new File(getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath());
+                File file = new File(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
                 if (!file.exists())
                     try {
-                        Faqr.writeData(new FileOutputStream(file), "");
+                        FaqrApp.writeData(new FileOutputStream(file), "");
                     } catch (Exception e) {
                         Log.e(TAG, e.getMessage());
                         e.printStackTrace();
                     }
 
                 Log.w(TAG, "===============================================");
-                Log.w(TAG, "WRITING FILE " + getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath());
+                Log.w(TAG, "WRITING FILE " + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
                 Log.w(TAG, "===============================================");
 
-                String faqMeta = prefs.getString(Faqr.validFileName(currFaqURL), "");
+                String faqMeta = prefs.getString(FaqrApp.validFileName(currFaqURL), "");
                 if (faqMeta.split(" --- ").length == 7)
                     faqMeta = faqMeta + " --- " + "TYPE=HTML";
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString(Faqr.validFileName(currFaqURL), faqMeta);
+                editor.putString(FaqrApp.validFileName(currFaqURL), faqMeta);
                 editor.commit();
 
             } else if (result.equals("-98")) {
@@ -1898,19 +1897,19 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 webView.loadUrl(currFaqMeta[5].trim());
 
                 // this will create a place holder file even tho we aren't using the fucking web archive which sux!
-                webView.saveWebArchive(getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath());
+                webView.saveWebArchive(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
 
                 webViewActive = true;
 
                 Log.w(TAG, "===============================================");
-                Log.w(TAG, "WRITING FILE " + getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath());
+                Log.w(TAG, "WRITING FILE " + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
                 Log.w(TAG, "===============================================");
 
-                String faqMeta = prefs.getString(Faqr.validFileName(currFaqURL), "");
+                String faqMeta = prefs.getString(FaqrApp.validFileName(currFaqURL), "");
                 if (faqMeta.split(" --- ").length == 7)
                     faqMeta = faqMeta + " --- " + "TYPE=HTML";
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString(Faqr.validFileName(currFaqURL), faqMeta);
+                editor.putString(FaqrApp.validFileName(currFaqURL), faqMeta);
                 editor.commit();
 
             } else if (result.equals("-3")) {
@@ -1986,9 +1985,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
                     bgColor = "#ECE1CA";
                 }
-                html = ("<html><title>" + title + "</title><body style=\"background-color:" + bgColor + ";\"><img src=\"file://" + getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath() + "\" align=left></body></html>");
+                html = ("<html><title>" + title + "</title><body style=\"background-color:" + bgColor + ";\"><img src=\"file://" + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath() + "\" align=left></body></html>");
 
-                webView.loadDataWithBaseURL(getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath(), html, "text/html", "utf-8", "");
+                webView.loadDataWithBaseURL(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath(), html, "text/html", "utf-8", "");
 
                 hideWebViewMenuOptions = true;
                 loading.setVisibility(View.GONE);
@@ -2060,13 +2059,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 } else {
                     // otherwise use the curr_pos
                     if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                        listView.setSelectionFromTop(prefs.getInt(Faqr.validFileName(currFaqMeta[5]) + "curr_pos", 0), getActionBarHeight() + getStatusBarHeight());
+                        listView.setSelectionFromTop(prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0), getActionBarHeight() + getStatusBarHeight());
                     }
                     // else if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default))) {
                     // listView.setSelectionFromTop(prefs.getInt(Faqr.validFileName(currFaqMeta[5]) + "curr_pos", 0), getActionBarHeight());
                     // }
                     else {
-                        listView.setSelection(prefs.getInt(Faqr.validFileName(currFaqMeta[5]) + "curr_pos", 0));
+                        listView.setSelection(prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0));
                     }
 
                 }
@@ -2121,7 +2120,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         @Override
         protected String doInBackground(String... strings) {
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt(Faqr.validFileName(currFaqMeta[5]) + "curr_pos", Integer.valueOf(strings[0]).intValue());
+            editor.putInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", Integer.valueOf(strings[0]).intValue());
             editor.commit();
             return "";
         }
@@ -2143,7 +2142,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             String result = "0";
             if (prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
 
-                String savedPosMulti = prefs.getString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
+                String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
                 // Log.w(TAG, "BEFORE " + savedPosMulti);
 
                 savedPos = strings[0];
@@ -2166,13 +2165,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     savedPosMulti = savedPosMulti + strings[0] + ",";
                 }
                 // editor.putString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", savedPosMulti + "," + strings[0]);
-                editor.putString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", savedPosMulti);
+                editor.putString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", savedPosMulti);
                 editor.commit();
 
                 // Log.w(TAG, "AFTER " + savedPosMulti);
 
             } else {
-                editor.putInt(Faqr.validFileName(currFaqMeta[5]) + "saved_pos", Integer.valueOf(strings[0]).intValue());
+                editor.putInt(FaqrApp.validFileName(currFaqMeta[5]) + "saved_pos", Integer.valueOf(strings[0]).intValue());
                 editor.commit();
             }
             return result;
@@ -2183,7 +2182,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             String savedPosPlusOne = new Integer(Integer.valueOf(savedPos) + 1).toString();
 
             // if faqmarks
-            if (!TextUtils.isEmpty(prefs.getString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", ""))) {
+            if (!TextUtils.isEmpty(prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", ""))) {
                 faqmarksItem.setEnabled(true);
             } else {
                 faqmarksItem.setEnabled(false);
@@ -2428,7 +2427,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             int position = listView.getFirstVisiblePosition() + 1;
 
-            String savedPosMulti = prefs.getString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
+            String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
 
             if (!savedPosMulti.equals("")) {
                 String[] savedPosMultiList = savedPosMulti.split(",");
@@ -2502,7 +2501,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             int position = listView.getFirstVisiblePosition() + 1;
 
-            String savedPosMulti = prefs.getString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
+            String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
 
             if (!savedPosMulti.equals("")) {
                 String[] savedPosMultiList = savedPosMulti.split(",");

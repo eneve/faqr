@@ -4,10 +4,15 @@
     <!-- Replace placeholder ID with your tracking ID -->
     <string name="ga_trackingId">UA-37803338-1</string>
 
+    <string name="ga_logLevel">verbose</string>
+
     <!-- Enable automatic activity tracking -->
     <bool name="ga_autoActivityTracking">true</bool>
 
     <!-- Enable automatic exception tracking -->
     <bool name="ga_reportUncaughtExceptions">true</bool>
+
+    <!-- Prevent data from appearing in reports. Useful for testing. -->
+    <!--<bool name="ga_dryRun">true</bool>-->
 
 </resources>

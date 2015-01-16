@@ -5,13 +5,11 @@
 package com.faqr.activity;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.faqr.R;
 import com.faqr.activity.base.BaseActivity;
-import com.google.analytics.tracking.android.EasyTracker;
 
 /**
  * This Activity provides a help screen for the app
@@ -35,13 +33,13 @@ public class HelpActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        EasyTracker.getInstance().activityStart(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStart(this); // Add this method.
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EasyTracker.getInstance().activityStop(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override

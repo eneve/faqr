@@ -4,8 +4,6 @@
 
 package com.faqr.activity;
 
-import java.util.List;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +30,8 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.faqr.R;
-import com.google.analytics.tracking.android.EasyTracker;
+
+import java.util.List;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On handset devices, settings are presented as a single list. On tablets, settings are split by category, with category headers shown to the left of the list of
@@ -86,6 +85,7 @@ public class SettingsActivity extends SherlockPreferenceActivity implements OnSh
     protected void onResume() {
         super.onResume();
 
+
         // hide notification bar
 //        if (prefs.getString("hide_notification_bar", getResources().getString(R.string.hide_notification_bar_default)).equals("1")) {
 //            showStatusBar();
@@ -112,13 +112,13 @@ public class SettingsActivity extends SherlockPreferenceActivity implements OnSh
     @Override
     public void onStart() {
         super.onStart();
-        EasyTracker.getInstance().activityStart(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStart(this); // Add this method.
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EasyTracker.getInstance().activityStop(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override

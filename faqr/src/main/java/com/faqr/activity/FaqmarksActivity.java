@@ -4,14 +4,6 @@
 
 package com.faqr.activity;
 
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -29,10 +21,10 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -47,10 +39,18 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.faqr.Faqr;
+import com.faqr.FaqrApp;
 import com.faqr.R;
 import com.faqr.activity.base.BaseActivity;
-import com.google.analytics.tracking.android.EasyTracker;
+
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+//import com.google.analytics.tracking.android.EasyTracker;
 
 /**
  * This Activity provides a help screen for the app
@@ -176,7 +176,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                 dialogBuilder.setMessage("Are you sure you want to delete Location " + plusOne + "/" + lines.length + " - FAQmark?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        String savedPosMulti = prefs.getString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
+                        String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
                         // Log.w(TAG, "BEFORE " + savedPosMulti);
 
                         boolean found = false;
@@ -195,7 +195,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                         }
 
                         SharedPreferences.Editor editor = prefs.edit();
-                        editor.putString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", savedPosMulti);
+                        editor.putString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", savedPosMulti);
                         editor.commit();
 
                         editor.putInt("my_faqmarks_pos", listView.getFirstVisiblePosition());
@@ -314,13 +314,13 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        EasyTracker.getInstance().activityStart(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStart(this); // Add this method.
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EasyTracker.getInstance().activityStop(this); // Add this method.
+//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override
@@ -461,7 +461,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             // name
             TextView nameView = (TextView) view.findViewById(R.id.name);
 
-            if (!prefs.getBoolean("use_variable_font", getResources().getBoolean(R.bool.use_variable_font_default)) || Faqr.useFixedWidthFont(line)) {
+            if (!prefs.getBoolean("use_variable_font", getResources().getBoolean(R.bool.use_variable_font_default)) || FaqrApp.useFixedWidthFont(line)) {
                 // //////////
                 // MONO FONT
 
@@ -654,7 +654,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
             try {
                 Log.w(TAG, "===============================================");
-                Log.w(TAG, "READING FROM FILE " + getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath());
+                Log.w(TAG, "READING FROM FILE " + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
 
                 if (currFaqMeta.length == 8 && currFaqMeta[7].trim().equals("TYPE=IMAGE")) {
 
@@ -670,15 +670,15 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
                     // ASCII FAQ
 
-                    String filecontent = Faqr.readSavedData(openFileInput(Faqr.validFileName(currFaq)));
+                    String filecontent = FaqrApp.readSavedData(openFileInput(FaqrApp.validFileName(currFaq)));
                     if (!TextUtils.isEmpty(filecontent)) {
-                        lines = Faqr.getLinesFile(filecontent);
+                        lines = FaqrApp.getLinesFile(filecontent);
                         origLines = new String[lines.length];
                         System.arraycopy(lines, 0, origLines, 0, lines.length);
 
                         // int position = listView.getFirstVisiblePosition() + 1;
 
-                        String savedPosMulti = prefs.getString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
+                        String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
 
                         savedLines = new ArrayList<String>();
                         if (!savedPosMulti.equals("")) {
@@ -806,7 +806,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             Toast.makeText(getApplicationContext(), "Deleted all saved FAQmarks.", Toast.LENGTH_SHORT).show();
 
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
+            editor.putString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
             editor.commit();
 
             editor.putInt("my_faqmarks_pos", 0);
