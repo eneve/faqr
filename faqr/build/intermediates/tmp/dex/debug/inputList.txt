@@ -1,8 +1,0 @@
-/Users/stephen/dev/faqr/faqr/build/intermediates/classes/debug
-/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-0417376ee4107182be5ef8dabd699241e656d919.jar
-/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/classes-7e5e93ae6ef602ffaff91dfa7cd5e7b5e7921907.jar
-/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-53a89d9f1d499abc7ccc5a12e05ff048c4a5cb1f.jar
-/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/jsoup-1.7.2-cf03e0883ccc415c796d8a96c065e085f9587fc5.jar
-/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/classes-16d2ff8ed76333e1230be8c91d5731aac48eac6e.jar
-/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/classes-ecfb80f809f4962ed18ffd74f4e285b2603957e8.jar
-/Users/stephen/dev/faqr/faqr/build/intermediates/pre-dexed/debug/classes-0a03f8f2567135e09ac8d6ab89f966594b808c87.jar

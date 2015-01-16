@@ -22,55 +22,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48ccb912-b01a-4b4d-83ce-8e0a7c008ecc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/faqr/src/main/res/xml/global_tracker.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jsoup_1_7_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_6_5_87.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/stickylistheaders_2_5_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_21_0_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_3.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/GoogleAdMobAdsSdk_6_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/jsoup_1_7_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/libGoogleAnalyticsV2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_18_0_0.xml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/Faqr.java" afterPath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/FaqrApp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/build/intermediates/exploded-aar/faqr/stickyListHeaders_lib/unspecified/classes.jar" afterPath="$PROJECT_DIR$/faqr/build/intermediates/exploded-aar/faqr/stickyListHeaders_lib/unspecified/classes.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/model_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/model_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/AboutActivity.java" afterPath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/AboutActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/faqr/activity/AboutActivity.java" afterPath="$PROJECT_DIR$/src/com/faqr/activity/AboutActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/build/intermediates/exploded-aar/faqr/stickyListHeaders_lib/unspecified/AndroidManifest.xml" afterPath="$PROJECT_DIR$/faqr/build/intermediates/exploded-aar/faqr/stickyListHeaders_lib/unspecified/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/faqr/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/build/generated/source/buildConfig/debug/com/faqr/BuildConfig.java" afterPath="$PROJECT_DIR$/faqr/build/generated/source/buildConfig/debug/com/faqr/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stickyListHeaders_lib/build/generated/source/buildConfig/release/com/emilsjolander/components/stickylistheaders/BuildConfig.java" afterPath="$PROJECT_DIR$/stickyListHeaders_lib/build/generated/source/buildConfig/release/com/emilsjolander/components/stickylistheaders/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/FaqActivity.java" afterPath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/FaqActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/faqr/activity/FaqActivity.java" afterPath="$PROJECT_DIR$/src/com/faqr/activity/FaqActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/FaqmarksActivity.java" afterPath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/FaqmarksActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/faqr/activity/FaqmarksActivity.java" afterPath="$PROJECT_DIR$/src/com/faqr/activity/FaqmarksActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/HelpActivity.java" afterPath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/HelpActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/faqr/activity/HelpActivity.java" afterPath="$PROJECT_DIR$/src/com/faqr/activity/HelpActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/MainActivity.java" afterPath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/faqr/activity/MainActivity.java" afterPath="$PROJECT_DIR$/src/com/faqr/activity/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/MyFaqsActivity.java" afterPath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/MyFaqsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/faqr/activity/MyFaqsActivity.java" afterPath="$PROJECT_DIR$/src/com/faqr/activity/MyFaqsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/build/generated/source/r/debug/com/actionbarsherlock/R.java" afterPath="$PROJECT_DIR$/faqr/build/generated/source/r/debug/com/actionbarsherlock/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/build/generated/source/r/debug/com/faqr/R.java" afterPath="$PROJECT_DIR$/faqr/build/generated/source/r/debug/com/faqr/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/SearchActivity.java" afterPath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/SearchActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/faqr/activity/SearchActivity.java" afterPath="$PROJECT_DIR$/src/com/faqr/activity/SearchActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/SearchResultsActivity.java" afterPath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/SearchResultsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/faqr/activity/SearchResultsActivity.java" afterPath="$PROJECT_DIR$/src/com/faqr/activity/SearchResultsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/SettingsActivity.java" afterPath="$PROJECT_DIR$/faqr/src/main/java/com/faqr/activity/SettingsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/faqr/activity/SettingsActivity.java" afterPath="$PROJECT_DIR$/src/com/faqr/activity/SettingsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/src/main/res/layout/activity_my_faqs.xml" afterPath="$PROJECT_DIR$/faqr/src/main/res/layout/activity_my_faqs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/activity_my_faqs.xml" afterPath="$PROJECT_DIR$/res/layout/activity_my_faqs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/src/main/res/layout/activity_search_results.xml" afterPath="$PROJECT_DIR$/faqr/src/main/res/layout/activity_search_results.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/activity_search_results.xml" afterPath="$PROJECT_DIR$/res/layout/activity_search_results.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/src/main/res/values/analytics.xml" afterPath="$PROJECT_DIR$/faqr/src/main/res/values/analytics.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/build.gradle" afterPath="$PROJECT_DIR$/faqr/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/faqr-faqr.iml" afterPath="$PROJECT_DIR$/faqr/faqr-faqr.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/faqr/build/intermediates/tmp/dex/debug/inputList.txt" afterPath="$PROJECT_DIR$/faqr/build/intermediates/tmp/dex/debug/inputList.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="faqr.iws" />
