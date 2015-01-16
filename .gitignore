@@ -1,4 +1,9 @@
 .DS_Store
 .svn
 *.pyc
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+/build
 faqr/build/
