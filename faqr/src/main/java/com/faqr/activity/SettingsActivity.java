@@ -136,16 +136,16 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getParent(), FaqActivity.class);
-                if (fromActivity.equalsIgnoreCase("My FAQs")) {
-                    intent = new Intent(getParent(), MyFaqsActivity.class);
-                }
-                if (fromActivity.equalsIgnoreCase("My FAQmarks")) {
-                    intent = new Intent(getParent(), FaqmarksActivity.class);
-                }
-                if (fromActivity.equalsIgnoreCase("SearchResults")) {
-                    intent = new Intent(getParent(), SearchResultsActivity.class);
-                    intent.putExtra("game", fromActivityMeta);
-                }
+//                if (fromActivity.equalsIgnoreCase("My FAQs")) {
+//                    intent = new Intent(getParent(), MyFaqsActivity.class);
+//                }
+//                if (fromActivity.equalsIgnoreCase("My FAQmarks")) {
+//                    intent = new Intent(getParent(), FaqmarksActivity.class);
+//                }
+//                if (fromActivity.equalsIgnoreCase("SearchResults")) {
+//                    intent = new Intent(getParent(), SearchResultsActivity.class);
+//                    intent.putExtra("game", fromActivityMeta);
+//                }
                 // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                startActivity(intent);
                 finish();

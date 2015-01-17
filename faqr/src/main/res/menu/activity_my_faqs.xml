@@ -1,16 +1,18 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <item
         android:id="@+id/menu_search"
-        android:actionViewClass="com.actionbarsherlock.widget.SearchView"
+        android:actionViewClass="android.support.v7.widget.SearchView"
         android:icon="@drawable/ic_menu_search_dark"
-        android:showAsAction="collapseActionView|ifRoom"
+        app:showAsAction="collapseActionView|ifRoom"
         android:title="@string/menu_search"/>
+
    <!--  <item
         android:id="@+id/menu_sort"
         android:icon="@drawable/ic_menu_sort_by_size"
         android:orderInCategory="100"
-        android:showAsAction="never"
+        android:showAsAction="never"s
         android:title="@string/menu_sort"/> -->
     <!--
     <item
@@ -23,6 +25,7 @@
         android:id="@+id/menu_sort_size"
         android:title="@string/menu_sort_size"/>
     -->
+
     <item
         android:id="@+id/menu_delete"
         android:icon="@drawable/ic_menu_delete"
@@ -31,13 +34,13 @@
         android:id="@+id/menu_settings"
         android:icon="@drawable/ic_menu_preferences"
         android:orderInCategory="100"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/menu_settings"/>
     <item
         android:id="@+id/menu_about"
         android:icon="@drawable/ic_menu_info_details"
         android:orderInCategory="100"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/menu_about"/>
 
 </menu>
