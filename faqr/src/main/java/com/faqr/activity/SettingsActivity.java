@@ -147,7 +147,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
                     intent.putExtra("game", fromActivityMeta);
                 }
                 // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+//                startActivity(intent);
                 finish();
             }
         });
