@@ -10,7 +10,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/faqr" />
-            <option value="$PROJECT_DIR$/stickyListHeaders_lib" />
           </set>
         </option>
       </GradleProjectSettings>

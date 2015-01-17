@@ -34,6 +34,7 @@ public class FaqrApp extends Application {
     public static final String GAMEFAQS_URL = "http://m.gamefaqs.com";
     public static final String SEARCH_URL = GAMEFAQS_URL + "/search/index.html?game=";
 
+
     /**
      * Enum used to identify the tracker that needs to be used for tracking.
      *
