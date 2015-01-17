@@ -23,12 +23,10 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.Surface;
 import android.view.WindowManager;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.faqr.R;
 
 import java.util.List;
@@ -40,7 +38,7 @@ import java.util.List;
  * See <a href="http://developer.android.com/design/patterns/settings.html"> Android Design: Settings</a> for design guidelines and the <a href="http://developer.android.com/guide/topics/ui/settings.html">Settings API Guide</a> for more
  * information on developing a Settings UI.
  */
-public class SettingsActivity extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
+public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
     /**
      * Determines whether to always show the simplified settings UI, where settings are presented in a single list. When false, settings are shown as a master/detail two-pane view on tablets. When true, a single pane is shown on tablets.
      */
@@ -59,8 +57,8 @@ public class SettingsActivity extends SherlockPreferenceActivity implements OnSh
         prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
         // }
 
         extras = getIntent().getExtras();

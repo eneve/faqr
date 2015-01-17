@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 
-import com.actionbarsherlock.view.MenuItem;
 import com.faqr.R;
 
 /**

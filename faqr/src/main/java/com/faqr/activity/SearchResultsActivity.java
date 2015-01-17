@@ -12,9 +12,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -28,12 +32,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
-import com.actionbarsherlock.widget.SearchView;
-import com.actionbarsherlock.widget.SearchView.SearchAutoComplete;
 import com.faqr.FaqrApp;
 import com.faqr.R;
 import com.faqr.adapter.SectionListAdapter;
@@ -97,11 +95,11 @@ public class SearchResultsActivity extends BaseActivity {
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                setTheme(R.style.AppBlackOverlayTheme);
+//                setTheme(R.style.AppBlackOverlayTheme);
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                setTheme(R.style.AppDarkOverlayTheme);
+//                setTheme(R.style.AppDarkOverlayTheme);
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
             // RelativeLayout bg = (RelativeLayout) findViewById(R.id.bg);
@@ -307,7 +305,7 @@ public class SearchResultsActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getSupportMenuInflater().inflate(R.menu.activity_search_results, menu);
+        getMenuInflater().inflate(R.menu.activity_search_results, menu);
 
         MenuItem searchItem = menu.findItem(R.id.menu_search);
 
@@ -320,8 +318,8 @@ public class SearchResultsActivity extends BaseActivity {
         searchView.setQueryHint(getResources().getString(R.string.search_hint));
         searchView.setIconifiedByDefault(false);
         // searchItem.expandActionView();
-        LinearLayout searchText = (LinearLayout) searchView.findViewById(R.id.abs__search_plate);
-        LinearLayout searchTextFrame = (LinearLayout) searchView.findViewById(R.id.abs__search_edit_frame);
+        LinearLayout searchText = (LinearLayout) searchView.findViewById(R.id.search_plate);
+        LinearLayout searchTextFrame = (LinearLayout) searchView.findViewById(R.id.search_edit_frame);
         // searchText.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         // searchTextFrame.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
 
@@ -388,7 +386,7 @@ public class SearchResultsActivity extends BaseActivity {
             }
         });
 
-        final SearchAutoComplete searchAutoComplete = (SearchAutoComplete) searchView.findViewById(R.id.abs__search_src_text);
+        final SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete) searchView.findViewById(R.id.search_src_text);
         // searchView.findViewById(abs__search_src_text)
         searchAutoComplete.setThreshold(0);
         String recentSearches = prefs.getString("recent_searches", "");
@@ -440,7 +438,7 @@ public class SearchResultsActivity extends BaseActivity {
             }
         });
 
-        searchItem.setOnActionExpandListener(new OnActionExpandListener() {
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {

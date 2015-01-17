@@ -5,11 +5,11 @@
 package com.faqr.activity;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.text.util.Linkify;
+import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.MenuItem;
 import com.faqr.R;
 
 

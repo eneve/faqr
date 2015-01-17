@@ -17,6 +17,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -24,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.WindowManager;
 
-import com.actionbarsherlock.app.SherlockActivity;
 import com.faqr.R;
 
 /**
@@ -32,7 +32,7 @@ import com.faqr.R;
  * 
  * @author eneve
  */
-public class BaseActivity extends SherlockActivity {
+public class BaseActivity extends ActionBarActivity {
 
     protected static final String TAG = "FAQr";
 
@@ -67,26 +67,26 @@ public class BaseActivity extends SherlockActivity {
         extras = getIntent().getExtras();
 
         if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
-            setTheme(R.style.Appnewlighttheme);
+//            setTheme(R.style.Appnewlighttheme);
             themeColor = getResources().getColor(R.color.gamefaqs_dark_color);
             themeBackgroundColor = getResources().getColor(R.color.gamefaqs_color);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_light_corner);
             themeCssColor = "default";
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
-            setTheme(R.style.AppBlackTheme);
+//            setTheme(R.style.AppBlackTheme);
             themeColor = getResources().getColor(R.color.gamefaqs_light_color);
             themeBackgroundColor = getResources().getColor(R.color.gamefaqs_light_color);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_dark_corner);
             themeCssColor = "dark-blue";
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
-            setTheme(R.style.AppDarkTheme);
+//            setTheme(R.style.AppDarkTheme);
             themeColor = getResources().getColor(R.color.gamefaqs_light_color);
             themeBackgroundColor = getResources().getColor(R.color.gamefaqs_light_color);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_dark_corner);
             themeCssColor = "dark-blue";
             // themeCssColor = "cloudy";
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
-            setTheme(R.style.Appnewlighttheme);
+//            setTheme(R.style.Appnewlighttheme);
 
             themeColor = getResources().getColor(R.color.gamefaqs_dark_color);
             themeBackgroundColor = getResources().getColor(R.color.gamefaqs_color);
@@ -288,7 +288,7 @@ public class BaseActivity extends SherlockActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
                 actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
-        } else if (getTheme().resolveAttribute(com.actionbarsherlock.R.attr.actionBarSize, tv, true)) {
+        } else if (getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) {
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
         }
         return actionBarHeight;

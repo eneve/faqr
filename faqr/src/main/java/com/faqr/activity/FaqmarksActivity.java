@@ -15,10 +15,13 @@ import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -36,9 +39,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.faqr.FaqrApp;
 import com.faqr.R;
 
@@ -104,11 +104,11 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                setTheme(R.style.AppBlackOverlayTheme);
+//                setTheme(R.style.AppBlackOverlayTheme);
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                setTheme(R.style.AppDarkOverlayTheme);
+//                setTheme(R.style.AppDarkOverlayTheme);
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
             RelativeLayout bg = (RelativeLayout) findViewById(R.id.bg);
@@ -343,7 +343,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
         final Menu finalMenu = menu;
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getSupportMenuInflater().inflate(R.menu.activity_faqmarks, menu);
+        getMenuInflater().inflate(R.menu.activity_faqmarks, menu);
 
         return true;
     }
@@ -744,8 +744,9 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 //            if (subtitle.startsWith("Final Fantasy IV ")) {
 //                subtitle = subtitle.replaceAll("Final Fantasy IV ", "");
 //            }
-            getSupportActionBar().setTitle("My FAQmarks");
-            getSupportActionBar().setSubtitle(currFaqMeta[6]);
+
+//            getSupportActionBar().setTitle("My FAQmarks");
+//            getSupportActionBar().setSubtitle(currFaqMeta[6]);
             
 //            getSupportActionBar().setTitle("My FAQmarks");
 //            getSupportActionBar().setSubtitle(currFaqMeta[6]);

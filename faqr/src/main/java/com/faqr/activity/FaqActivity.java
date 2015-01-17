@@ -22,6 +22,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -35,6 +37,8 @@ import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -73,11 +77,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
-import com.actionbarsherlock.widget.SearchView;
 import com.faqr.FaqrApp;
 import com.faqr.R;
 
@@ -206,11 +205,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                setTheme(R.style.AppBlackOverlayTheme);
+//                setTheme(R.style.AppBlackOverlayTheme);
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                setTheme(R.style.AppDarkOverlayTheme);
+//                setTheme(R.style.AppDarkOverlayTheme);
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
             RelativeLayout bg = (RelativeLayout) findViewById(R.id.bg);
@@ -821,92 +820,94 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         final Menu finalMenu = menu;
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getSupportMenuInflater().inflate(R.menu.activity_faq, menu);
+        getMenuInflater().inflate(R.menu.activity_faq, menu);
 
         // Get the SearchView and set the searchable configuration
         // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         MenuItem searchItem = menu.findItem(R.id.menu_find);
         searchView = (SearchView) searchItem.getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setQueryHint(getResources().getString(R.string.find_hint));
-        searchView.setIconifiedByDefault(true);
-        LinearLayout searchText = (LinearLayout) searchView.findViewById(R.id.abs__search_plate);
 
-        int pL = searchText.getPaddingLeft();
-        int pT = searchText.getPaddingTop();
-        int pR = searchText.getPaddingRight();
-        int pB = searchText.getPaddingBottom();
-        searchText.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
-        searchText.setPadding(pL, pT, pR, pB);
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setQueryHint(getResources().getString(R.string.find_hint));
+            searchView.setIconifiedByDefault(true);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextChange(String s) {
-                // find_text_changed(s);
-                new FindTextChangedTask().execute(new String[] { s });
-                return true;
-            }
+            LinearLayout searchText = (LinearLayout) searchView.findViewById(R.id.search_plate);
+            int pL = searchText.getPaddingLeft();
+            int pT = searchText.getPaddingTop();
+            int pR = searchText.getPaddingRight();
+            int pB = searchText.getPaddingBottom();
+            searchText.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
+            searchText.setPadding(pL, pT, pR, pB);
 
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                // close the search view
-                // Toast.makeText(getApplicationContext(), "onQueryTextSubmit", Toast.LENGTH_SHORT).show();
-                // finalMenu.findItem(R.id.menu_search).collapseActionView();
-                return true;
-            }
-        });
-
-        searchItem.setOnActionExpandListener(new OnActionExpandListener() {
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                // Log.i(TAG, "onMenuItemActionCollapse " + item.getItemId());
-                MenuItem prev = finalMenu.findItem(R.id.menu_prev);
-                prev.setVisible(false);
-                MenuItem next = finalMenu.findItem(R.id.menu_next);
-                next.setVisible(false);
-                // MenuItem opt = finalMenu.findItem(R.id.menu_downloads);
-                // opt.setVisible(true);
-                // MenuItem opt = finalMenu.findItem(R.id.menu_search);
-                // opt.setVisible(true);
-                MenuItem opt;
-                // MenuItem opt = finalMenu.findItem(R.id.menu_goto);
-                // opt.setVisible(true);
-                // opt = finalMenu.findItem(R.id.menu_lock);
-                // opt.setVisible(true);
-                // if (prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
-                opt = finalMenu.findItem(R.id.menu_faqmarks);
-                opt.setVisible(true);
-                // }
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    opt = finalMenu.findItem(R.id.menu_display_options);
-                    opt.setVisible(true);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    // find_text_changed(s);
+                    new FindTextChangedTask().execute(new String[] { s });
+                    return true;
                 }
-                opt = finalMenu.findItem(R.id.menu_browser);
-                opt.setVisible(true);
-                opt = finalMenu.findItem(R.id.menu_settings);
-                opt.setVisible(true);
-                opt = finalMenu.findItem(R.id.menu_about);
-                opt.setVisible(true);
 
-                getSupportActionBar().setIcon(android.R.color.transparent);
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    // close the search view
+                    // Toast.makeText(getApplicationContext(), "onQueryTextSubmit", Toast.LENGTH_SHORT).show();
+                    // finalMenu.findItem(R.id.menu_search).collapseActionView();
+                    return true;
+                }
+            });
 
-                find = false;
-                currFindPos = 0;
+            searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
 
-                return true; // Return true to collapse action view
-            }
+                @Override
+                public boolean onMenuItemActionCollapse(MenuItem item) {
+                    // Log.i(TAG, "onMenuItemActionCollapse " + item.getItemId());
+                    MenuItem prev = finalMenu.findItem(R.id.menu_prev);
+                    prev.setVisible(false);
+                    MenuItem next = finalMenu.findItem(R.id.menu_next);
+                    next.setVisible(false);
+                    // MenuItem opt = finalMenu.findItem(R.id.menu_downloads);
+                    // opt.setVisible(true);
+                    // MenuItem opt = finalMenu.findItem(R.id.menu_search);
+                    // opt.setVisible(true);
+                    MenuItem opt;
+                    // MenuItem opt = finalMenu.findItem(R.id.menu_goto);
+                    // opt.setVisible(true);
+                    // opt = finalMenu.findItem(R.id.menu_lock);
+                    // opt.setVisible(true);
+                    // if (prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
+                    opt = finalMenu.findItem(R.id.menu_faqmarks);
+                    opt.setVisible(true);
+                    // }
 
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                find = true;
-                Log.i(TAG, "onMenuItemActionExpand " + item.getItemId());
-                return true;
-            }
-        });
-        // }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        opt = finalMenu.findItem(R.id.menu_display_options);
+                        opt.setVisible(true);
+                    }
+                    opt = finalMenu.findItem(R.id.menu_browser);
+                    opt.setVisible(true);
+                    opt = finalMenu.findItem(R.id.menu_settings);
+                    opt.setVisible(true);
+                    opt = finalMenu.findItem(R.id.menu_about);
+                    opt.setVisible(true);
+
+                    getSupportActionBar().setIcon(android.R.color.transparent);
+
+                    find = false;
+                    currFindPos = 0;
+
+                    return true; // Return true to collapse action view
+                }
+
+                @Override
+                public boolean onMenuItemActionExpand(MenuItem item) {
+                    find = true;
+                    Log.i(TAG, "onMenuItemActionExpand " + item.getItemId());
+                    return true;
+                }
+            });
+        }
 
         MenuItem findItem = menu.findItem(R.id.menu_find);
         // MenuItem gotoItem = menu.findItem(R.id.menu_goto);

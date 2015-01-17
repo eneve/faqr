@@ -10,7 +10,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Appnewlighttheme" >
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -20,16 +20,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>	
+        </activity>
         <activity
             android:name=".activity.FaqActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/menu_search" >
         </activity>
-		<activity
+        <activity
             android:name=".activity.FaqmarksActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:label="@string/menu_search" >
+            android:label="@string/menu_faqmarks" >
         </activity>
         <activity
             android:name=".activity.SearchActivity"
@@ -46,11 +46,11 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/menu_saved" >
         </activity>
-        <activity
-            android:name=".activity.SettingsActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:label="@string/menu_settings" >
-        </activity>
+        <!-- <activity -->
+        <!-- android:name=".activity.SettingsActivity" -->
+        <!-- android:configChanges="orientation|screenSize|keyboardHidden" -->
+        <!-- android:label="@string/menu_settings" > -->
+        <!-- </activity> -->
         <activity
             android:name=".activity.HelpActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -61,9 +61,17 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/menu_about" >
         </activity>
-        <!--<activity-->
-            <!--android:name="com.google.ads.AdActivity"-->
-            <!--android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />-->
+        <!-- <activity -->
+        <!-- android:name="com.google.ads.AdActivity" -->
+        <!-- android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" /> -->
+        <activity
+            android:name=".activity.NavActivity"
+            android:label="@string/title_activity_nav"
+            android:parentActivityName=".activity.BaseActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.faqr.activity.BaseActivity" />
+        </activity>
     </application>
 
 </manifest>
