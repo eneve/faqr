@@ -34,11 +34,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
 import com.actionbarsherlock.widget.SearchView;
 import com.actionbarsherlock.widget.SearchView.SearchAutoComplete;
-import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
-import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 import com.faqr.FaqrApp;
 import com.faqr.R;
-import com.faqr.activity.base.BaseActivity;
 import com.faqr.adapter.SectionListAdapter;
 import com.faqr.adapter.SectionListAdapter.SectionListAdapterDelegate;
 
@@ -52,6 +49,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * This Activity provides a help screen for the app

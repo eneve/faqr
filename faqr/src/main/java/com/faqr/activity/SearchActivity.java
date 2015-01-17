@@ -21,7 +21,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.faqr.FaqrApp;
 import com.faqr.R;
-import com.faqr.activity.base.BaseActivity;
 
 import java.io.File;
 

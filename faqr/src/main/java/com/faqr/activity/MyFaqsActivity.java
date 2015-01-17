@@ -36,7 +36,6 @@ import com.actionbarsherlock.widget.SearchView;
 import com.actionbarsherlock.widget.SearchView.SearchAutoComplete;
 import com.faqr.FaqrApp;
 import com.faqr.R;
-import com.faqr.activity.base.BaseActivity;
 import com.faqr.adapter.SectionListAdapter.IndexPath;
 
 import java.io.File;

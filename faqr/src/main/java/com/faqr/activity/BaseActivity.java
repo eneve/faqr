@@ -2,7 +2,7 @@
  * Copyright (c) eneve software 2013. All rights reserved.
  */
 
-package com.faqr.activity.base;
+package com.faqr.activity;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -26,7 +26,6 @@ import android.view.WindowManager;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.faqr.R;
-import com.faqr.activity.SearchActivity;
 
 /**
  * This Activity provides a base Activity

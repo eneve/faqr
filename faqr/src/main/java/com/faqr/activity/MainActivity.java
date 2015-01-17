@@ -11,7 +11,6 @@ import android.text.TextUtils;
 
 import com.actionbarsherlock.view.MenuItem;
 import com.faqr.R;
-import com.faqr.activity.base.BaseActivity;
 
 /**
  * This Activity determines which activity to forward to on app start

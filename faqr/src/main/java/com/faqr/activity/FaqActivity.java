@@ -80,7 +80,6 @@ import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
 import com.actionbarsherlock.widget.SearchView;
 import com.faqr.FaqrApp;
 import com.faqr.R;
-import com.faqr.activity.base.BaseActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

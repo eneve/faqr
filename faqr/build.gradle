@@ -25,21 +25,19 @@ repositories {
 }
 
 dependencies {
-//    compile project(':stickyListHeaders_lib')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-//    compile 'com.android.support:support-v4:18.0.0'
-//    compile files('libs/GoogleAdMobAdsSdk-6.2.1.jar')
-//    compile files('libs/jsoup-1.7.1.jar')
-//    compile files('libs/libGoogleAnalyticsV2.jar')
+
+    compile 'com.android.support:support-v4:21.+'
+//    compile 'com.android.support:appcompat-v7:21.+'
+    compile 'com.google.android.gms:play-services:6.5.+'
 
     compile 'se.emilsjolander:stickylistheaders:2.5.2'
     compile 'org.jsoup:jsoup:1.7.2'
 
-//    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:21.+'
-//    compile 'com.android.support:appcompat-v7:21.+'
-    compile 'com.google.android.gms:play-services:6.5.+'
+
+
 //    compile 'com.google.code.gson:gson:2.3'
 //    compile 'org.glassfish:javax.annotation:10.0-b28'
 //    compile 'com.squareup.retrofit:retrofit:1.8.0'

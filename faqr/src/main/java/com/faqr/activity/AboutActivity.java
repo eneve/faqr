@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.faqr.R;
-import com.faqr.activity.base.BaseActivity;
 
 
 /**
