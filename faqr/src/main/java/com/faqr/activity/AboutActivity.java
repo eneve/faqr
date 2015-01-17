@@ -6,6 +6,7 @@ package com.faqr.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.util.Linkify;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -24,6 +25,11 @@ public class AboutActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
 
         // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
         ActionBar actionBar = getSupportActionBar();

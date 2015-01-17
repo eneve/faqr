@@ -20,12 +20,16 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.Surface;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.faqr.R;
 
@@ -79,6 +83,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         }
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -122,6 +127,31 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+
+
+        LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
+        Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.settings_toolbar, root, false);
+        root.addView(bar, 0); // insert at top
+        bar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getParent(), FaqActivity.class);
+                if (fromActivity.equalsIgnoreCase("My FAQs")) {
+                    intent = new Intent(getParent(), MyFaqsActivity.class);
+                }
+                if (fromActivity.equalsIgnoreCase("My FAQmarks")) {
+                    intent = new Intent(getParent(), FaqmarksActivity.class);
+                }
+                if (fromActivity.equalsIgnoreCase("SearchResults")) {
+                    intent = new Intent(getParent(), SearchResultsActivity.class);
+                    intent.putExtra("game", fromActivityMeta);
+                }
+                // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         setupSimplePreferencesScreen();
 

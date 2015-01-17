@@ -24,6 +24,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -216,6 +217,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             bg.setBackgroundColor(0xFFECE1CA);
             themeColor = getResources().getColor(R.color.sepia_theme_color);
 
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
         }
 
         // show back if we came from search

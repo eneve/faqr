@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,9 +39,14 @@ public class SearchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        String currFaq = prefs.getString("curr_faq", "");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
 
         ActionBar actionBar = getSupportActionBar();
+
+        String currFaq = prefs.getString("curr_faq", "");
 
         File[] files = FaqrApp.getFaqrFiles(getFilesDir().listFiles());
         if (files.length > 0)

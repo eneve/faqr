@@ -46,11 +46,11 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/menu_saved" >
         </activity>
-        <!-- <activity -->
-        <!-- android:name=".activity.SettingsActivity" -->
-        <!-- android:configChanges="orientation|screenSize|keyboardHidden" -->
-        <!-- android:label="@string/menu_settings" > -->
-        <!-- </activity> -->
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/menu_settings" >
+        </activity>
         <activity
             android:name=".activity.HelpActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"

@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
@@ -119,6 +120,10 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
         }
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
 
         // show back if we came from search
         // if (extras != null && extras.getBoolean("from_search") == true) {
