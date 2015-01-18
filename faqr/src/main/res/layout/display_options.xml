@@ -24,6 +24,7 @@
             android:id="@+id/theme_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:spinnerMode="dialog" />
 
@@ -39,6 +40,7 @@
             android:id="@+id/typeface_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:spinnerMode="dialog" />
 
@@ -54,6 +56,7 @@
             android:id="@+id/font_size_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:spinnerMode="dialog" />
 
@@ -69,6 +72,7 @@
             android:id="@+id/var_font_size_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:spinnerMode="dialog" />
     </LinearLayout>
