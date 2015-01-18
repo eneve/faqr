@@ -335,7 +335,7 @@ public class MyFaqsActivity extends BaseActivity {
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "onclick", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "onclick", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -897,7 +897,7 @@ public class MyFaqsActivity extends BaseActivity {
 
     /**
      * Save the current position
-     * 
+     *
      * @author eneve
      */
     private class InitTask extends AsyncTask<String, Void, String> {
@@ -1166,7 +1166,7 @@ public class MyFaqsActivity extends BaseActivity {
 
     /**
      * Save the current position
-     * 
+     *
      * @author eneve
      */
     private class DeleteAllTask extends AsyncTask<String, Void, String> {

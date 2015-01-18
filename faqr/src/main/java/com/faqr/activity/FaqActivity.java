@@ -878,11 +878,20 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         searchText.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
         searchText.setPadding(pL, pT, pR, pB);
 
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(getApplicationContext(), "onclick", Toast.LENGTH_SHORT).show();
+                find = true;
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String s) {
                 // find_text_changed(s);
                 new FindTextChangedTask().execute(new String[] { s });
+//                find = true;
                 return true;
             }
 
@@ -891,6 +900,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // close the search view
                 // Toast.makeText(getApplicationContext(), "onQueryTextSubmit", Toast.LENGTH_SHORT).show();
                 // finalMenu.findItem(R.id.menu_search).collapseActionView();
+                new FindNextTask().execute(new String[] { query });
                 return true;
             }
         });
@@ -2233,9 +2243,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
 
             if (result.equals("0")) {
-                Toast.makeText(getApplicationContext(), "Saved Location " + savedPosPlusOne + "/" + lines.length + " - FAQmark.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Saved Location " + savedPosPlusOne + "/" + lines.length, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getApplicationContext(), "Removed Location " + savedPosPlusOne + "/" + lines.length + " - FAQmark.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Removed Location " + savedPosPlusOne + "/" + lines.length, Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -2299,13 +2309,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         protected void onPostExecute(String result) {
             ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
 
-            // if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-            // listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight() + getStatusBarHeight());
-            // } else if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default)) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight());
-            // } else {
-            // listView.setSelection(Integer.valueOf(result).intValue());
-            // }
+//            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+//            listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight() + getStatusBarHeight());
+//            } else if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default)) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//            listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight());
+//            } else {
+//            listView.setSelection(Integer.valueOf(result).intValue());
+//            }
         }
     };
 
