@@ -847,7 +847,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             imm.hideSoftInputFromWindow(find_bar_text.getWindowToken(), 0);
             find_bar_text.setText("");
             findString = "";
-            find = false;
+
+            setFind(false);
         }
     }
 
@@ -882,7 +883,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(getApplicationContext(), "onclick", Toast.LENGTH_SHORT).show();
-                find = true;
+//                find = true;
+                setFind(true);
             }
         });
 
@@ -918,6 +920,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
+                Toast.makeText(getApplicationContext(), "onMenuItemActionCollapse", Toast.LENGTH_SHORT).show();
+
+
                 // Log.i(TAG, "onMenuItemActionCollapse " + item.getItemId());
                 MenuItem prev = finalMenu.findItem(R.id.menu_prev);
                 prev.setVisible(false);
@@ -950,7 +955,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                 getSupportActionBar().setIcon(android.R.color.transparent);
 
-                find = false;
+//                find = false;
+                setFind(false);
                 currFindPos = 0;
 
                 return true; // Return true to collapse action view
@@ -958,8 +964,10 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
-                find = true;
-                Log.i(TAG, "onMenuItemActionExpand " + item.getItemId());
+//                find = true;
+                setFind(true);
+//                Log.i(TAG, "onMenuItemActionExpand " + item.getItemId());
+                Toast.makeText(getApplicationContext(), "onMenuItemActionExpand", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -1272,6 +1280,10 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         case R.id.action_search:
             // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+
+            Toast.makeText(getApplicationContext(), "onOptionItemSelected", Toast.LENGTH_SHORT).show();
+
+
             if (!getSupportActionBar().isShowing())
                 getSupportActionBar().show();
 
@@ -2699,6 +2711,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public void setFind(boolean status) {
+        Toast.makeText(getApplicationContext(), "setFind + " + status, Toast.LENGTH_SHORT).show();
+        find = status;
     }
 
 }
