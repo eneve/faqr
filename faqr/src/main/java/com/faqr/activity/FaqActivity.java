@@ -204,33 +204,53 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             setSupportActionBar(toolbar);
         }
 
+        RelativeLayout bg = (RelativeLayout) findViewById(R.id.bg);
+
+
+        listView = (ListView) findViewById(R.id.list);
+
         // theme goodness
         toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
         if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
                 // setTheme(R.style.AppBlackOverlayTheme);
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) toolbar.getLayoutParams();
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
                 params.setMargins(0, getStatusBarHeight(), 0, 0);
                 toolbar.setLayoutParams(params);
+            } else {
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
+                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+                bg.setLayoutParams(params);
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
 //                setTheme(R.style.AppBlackOverlayTheme);
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) toolbar.getLayoutParams();
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
                 params.setMargins(0, getStatusBarHeight(), 0, 0);
                 toolbar.setLayoutParams(params);
+            } else {
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
+                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+                bg.setLayoutParams(params);
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
 //                setTheme(R.style.AppDarkOverlayTheme);
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) toolbar.getLayoutParams();
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
                 params.setMargins(0, getStatusBarHeight(), 0, 0);
                 toolbar.setLayoutParams(params);
+            } else {
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
+                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+                bg.setLayoutParams(params);
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
-            RelativeLayout bg = (RelativeLayout) findViewById(R.id.bg);
+//            bg = (RelativeLayout) findViewById(R.id.bg);
             bg.setBackgroundColor(0xFFECE1CA);
             themeColor = getResources().getColor(R.color.sepia_theme_color);
 
@@ -257,7 +277,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         // setListAdapter(adapter);
         // ListView listView = listView;
 
-        listView = (ListView) findViewById(R.id.list);
         // listView.setOnItemClickListener(adapter.itemClickListener);
         listView.setAdapter(adapter);
 
@@ -2077,7 +2096,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     String plusOne = new Integer(faqmarkPos + 1).toString();
                     // double percentage = (new Double(plusOne) / new Double(lines.length)) * 100.0;
                     // DecimalFormat df = new DecimalFormat("#");
-                    Toast.makeText(getApplicationContext(), "Location " + plusOne + "/" + lines.length + " - FAQmark", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Location " + plusOne + "/" + lines.length, Toast.LENGTH_SHORT).show();
 
                 } else {
                     // otherwise use the curr_pos
