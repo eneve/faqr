@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -35,8 +36,6 @@ import android.widget.Toast;
 
 import com.faqr.FaqrApp;
 import com.faqr.R;
-import com.faqr.adapter.SectionListAdapter;
-import com.faqr.adapter.SectionListAdapter.SectionListAdapterDelegate;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -87,17 +86,28 @@ public class SearchResultsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+
+
         // theme goodness
+        toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
         if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
                 // setTheme(R.style.AppBlackOverlayTheme);
+
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
 //                setTheme(R.style.AppBlackOverlayTheme);
             }
+
+
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
 //                setTheme(R.style.AppDarkOverlayTheme);
@@ -111,11 +121,6 @@ public class SearchResultsActivity extends BaseActivity {
 
         // make sure the keyboard only pops up when a user clicks into an EditText
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-        }
 
         // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
         ActionBar actionBar = getSupportActionBar();
@@ -313,13 +318,10 @@ public class SearchResultsActivity extends BaseActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_search_results, menu);
 
-        MenuItem searchItem = menu.findItem(R.id.menu_search);
-
-        // Get the SearchView and set the searchable configuration
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
-        searchView = (SearchView) searchItem.getActionView();
+        searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setQueryHint(getResources().getString(R.string.search_hint));
         searchView.setIconifiedByDefault(false);
@@ -444,7 +446,7 @@ public class SearchResultsActivity extends BaseActivity {
             }
         });
 
-        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
@@ -547,7 +549,9 @@ public class SearchResultsActivity extends BaseActivity {
                 platformView.setText(item.split(" --- ")[0]);
                 nameView.setText(item.split(" --- ")[1]);
 
+                // theme goodness
                 nameView.setTextColor(themeColor);
+                platformView.setTextColor(themeTextColor);
 
             } else if (item.split(" --- ").length == 6) {
 
@@ -578,7 +582,12 @@ public class SearchResultsActivity extends BaseActivity {
 
                 // data.add(title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
 
+                // theme goodness
                 nameView.setTextColor(themeColor);
+                authorView.setTextColor(themeTextColor);
+                versionView.setTextColor(themeTextColor);
+                sizeView.setTextColor(themeTextColor);
+
 
             } else if (item.split(" --- ").length == 7) {
                 // IT HAS 7 IF IT HAS AN IMAGE LIKE STAR, CIRCLE, HALFCIRCLE ETC.
@@ -621,9 +630,16 @@ public class SearchResultsActivity extends BaseActivity {
 
                 // data.add(title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
 
+
+                // theme goodness
                 nameView.setTextColor(themeColor);
+                authorView.setTextColor(themeTextColor);
+                versionView.setTextColor(themeTextColor);
+                sizeView.setTextColor(themeTextColor);
 
             }
+
+
 
             return view;
         }
@@ -647,7 +663,7 @@ public class SearchResultsActivity extends BaseActivity {
 
             textView.setText(titles.get(sectionCount).toString());
 
-            view.setBackgroundColor(themeBackgroundColor);
+            view.setBackgroundColor(primaryColor);
 
             // if (currentBookings.size() == 0) {
             // text.setText("Past Reservations");
@@ -681,231 +697,7 @@ public class SearchResultsActivity extends BaseActivity {
 
     }
 
-    public class SearchResultsSectionListAdapter extends SectionListAdapter implements SectionListAdapterDelegate {
 
-        public SearchResultsSectionListAdapter() {
-            delegate = this;
-        }
-
-        @Override
-        public int sectionCount() {
-            return titles.size();
-        }
-
-        @Override
-        public int rowsInSection(int section) {
-            return ((ArrayList) data.get(section)).size();
-        }
-
-        @Override
-        public View viewForRowAtIndexPath(IndexPath path, ViewGroup parent) {
-            View view;
-            if (extras != null && extras.getString("url") != null && !TextUtils.isEmpty(extras.getString("url"))) {
-                view = inflater.inflate(R.layout.search_result_item_2, parent, false);
-            } else {
-                view = inflater.inflate(R.layout.search_result_item, parent, false);
-            }
-
-            // String line = lines[position];
-            //
-
-            String item = (String) ((ArrayList) data.get(path.section)).get(path.row);
-
-            if (item.split(" --- ").length == 3) {
-
-                // name
-                TextView nameView = (TextView) view.findViewById(R.id.name);
-
-                // platform
-                TextView platformView = (TextView) view.findViewById(R.id.platform);
-
-                platformView.setText(item.split(" --- ")[0]);
-                nameView.setText(item.split(" --- ")[1]);
-
-                nameView.setTextColor(themeColor);
-
-            } else if (item.split(" --- ").length == 6) {
-
-                // name
-                TextView nameView = (TextView) view.findViewById(R.id.name);
-
-                // platform
-                // TextView dateView = (TextView) view.findViewById(R.id.date);
-                TextView authorView = (TextView) view.findViewById(R.id.author);
-                TextView versionView = (TextView) view.findViewById(R.id.version);
-                TextView sizeView = (TextView) view.findViewById(R.id.size);
-
-                String dateFix = item.split(" --- ")[1];
-                if (dateFix.startsWith("0"))
-                    dateFix = dateFix.substring(1);
-
-                // boolean isVersion = Fqqr.isVersionString(item.split(" --- ")[3]);
-                String versionAndSize = "v" + item.split(" --- ")[3] + "/" + item.split(" --- ")[4].replaceAll("K", "k");
-                if (item.split(" --- ")[3].trim().equals("") && !item.split(" --- ")[3].trim().equalsIgnoreCase("Final"))
-                    versionAndSize = item.split(" --- ")[4].replaceAll("K", "k");
-
-                nameView.setText(item.split(" --- ")[0]);
-                // dateView.setText(item.split(" --- ")[1]);
-                authorView.setText(item.split(" --- ")[2]);
-                // if (!item.split(" --- ")[3].isEmpty() && !item.split(" --- ")[3].startsWith("v"))
-                versionView.setText(dateFix);
-                sizeView.setText(versionAndSize);
-
-                nameView.setTextColor(themeColor);
-
-            } else if (item.split(" --- ").length == 7) {
-                // IT HAS 7 IF IT HAS AN IMAGE LIKE STAR, CIRCLE, HALFCIRCLE ETC.
-
-                // name
-                TextView nameView = (TextView) view.findViewById(R.id.name);
-
-                // platform
-                // TextView dateView = (TextView) view.findViewById(R.id.date);
-                TextView authorView = (TextView) view.findViewById(R.id.author);
-                TextView versionView = (TextView) view.findViewById(R.id.version);
-                TextView sizeView = (TextView) view.findViewById(R.id.size);
-
-                // the unicode image
-                String star = "\u2605 ";
-                String circle = "\u25CF ";
-                String halfCircle = "\u25D2 ";
-                // unicode image urls
-                String starSrc = "http://img.gamefaqs.net/images/default/rec.gif";
-                String circleSrc = "http://img.gamefaqs.net/images/default/s3.gif";
-                String halfCircleSrc = "http://img.gamefaqs.net/images/default/s2.gif";
-
-                String marker = "";
-                String imgSrc = item.split(" --- ")[6];
-                if (imgSrc.equals(starSrc)) {
-                    marker = star;
-                }
-                // else if (imgSrc.equals(circleSrc)) {
-                // marker = circle;
-                // } else if (imgSrc.equals(halfCircleSrc)) {
-                // marker = halfCircle;
-                // }
-
-                nameView.setText(marker + item.split(" --- ")[0]);
-                // dateView.setText(item.split(" --- ")[1]);
-                authorView.setText(item.split(" --- ")[2]);
-                // if (!item.split(" --- ")[3].isEmpty() && !item.split(" --- ")[3].startsWith("v"))
-                versionView.setText(item.split(" --- ")[3]);
-                sizeView.setText(item.split(" --- ")[4]);
-
-                // data.add(title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
-
-                nameView.setTextColor(themeColor);
-
-            }
-
-            return view;
-        }
-
-        @Override
-        public View viewForHeaderInSection(int section) {
-            View view = inflater.inflate(R.layout.search_result_header, null);
-            TextView textView = (TextView) view.findViewById(R.id.name);
-            textView.setText(titles.get(section).toString());
-
-            view.setBackgroundColor(themeColor);
-
-            // if (currentBookings.size() == 0) {
-            // text.setText("Past Reservations");
-            // } else if (pastBookings.size() == 0) {
-            // text.setText("Current Reservations");
-            // } else {
-            // if (section == 0)
-            // text.setText("Current Reservations");
-            // else
-            // text.setText("Past Reservations");
-            // }
-            return view;
-        }
-
-        @Override
-        public void itemSelectedAtIndexPath(IndexPath path) {
-            // String line = lines[position];
-
-            // name
-            // TextView nameView = (TextView) view.findViewById(R.id.name);
-
-            String text = ((ArrayList) data.get(path.section)).get(path.row).toString();
-
-            String url = "";
-
-            String[] textSplit = text.split("---");
-            url = textSplit[textSplit.length - 1].trim();
-
-            if ((textSplit.length == 6) || (textSplit.length == 7)) {
-
-                String title = textSplit[0].trim();
-                String date = textSplit[1].trim();
-                String author = textSplit[2].trim();
-                String version = textSplit[3].trim();
-                String size = textSplit[4].trim();
-                String href = textSplit[5].trim();
-
-                // String
-
-                // String faqsMeta = prefs.getString("downloaded_faqs_meta", "");
-                // if (!TextUtils.isEmpty(faqsMeta))
-                // faqsMeta = faqsMeta + " === ";
-
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("curr_faq", FaqrApp.validFileName(href));
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
-                editor.putString(FaqrApp.validFileName(href) + "___last_read", sdf.format(new Date()));
-
-                Log.i(TAG, FaqrApp.validFileName(href) + " " + title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
-                // Toast.makeText(getApplicationContext(), Faqr.validFileName(href) + " " + title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href, Toast.LENGTH_SHORT).show();
-                // we might have it already
-                if (TextUtils.isEmpty(prefs.getString(FaqrApp.validFileName(href), "")))
-                    editor.putString(FaqrApp.validFileName(href), title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
-                editor.commit();
-                // sectionData.add(title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
-            }
-
-            String[] split = url.split("/");
-            String last = "";
-            String secondToLast = "";
-            if (split.length > 2) {
-                last = split[split.length - 1];
-                secondToLast = split[split.length - 2];
-            }
-
-            // external url
-            if (!url.contains(FaqrApp.GAMEFAQS_URL)) {
-
-                Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
-                // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("from_search", true);
-                startActivity(intent);
-
-            } else if (secondToLast.equals("faqs") && !TextUtils.isEmpty(last)) {
-                // Log.w(TAG, url);
-                // Log.w(TAG, last);
-                // Log.w(TAG, secondToLast);
-
-                Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
-                // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("from_search", true);
-                startActivity(intent);
-
-            } else {
-
-                Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
-                // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("from_search_results", true);
-                intent.putExtra("game", game);
-                intent.putExtra("url", url);
-                startActivity(intent);
-
-            }
-
-        }
-
-    }
 
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -22,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -197,20 +198,36 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         setContentView(R.layout.activity_faq);
 
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+
         // theme goodness
+        toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
         if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
                 // setTheme(R.style.AppBlackOverlayTheme);
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) toolbar.getLayoutParams();
+                params.setMargins(0, getStatusBarHeight(), 0, 0);
+                toolbar.setLayoutParams(params);
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
 //                setTheme(R.style.AppBlackOverlayTheme);
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) toolbar.getLayoutParams();
+                params.setMargins(0, getStatusBarHeight(), 0, 0);
+                toolbar.setLayoutParams(params);
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
 //                setTheme(R.style.AppDarkOverlayTheme);
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) toolbar.getLayoutParams();
+                params.setMargins(0, getStatusBarHeight(), 0, 0);
+                toolbar.setLayoutParams(params);
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
             RelativeLayout bg = (RelativeLayout) findViewById(R.id.bg);
@@ -219,10 +236,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-        }
 
         // show back if we came from search
         // if (extras != null && extras.getBoolean("from_search") == true) {
@@ -493,7 +506,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // set it to try later and try here anyway if perchance menu isn't null
                 hideWebViewMenuOptions = true;
                 if (null != menu) {
-                    MenuItem opt = menu.findItem(R.id.menu_find);
+                    MenuItem opt = menu.findItem(R.id.action_search);
                     opt.setVisible(false);
                     // opt = menu.findItem(R.id.menu_goto);
                     // opt.setVisible(false);
@@ -722,7 +735,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                         opt = menu.findItem(R.id.menu_faqmarks);
                         opt.setVisible(true);
                     }
-                    opt = menu.findItem(R.id.menu_find);
+                    opt = menu.findItem(R.id.action_search);
                     opt.setVisible(true);
                     opt = menu.findItem(R.id.menu_browser);
                     opt.setVisible(true);
@@ -741,7 +754,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             }
         } else if ((keyCode == KeyEvent.KEYCODE_SEARCH)) {
             // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            MenuItem searchMenuItem = menu.findItem(R.id.menu_find);
+            MenuItem searchMenuItem = menu.findItem(R.id.action_search);
             searchView = (SearchView) searchMenuItem.getActionView();
             searchMenuItem.expandActionView();
 
@@ -831,91 +844,90 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         // Get the SearchView and set the searchable configuration
         // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        MenuItem searchItem = menu.findItem(R.id.menu_find);
-        searchView = (SearchView) searchItem.getActionView();
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
 
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            searchView.setQueryHint(getResources().getString(R.string.find_hint));
-            searchView.setIconifiedByDefault(true);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setQueryHint(getResources().getString(R.string.find_hint));
+        searchView.setIconifiedByDefault(true);
 
-            LinearLayout searchText = (LinearLayout) searchView.findViewById(R.id.search_plate);
-            int pL = searchText.getPaddingLeft();
-            int pT = searchText.getPaddingTop();
-            int pR = searchText.getPaddingRight();
-            int pB = searchText.getPaddingBottom();
-            searchText.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
-            searchText.setPadding(pL, pT, pR, pB);
+        LinearLayout searchText = (LinearLayout) searchView.findViewById(R.id.search_plate);
+        int pL = searchText.getPaddingLeft();
+        int pT = searchText.getPaddingTop();
+        int pR = searchText.getPaddingRight();
+        int pB = searchText.getPaddingBottom();
+        searchText.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
+        searchText.setPadding(pL, pT, pR, pB);
 
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextChange(String s) {
-                    // find_text_changed(s);
-                    new FindTextChangedTask().execute(new String[] { s });
-                    return true;
-                }
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String s) {
+                // find_text_changed(s);
+                new FindTextChangedTask().execute(new String[] { s });
+                return true;
+            }
 
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    // close the search view
-                    // Toast.makeText(getApplicationContext(), "onQueryTextSubmit", Toast.LENGTH_SHORT).show();
-                    // finalMenu.findItem(R.id.menu_search).collapseActionView();
-                    return true;
-                }
-            });
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // close the search view
+                // Toast.makeText(getApplicationContext(), "onQueryTextSubmit", Toast.LENGTH_SHORT).show();
+                // finalMenu.findItem(R.id.menu_search).collapseActionView();
+                return true;
+            }
+        });
 
-            searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
 
-                @Override
-                public boolean onMenuItemActionCollapse(MenuItem item) {
-                    // Log.i(TAG, "onMenuItemActionCollapse " + item.getItemId());
-                    MenuItem prev = finalMenu.findItem(R.id.menu_prev);
-                    prev.setVisible(false);
-                    MenuItem next = finalMenu.findItem(R.id.menu_next);
-                    next.setVisible(false);
-                    // MenuItem opt = finalMenu.findItem(R.id.menu_downloads);
-                    // opt.setVisible(true);
-                    // MenuItem opt = finalMenu.findItem(R.id.menu_search);
-                    // opt.setVisible(true);
-                    MenuItem opt;
-                    // MenuItem opt = finalMenu.findItem(R.id.menu_goto);
-                    // opt.setVisible(true);
-                    // opt = finalMenu.findItem(R.id.menu_lock);
-                    // opt.setVisible(true);
-                    // if (prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
-                    opt = finalMenu.findItem(R.id.menu_faqmarks);
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                // Log.i(TAG, "onMenuItemActionCollapse " + item.getItemId());
+                MenuItem prev = finalMenu.findItem(R.id.menu_prev);
+                prev.setVisible(false);
+                MenuItem next = finalMenu.findItem(R.id.menu_next);
+                next.setVisible(false);
+                // MenuItem opt = finalMenu.findItem(R.id.menu_downloads);
+                // opt.setVisible(true);
+                // MenuItem opt = finalMenu.findItem(R.id.menu_search);
+                // opt.setVisible(true);
+                MenuItem opt;
+                // MenuItem opt = finalMenu.findItem(R.id.menu_goto);
+                // opt.setVisible(true);
+                // opt = finalMenu.findItem(R.id.menu_lock);
+                // opt.setVisible(true);
+                // if (prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
+                opt = finalMenu.findItem(R.id.menu_faqmarks);
+                opt.setVisible(true);
+                // }
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    opt = finalMenu.findItem(R.id.menu_display_options);
                     opt.setVisible(true);
-                    // }
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                        opt = finalMenu.findItem(R.id.menu_display_options);
-                        opt.setVisible(true);
-                    }
-                    opt = finalMenu.findItem(R.id.menu_browser);
-                    opt.setVisible(true);
-                    opt = finalMenu.findItem(R.id.menu_settings);
-                    opt.setVisible(true);
-                    opt = finalMenu.findItem(R.id.menu_about);
-                    opt.setVisible(true);
-
-                    getSupportActionBar().setIcon(android.R.color.transparent);
-
-                    find = false;
-                    currFindPos = 0;
-
-                    return true; // Return true to collapse action view
                 }
+                opt = finalMenu.findItem(R.id.menu_browser);
+                opt.setVisible(true);
+                opt = finalMenu.findItem(R.id.menu_settings);
+                opt.setVisible(true);
+                opt = finalMenu.findItem(R.id.menu_about);
+                opt.setVisible(true);
 
-                @Override
-                public boolean onMenuItemActionExpand(MenuItem item) {
-                    find = true;
-                    Log.i(TAG, "onMenuItemActionExpand " + item.getItemId());
-                    return true;
-                }
-            });
-        }
+                getSupportActionBar().setIcon(android.R.color.transparent);
 
-        MenuItem findItem = menu.findItem(R.id.menu_find);
+                find = false;
+                currFindPos = 0;
+
+                return true; // Return true to collapse action view
+            }
+
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                find = true;
+                Log.i(TAG, "onMenuItemActionExpand " + item.getItemId());
+                return true;
+            }
+        });
+
+
+        MenuItem findItem = menu.findItem(R.id.action_search);
         // MenuItem gotoItem = menu.findItem(R.id.menu_goto);
         faqmarksItem = menu.findItem(R.id.menu_faqmarks);
         if (hideWebViewMenuOptions) {
@@ -1195,7 +1207,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 opt = menu.findItem(R.id.menu_faqmarks);
                 opt.setVisible(true);
             }
-            opt = menu.findItem(R.id.menu_find);
+            opt = menu.findItem(R.id.action_search);
             opt.setVisible(true);
             opt = menu.findItem(R.id.menu_browser);
             opt.setVisible(true);
@@ -1220,7 +1232,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             return true;
 
-        case R.id.menu_find:
+        case R.id.action_search:
             // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if (!getSupportActionBar().isShowing())
                 getSupportActionBar().show();
@@ -1314,7 +1326,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     opt = menu.findItem(R.id.menu_faqmarks);
                     opt.setVisible(true);
                 }
-                opt = menu.findItem(R.id.menu_find);
+                opt = menu.findItem(R.id.action_search);
                 opt.setVisible(true);
                 opt = menu.findItem(R.id.menu_browser);
                 opt.setVisible(true);
@@ -1537,6 +1549,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("5")) {
             }
 
+            // theme goodness
+            nameView.setTextColor(themeTextColor);
+
             // saved pos highlighting
             // if (prefs.getBoolean("highlight_saved_pos", getResources().getBoolean(R.bool.highlight_saved_position_default))) {
             // if (prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
@@ -1634,6 +1649,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 new CurrPosTask().execute(new String[] { Integer.valueOf(listView.getFirstVisiblePosition()).toString() });
                 prevCurrTime2 = currTime;
             }
+
+
 
             return view;
         }
@@ -2585,12 +2602,15 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private void hideSystemUI() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LOW_PROFILE | View.SYSTEM_UI_FLAG_IMMERSIVE);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && !webViewActive) {
+
+            getSupportActionBar().hide();
+
+
+        } else if (!webViewActive) {
 
             mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
             // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
@@ -2599,37 +2619,26 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             getSupportActionBar().hide();
             // ActionBar actionBar = getSupportActionBar();
             // actionBar.hide();
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && webViewActive) {
+        } else if (webViewActive) {
 
             mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
 
-        } else if (!webViewActive) {
-
-            // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-
-            hideStatusBar();
-            ActionBar actionBar = getSupportActionBar();
-            actionBar.hide();
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private void showSystemUI() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+
+            getSupportActionBar().show();
+
+        } else  {
             // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             mDecorView.setSystemUiVisibility(0);
 
             getSupportActionBar().show();
             // ActionBar actionBar = getSupportActionBar();
             // actionBar.show();
-        } else {
-
-            // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            showStatusBar();
-            ActionBar actionBar = getSupportActionBar();
-            actionBar.show();
         }
     }
 
@@ -2643,6 +2652,15 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeMessages(0);
         mHideHandler.sendEmptyMessageDelayed(0, delayMillis);
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
 }

@@ -31,6 +31,8 @@ public class AboutActivity extends BaseActivity {
             setSupportActionBar(toolbar);
         }
 
+//        toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
+
         // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -43,8 +45,8 @@ public class AboutActivity extends BaseActivity {
         // contact
         TextView contact = (TextView) findViewById(R.id.contact_link);
         Linkify.addLinks(contact, Linkify.ALL);
-        donate.setLinkTextColor(themeColor);
-        contact.setLinkTextColor(themeColor);
+        donate.setLinkTextColor(primaryColor);
+        contact.setLinkTextColor(primaryColor);
 
         // version
         TextView version = (TextView) findViewById(R.id.version);
@@ -57,13 +59,13 @@ public class AboutActivity extends BaseActivity {
         version.setText(versionName);
 
         // theme goodness
-        ((TextView) findViewById(R.id.section_1_title)).setTextColor(themeColor);
-        ((TextView) findViewById(R.id.section_2_title)).setTextColor(themeColor);
-        ((TextView) findViewById(R.id.section_3_title)).setTextColor(themeColor);
-        ((TextView) findViewById(R.id.section_4_title)).setTextColor(themeColor);
-        ((TextView) findViewById(R.id.section_5_title)).setTextColor(themeColor);
-        ((TextView) findViewById(R.id.section_6_title)).setTextColor(themeColor);
-        ((TextView) findViewById(R.id.section_7_title)).setTextColor(themeColor);
+        ((TextView) findViewById(R.id.section_1_title)).setTextColor(primaryColor);
+        ((TextView) findViewById(R.id.section_2_title)).setTextColor(primaryColor);
+        ((TextView) findViewById(R.id.section_3_title)).setTextColor(primaryColor);
+        ((TextView) findViewById(R.id.section_4_title)).setTextColor(primaryColor);
+        ((TextView) findViewById(R.id.section_5_title)).setTextColor(primaryColor);
+        ((TextView) findViewById(R.id.section_6_title)).setTextColor(primaryColor);
+        ((TextView) findViewById(R.id.section_7_title)).setTextColor(primaryColor);
     }
 
     @Override

@@ -14,6 +14,7 @@
     <string name="no_results">No Saved FAQs</string>
     <string name="no_search_results">No Results Found</string>
     <string name="menu_search">Search for FAQs</string>
+    <string name="action_search">Search for FAQs</string>
     <string name="search_hint">Search by game title</string>
     <string name="recent_searches">Recent Searches</string>
     <string name="menu_faqmarks">My FAQmarks</string>

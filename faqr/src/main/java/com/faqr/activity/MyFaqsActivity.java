@@ -36,7 +36,6 @@ import android.widget.Toast;
 
 import com.faqr.FaqrApp;
 import com.faqr.R;
-import com.faqr.adapter.SectionListAdapter.IndexPath;
 
 import java.io.File;
 import java.text.ParseException;
@@ -93,7 +92,9 @@ public class MyFaqsActivity extends BaseActivity {
         ActionBar actionBar = getSupportActionBar();
         // actionBar.setDisplayHomeAsUpEnabled(true);
 
+
         // theme goodness
+        toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
         if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
@@ -315,26 +316,28 @@ public class MyFaqsActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
+//        super.onCreateOptionsMenu(menu);
         this.menu = menu;
         getMenuInflater().inflate(R.menu.activity_my_faqs, menu);
         // MenuItem dateItem = menu.findItem(R.id.menu_sort_date);
         // dateItem.setTitle("\u2605 Sort By Date Added");
 
-        final MenuItem searchItem = menu.findItem(R.id.menu_search);
         // final MenuItem searchItemOld = menu.findItem(R.id.menu_search_old);
 
-        // Get the SearchView and set the searchable configuration
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
 
-//        searchView = (SearchView) searchItem.getActionView();
-        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setQueryHint(getResources().getString(R.string.search_hint));
+        searchView.setIconifiedByDefault(true);
 
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            searchView.setQueryHint(getResources().getString(R.string.search_hint));
-            searchView.setIconifiedByDefault(true);
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(getApplicationContext(), "onclick", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 //        LinearLayout searchText = (LinearLayout) searchView.findViewById(R.id.abs__search_plate);
 //        // searchText.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
@@ -345,201 +348,197 @@ public class MyFaqsActivity extends BaseActivity {
 //        searchText.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
 //        searchText.setPadding(pL, pT, pR, pB);
 
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextChange(String s) {
-                    // find_text_changed(s);
-                    // new FindTextChangedTask().execute(new String[] { s });
-                    return true;
-                }
-
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    // close the search view
-                    // Toast.makeText(getApplicationContext(), "onQueryTextSubmit", Toast.LENGTH_SHORT).show();
-                    // finalMenu.findItem(R.id.menu_search).collapseActionView();
-
-                    searchItem.collapseActionView();
-
-                    if (null != searchView.getQuery().toString() && !searchView.getQuery().toString().equals("")) {
-
-                        // save search
-                        // String newRecentSearches = "";
-                        // String recentSearches = prefs.getString("recent_searches", "");
-                        // if (!recentSearches.contains(searchView.getQuery().toString())) {
-                        // newRecentSearches += searchView.getQuery().toString();
-                        // String[] split = recentSearches.split(" --- ");
-                        // for (int i = 0; i < split.length; i++) {
-                        // newRecentSearches += " --- " + split[i];
-                        // if (i > 18)
-                        // break;
-                        // }
-                        // SharedPreferences.Editor editor = prefs.edit();
-                        // editor.putString("recent_searches", newRecentSearches);
-                        // editor.commit();
-                        // }
-
-                        String recentSearches = prefs.getString("recent_searches", "");
-                        String[] split = recentSearches.split(" --- ");
-                        final List<String> list = new ArrayList<String>();
-                        Collections.addAll(list, split);
-                        list.remove(searchView.getQuery().toString().trim());
-                        String newRecentSearches = "";
-                        newRecentSearches += searchView.getQuery().toString().trim();
-                        for (int i = 0; i < list.size(); i++) {
-                            newRecentSearches += " --- " + list.get(i);
-                            if (i > 18)
-                                break;
-                        }
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putString("recent_searches", newRecentSearches);
-                        editor.commit();
-
-                        if (!isNetworkAvailable()) {
-                            connectionDialog.show();
-                        } else {
-
-                            Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
-                            intent.putExtra("game", searchView.getQuery().toString());
-
-                            editor.putInt("my_faqs_pos", listView.getFirstVisiblePosition());
-                            editor.commit();
-
-                            // intent.putExtra("MyFaqsScrollPosition", listView.getFirstVisiblePosition());
-                            startActivity(intent);
-                            finish();
-                        }
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Please enter search terms.", Toast.LENGTH_SHORT).show();
-                    }
-
-                    return true;
-                }
-            });
-
-            // Android < 3.0 enter key
-            // searchView.setOnKeyListener(new OnKeyListener() {
-            // public boolean onKey(View v, int keyCode, KeyEvent event) {
-            // if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            // switch (keyCode) {
-            // case KeyEvent.KEYCODE_DPAD_CENTER:
-            // case KeyEvent.KEYCODE_ENTER:
-            // Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
-            // intent.putExtra("game", searchView.getQuery().toString());
-            // startActivity(intent);
-            // finish();
-            //
-            // return true;
-            // default:
-            // break;
-            // }
-            // }
-            // return false;
-            // }
-            // });
-
-            final SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete) searchView.findViewById(R.id.search_src_text);
-            // searchView.findViewById(abs__search_src_text)
-            searchAutoComplete.setThreshold(0);
-            String recentSearches = prefs.getString("recent_searches", "");
-            String[] split = recentSearches.split(" --- ");
-            if (split.length == 1 && split[0].equals("")) {
-                split = new String[]{};
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String s) {
+                // find_text_changed(s);
+                // new FindTextChangedTask().execute(new String[] { s });
+                return true;
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_dropdown_item_1line_faqr, split);
-            searchAutoComplete.setAdapter(adapter);
 
-            searchAutoComplete.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // close the search view
+                // Toast.makeText(getApplicationContext(), "onQueryTextSubmit", Toast.LENGTH_SHORT).show();
+                // finalMenu.findItem(R.id.menu_search).collapseActionView();
 
-                /**
-                 * Implements OnItemClickListener
-                 */
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    // if (DBG)
-                    // Log.w(TAG, "onItemClick() position " + position);
-                    // onItemClicked(position, KeyEvent.KEYCODE_UNKNOWN, null);
+                searchItem.collapseActionView();
 
-                    TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                if (null != searchView.getQuery().toString() && !searchView.getQuery().toString().equals("")) {
 
-                    searchAutoComplete.setText(textView.getText());
-
+                    // save search
+                    // String newRecentSearches = "";
                     // String recentSearches = prefs.getString("recent_searches", "");
+                    // if (!recentSearches.contains(searchView.getQuery().toString())) {
+                    // newRecentSearches += searchView.getQuery().toString();
                     // String[] split = recentSearches.split(" --- ");
+                    // for (int i = 0; i < split.length; i++) {
+                    // newRecentSearches += " --- " + split[i];
+                    // if (i > 18)
+                    // break;
+                    // }
+                    // SharedPreferences.Editor editor = prefs.edit();
+                    // editor.putString("recent_searches", newRecentSearches);
+                    // editor.commit();
+                    // }
 
-                    searchItem.collapseActionView();
+                    String recentSearches = prefs.getString("recent_searches", "");
+                    String[] split = recentSearches.split(" --- ");
+                    final List<String> list = new ArrayList<String>();
+                    Collections.addAll(list, split);
+                    list.remove(searchView.getQuery().toString().trim());
+                    String newRecentSearches = "";
+                    newRecentSearches += searchView.getQuery().toString().trim();
+                    for (int i = 0; i < list.size(); i++) {
+                        newRecentSearches += " --- " + list.get(i);
+                        if (i > 18)
+                            break;
+                    }
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("recent_searches", newRecentSearches);
+                    editor.commit();
 
                     if (!isNetworkAvailable()) {
                         connectionDialog.show();
                     } else {
 
-                        String recentSearches = prefs.getString("recent_searches", "");
-                        String[] split = recentSearches.split(" --- ");
-                        final List<String> list = new ArrayList<String>();
-                        Collections.addAll(list, split);
-                        list.remove(searchView.getQuery().toString().trim());
-                        String newRecentSearches = "";
-                        newRecentSearches += searchView.getQuery().toString().trim();
-                        for (int i = 0; i < list.size(); i++) {
-                            newRecentSearches += " --- " + list.get(i);
-                            if (i > 18)
-                                break;
-                        }
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putString("recent_searches", newRecentSearches);
-                        editor.commit();
-
                         Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
-                        intent.putExtra("game", textView.getText());
+                        intent.putExtra("game", searchView.getQuery().toString());
+
                         editor.putInt("my_faqs_pos", listView.getFirstVisiblePosition());
                         editor.commit();
+
+                        // intent.putExtra("MyFaqsScrollPosition", listView.getFirstVisiblePosition());
                         startActivity(intent);
                         finish();
                     }
-                }
-            });
 
-            searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-
-                @Override
-                public boolean onMenuItemActionCollapse(MenuItem item) {
-                    // Log.i(TAG, "onMenuItemActionCollapse " + item.getItemId());
-                    // MenuItem prev = finalMenu.findItem(R.id.menu_prev);
-                    // prev.setVisible(false);
-                    // MenuItem next = finalMenu.findItem(R.id.menu_next);
-                    // next.setVisible(false);
-                    // MenuItem opt = finalMenu.findItem(R.id.menu_downloads);
-                    // opt.setVisible(true);
-                    // MenuItem opt = finalMenu.findItem(R.id.menu_search);
-                    // opt.setVisible(true);
-                    // MenuItem opt = finalMenu.findItem(R.id.menu_goto);
-                    // opt.setVisible(true);
-                    // opt = finalMenu.findItem(R.id.menu_lock);
-                    // opt.setVisible(true);
-                    // opt = finalMenu.findItem(R.id.menu_settings);
-                    // opt.setVisible(true);
-                    // opt = finalMenu.findItem(R.id.menu_about);
-                    // opt.setVisible(true);
-
-                    // find = false;
-                    // currFindPos = 0;
-
-                    return true; // Return true to collapse action view
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please enter search terms.", Toast.LENGTH_SHORT).show();
                 }
 
-                @Override
-                public boolean onMenuItemActionExpand(MenuItem item) {
-                    // find = true;
-                    // Log.i(TAG, "onMenuItemActionExpand " + item.getItemId());
-                    return true;
-                }
-            });
+                return true;
+            }
+        });
 
+        // Android < 3.0 enter key
+        // searchView.setOnKeyListener(new OnKeyListener() {
+        // public boolean onKey(View v, int keyCode, KeyEvent event) {
+        // if (event.getAction() == KeyEvent.ACTION_DOWN) {
+        // switch (keyCode) {
+        // case KeyEvent.KEYCODE_DPAD_CENTER:
+        // case KeyEvent.KEYCODE_ENTER:
+        // Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
+        // intent.putExtra("game", searchView.getQuery().toString());
+        // startActivity(intent);
+        // finish();
+        //
+        // return true;
+        // default:
+        // break;
+        // }
+        // }
+        // return false;
+        // }
+        // });
+
+        final SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete) searchView.findViewById(R.id.search_src_text);
+        // searchView.findViewById(abs__search_src_text)
+        searchAutoComplete.setThreshold(0);
+        String recentSearches = prefs.getString("recent_searches", "");
+        String[] split = recentSearches.split(" --- ");
+        if (split.length == 1 && split[0].equals("")) {
+            split = new String[]{};
         }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_dropdown_item_1line_faqr, split);
+        searchAutoComplete.setAdapter(adapter);
+
+        searchAutoComplete.setOnItemClickListener(new OnItemClickListener() {
+
+            /**
+             * Implements OnItemClickListener
+             */
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // if (DBG)
+                // Log.w(TAG, "onItemClick() position " + position);
+                // onItemClicked(position, KeyEvent.KEYCODE_UNKNOWN, null);
+
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
+                searchAutoComplete.setText(textView.getText());
+
+                // String recentSearches = prefs.getString("recent_searches", "");
+                // String[] split = recentSearches.split(" --- ");
+
+                searchItem.collapseActionView();
+
+                if (!isNetworkAvailable()) {
+                    connectionDialog.show();
+                } else {
+
+                    String recentSearches = prefs.getString("recent_searches", "");
+                    String[] split = recentSearches.split(" --- ");
+                    final List<String> list = new ArrayList<String>();
+                    Collections.addAll(list, split);
+                    list.remove(searchView.getQuery().toString().trim());
+                    String newRecentSearches = "";
+                    newRecentSearches += searchView.getQuery().toString().trim();
+                    for (int i = 0; i < list.size(); i++) {
+                        newRecentSearches += " --- " + list.get(i);
+                        if (i > 18)
+                            break;
+                    }
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("recent_searches", newRecentSearches);
+                    editor.commit();
+
+                    Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
+                    intent.putExtra("game", textView.getText());
+                    editor.putInt("my_faqs_pos", listView.getFirstVisiblePosition());
+                    editor.commit();
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                // Log.i(TAG, "onMenuItemActionCollapse " + item.getItemId());
+                // MenuItem prev = finalMenu.findItem(R.id.menu_prev);
+                // prev.setVisible(false);
+                // MenuItem next = finalMenu.findItem(R.id.menu_next);
+                // next.setVisible(false);
+                // MenuItem opt = finalMenu.findItem(R.id.menu_downloads);
+                // opt.setVisible(true);
+                // MenuItem opt = finalMenu.findItem(R.id.menu_search);
+                // opt.setVisible(true);
+                // MenuItem opt = finalMenu.findItem(R.id.menu_goto);
+                // opt.setVisible(true);
+                // opt = finalMenu.findItem(R.id.menu_lock);
+                // opt.setVisible(true);
+                // opt = finalMenu.findItem(R.id.menu_settings);
+                // opt.setVisible(true);
+                // opt = finalMenu.findItem(R.id.menu_about);
+                // opt.setVisible(true);
+
+                // find = false;
+                // currFindPos = 0;
+
+                return true; // Return true to collapse action view
+            }
+
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                // find = true;
+                // Log.i(TAG, "onMenuItemActionExpand " + item.getItemId());
+                return true;
+            }
+        });
 
         // searchView.setSuggestionsAdapter(new FaqSearchAdapter(this, searchManager.getSearchableInfo(getComponentName()), searchView));
-
-        // }
 
         return true;
     }
@@ -571,7 +570,7 @@ public class MyFaqsActivity extends BaseActivity {
         // // }
         // }
         // return true;
-        case R.id.menu_search: // check connectivity
+        case R.id.action_search: // check connectivity
             if (!isNetworkAvailable()) {
                 // connectionDialog.show();
                 // Toast.makeText(getApplicationContext(),
@@ -744,7 +743,7 @@ public class MyFaqsActivity extends BaseActivity {
         // }
         if ((keyCode == KeyEvent.KEYCODE_SEARCH)) {
             // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            MenuItem searchMenuItem = menu.findItem(R.id.menu_search);
+            MenuItem searchMenuItem = menu.findItem(R.id.action_search);
             searchView = (SearchView) searchMenuItem.getActionView();
             searchMenuItem.expandActionView();
             // } else {
@@ -835,6 +834,9 @@ public class MyFaqsActivity extends BaseActivity {
 
             // theme goodness
             nameView.setTextColor(themeColor);
+            authorView.setTextColor(themeTextColor);
+            versionView.setTextColor(themeTextColor);
+            sizeView.setTextColor(themeTextColor);
 
             return view;
         }
@@ -859,18 +861,10 @@ public class MyFaqsActivity extends BaseActivity {
             textView.setText(titles.get(sectionCount).toString());
 
             // theme goodness
-            view.setBackgroundColor(themeBackgroundColor);
+            view.setBackgroundColor(primaryColor);
 
-            // if (currentBookings.size() == 0) {
-            // text.setText("Past Reservations");
-            // } else if (pastBookings.size() == 0) {
-            // text.setText("Current Reservations");
-            // } else {
-            // if (section == 0)
-            // text.setText("Current Reservations");
-            // else
-            // text.setText("Past Reservations");
-            // }
+
+
             return view;
         }
 
@@ -894,165 +888,7 @@ public class MyFaqsActivity extends BaseActivity {
 
     }
 
-    public class MyFaqsSectionListAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
-        public MyFaqsSectionListAdapter() {
-            // delegate = this;
-        }
-
-        public int sectionCount() {
-            return titles.size();
-            // return 0;
-        }
-
-        public int rowsInSection(int section) {
-            return ((ArrayList) data.get(section)).size();
-
-            // return 0;
-        }
-
-        public View viewForRowAtIndexPath(IndexPath path, ViewGroup parent) {
-            View view = inflater.inflate(R.layout.search_result_item_2, parent, false);
-
-            // File file = (File) adapterData.get(position);
-
-            File file = (File) ((List) data.get(path.section)).get(path.row);
-
-            String[] faqsMeta = prefs.getString(file.getName(), "").split(" --- ");
-
-            // name
-            TextView nameView = (TextView) view.findViewById(R.id.name);
-            TextView authorView = (TextView) view.findViewById(R.id.author);
-            TextView versionView = (TextView) view.findViewById(R.id.version);
-            TextView sizeView = (TextView) view.findViewById(R.id.size);
-
-            // for passing hidden information not shown
-            TextView metaView = (TextView) view.findViewById(R.id.meta);
-            metaView.setText(file.getName());
-
-            String dateFix = faqsMeta[1];
-            if (dateFix.startsWith("0"))
-                dateFix = dateFix.substring(1);
-
-            String versionAndSize = "v" + faqsMeta[3] + "/" + faqsMeta[4].replaceAll("K", "k");
-            if (faqsMeta[3].trim().equals("") && !faqsMeta[3].equalsIgnoreCase("Final"))
-                versionAndSize = faqsMeta[4].replaceAll("K", "k");
-
-            // curr faq gets an indictator
-            // if (prefs.getString("curr_faq", "").equalsIgnoreCase(file.getName())) {
-            // nameView.setText("\u2605 " + faqsMeta[6].split("\\(")[0].trim());
-            // } else {
-            nameView.setText(faqsMeta[6].split("\\(")[0].trim());
-            // }
-            authorView.setText(faqsMeta[0] + " by " + faqsMeta[2]);
-
-            // sort by title
-            if (Integer.valueOf(prefs.getString("curr_my_faqs_sort", "1")) == 1) {
-                nameView.setText(faqsMeta[0]);
-                authorView.setText(faqsMeta[2]);
-            }
-
-            // sort by size
-            if (Integer.valueOf(prefs.getString("curr_my_faqs_sort", "1")) == 3) {
-                versionAndSize = faqsMeta[4].replaceAll("K", "k");
-            }
-
-            if (prefs.getString("curr_faq", "").equalsIgnoreCase(file.getName())) {
-                nameView.setText("\u2605 " + nameView.getText());
-            }
-
-            // if (!item.split(" --- ")[3].isEmpty() && !item.split(" --- ")[3].startsWith("v"))
-            versionView.setText(dateFix);
-            sizeView.setText(versionAndSize);
-
-            // theme goodness
-            nameView.setTextColor(themeColor);
-
-            return view;
-        }
-
-        public View viewForHeaderInSection(int section) {
-            View view = inflater.inflate(R.layout.search_result_header, null);
-            TextView textView = (TextView) view.findViewById(R.id.name);
-            textView.setText(titles.get(section).toString());
-
-            // theme goodness
-            view.setBackgroundColor(themeColor);
-
-            // if (currentBookings.size() == 0) {
-            // text.setText("Past Reservations");
-            // } else if (pastBookings.size() == 0) {
-            // text.setText("Current Reservations");
-            // } else {
-            // if (section == 0)
-            // text.setText("Current Reservations");
-            // else
-            // text.setText("Past Reservations");
-            // }
-            return view;
-        }
-
-        public void itemSelectedAtIndexPath(IndexPath path) {
-            // String line = lines[position];
-
-            final File file = (File) ((ArrayList) data.get(path.section)).get(path.row);
-            final String faqsMeta = prefs.getString(file.getName(), "");
-            final String faqsMetaLastRead = prefs.getString(file.getName() + "___last_read", "");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
-
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("curr_faq", file.getName());
-            editor.putString(file.getName() + "___last_read", sdf.format(new Date()));
-            editor.commit();
-            Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
-
-            editor = prefs.edit();
-            editor.putInt("my_faqs_pos", listView.getFirstVisiblePosition());
-            editor.commit();
-
-            // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-
-        }
-
-        @Override
-        public View getHeaderView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-        @Override
-        public long getHeaderId(int position) {
-            // TODO Auto-generated method stub
-            return 0;
-        }
-
-        @Override
-        public int getCount() {
-            // TODO Auto-generated method stub
-            return 0;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            // TODO Auto-generated method stub
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-    }
 
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////

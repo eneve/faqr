@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gamefaqs_color"
+    android:background="@color/primary"
     android:orientation="vertical"
     android:paddingBottom="2dp"
     android:paddingLeft="15dp"

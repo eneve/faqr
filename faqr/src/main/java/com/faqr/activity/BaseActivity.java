@@ -47,7 +47,12 @@ public class BaseActivity extends ActionBarActivity {
     // connectivity dialog
     protected AlertDialog connectionDialog;
 
+    protected int primaryColor;
+    protected int primaryDarkColor;
+    protected int accentColor;
+
     protected int themeColor;
+    protected int themeTextColor;
     protected int themeBackgroundColor;
     protected Drawable themeDrawable;
     protected String themeCssColor;
@@ -66,30 +71,43 @@ public class BaseActivity extends ActionBarActivity {
         // extras
         extras = getIntent().getExtras();
 
+
+        primaryColor = getResources().getColor(R.color.primary);
+        primaryDarkColor = getResources().getColor(R.color.primary_dark);
+        accentColor = getResources().getColor(R.color.accent);
+
         if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
 //            setTheme(R.style.Appnewlighttheme);
+
             themeColor = getResources().getColor(R.color.gamefaqs_dark_color);
-            themeBackgroundColor = getResources().getColor(R.color.gamefaqs_color);
+//            themeColor = getResources().getColor(R.color.primary);
+            themeTextColor = getResources().getColor(R.color.faqr_dark_Background);
+            themeBackgroundColor = getResources().getColor(R.color.faqr_light_Background);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_light_corner);
             themeCssColor = "default";
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
 //            setTheme(R.style.AppBlackTheme);
             themeColor = getResources().getColor(R.color.gamefaqs_light_color);
-            themeBackgroundColor = getResources().getColor(R.color.gamefaqs_light_color);
+//            themeColor = getResources().getColor(R.color.primary);
+            themeTextColor = getResources().getColor(R.color.faqr_light_Background);
+            themeBackgroundColor = getResources().getColor(R.color.black);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_dark_corner);
             themeCssColor = "dark-blue";
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
 //            setTheme(R.style.AppDarkTheme);
             themeColor = getResources().getColor(R.color.gamefaqs_light_color);
-            themeBackgroundColor = getResources().getColor(R.color.gamefaqs_light_color);
+//            themeColor = getResources().getColor(R.color.primary);
+            themeTextColor = getResources().getColor(R.color.faqr_light_Background);
+            themeBackgroundColor = getResources().getColor(R.color.faqr_dark_Background);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_dark_corner);
             themeCssColor = "dark-blue";
             // themeCssColor = "cloudy";
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
 //            setTheme(R.style.Appnewlighttheme);
 
-            themeColor = getResources().getColor(R.color.gamefaqs_dark_color);
-            themeBackgroundColor = getResources().getColor(R.color.gamefaqs_color);
+            themeColor = getResources().getColor(R.color.primary);
+            themeTextColor = getResources().getColor(R.color.faqr_dark_Background);
+            themeBackgroundColor = getResources().getColor(R.color.faqr_light_Background);
             // themeColor = getResources().getColor(R.color.sepia_theme_color);
             // themeBackgroundColor = getResources().getColor(R.color.sepia_theme_color);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_sepia_corner);

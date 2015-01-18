@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="13dp"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingTop="13dp" >
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp" >
 
     <LinearLayout
         android:id="@+id/location_wrap"
@@ -19,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
-            android:paddingBottom="13dp"
-            android:paddingLeft="15dp"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
             android:paddingRight="70dp"
             android:singleLine="true" >
         </TextView>
@@ -39,8 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
-            android:paddingBottom="13dp"
-            android:paddingLeft="15dp"
+            android:paddingBottom="16dp"
             android:paddingRight="10dp"
             android:singleLine="true" >
         </TextView>

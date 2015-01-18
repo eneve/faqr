@@ -96,7 +96,13 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
         setContentView(R.layout.activity_faqmarks);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+
         // theme goodness
+        toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
         if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
@@ -118,11 +124,6 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             // themeColor = getResources().getColor(R.color.sepia_theme_color);
             themeBackgroundColor = getResources().getColor(R.color.sepia_theme_color);
 
-        }
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
         }
 
         // show back if we came from search
@@ -452,7 +453,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
             Integer realPos = Integer.valueOf(savedLineNumbers.get(position));
             Integer plusOne = Integer.valueOf(savedLineNumbers.get(position)) + 1;
-            locationView.setText("Location " + plusOne.toString() + "/" + lines.length + " - FAQmark");
+            locationView.setText("Location " + plusOne.toString() + "/" + lines.length);
 
             // percentage
             TextView percentageView = (TextView) view.findViewById(R.id.percentage);
@@ -618,6 +619,12 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                     nameView.setPadding(view.getPaddingLeft(), getActionBarHeight(), view.getPaddingRight(), view.getPaddingBottom());
                 }
             }
+
+
+            // theme goodness
+            locationView.setTextColor(themeColor);
+            percentageView.setTextColor(themeTextColor);
+            nameView.setTextColor(themeTextColor);
 
             return view;
         }
