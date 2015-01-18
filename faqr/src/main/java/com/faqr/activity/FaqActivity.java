@@ -886,6 +886,15 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             }
         });
 
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+//                find = false;
+                return false;
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String s) {
