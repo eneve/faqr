@@ -920,7 +920,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                Toast.makeText(getApplicationContext(), "onMenuItemActionCollapse", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "onMenuItemActionCollapse", Toast.LENGTH_SHORT).show();
 
 
                 // Log.i(TAG, "onMenuItemActionCollapse " + item.getItemId());
@@ -966,8 +966,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             public boolean onMenuItemActionExpand(MenuItem item) {
 //                find = true;
                 setFind(true);
-//                Log.i(TAG, "onMenuItemActionExpand " + item.getItemId());
-                Toast.makeText(getApplicationContext(), "onMenuItemActionExpand", Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "onMenuItemActionExpand " + item.getItemId());
+
+
                 return true;
             }
         });
@@ -1280,10 +1281,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         case R.id.action_search:
             // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-
-            Toast.makeText(getApplicationContext(), "onOptionItemSelected", Toast.LENGTH_SHORT).show();
-
-
             if (!getSupportActionBar().isShowing())
                 getSupportActionBar().show();
 
@@ -2714,7 +2711,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     }
 
     public void setFind(boolean status) {
-        Toast.makeText(getApplicationContext(), "setFind + " + status, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "setFind + " + status, Toast.LENGTH_SHORT).show();
         find = status;
     }
 
