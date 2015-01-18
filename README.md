@@ -40,51 +40,6 @@ FAQr
                                                           __pMB7
 
 
-                         G                         G
-                         GG                       GG
-                          G                       G
-                          GG                     GG
-                           GG   GGGGGGGGGGGGG   GG
-                            GGGGGGGGGGGGGGGGGGGGG
-                         GGGGGGGGGGGGGGGGGGGGGGGGGGG
-                       GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-                      GGGGGG  GGGGGGGGGGGGGGGGG  GGGGGG
-                     GGGGGG    GGGGGGGGGGGGGGG    GGGGGG
-                    GGGGGGG    GGGGGGGGGGGGGGG    GGGGGGG
-                    GGGGGGGG  GGGGGGGGGGGGGGGGG  GGGGGGGG
-                   GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-                   GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-                  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-
-           GG     GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG     GG
-         GGGGGG   GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG   GGGGGG
-        GGGGGGG   GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG   GGGGGGG
-        GGGGGGGG  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG  GGGGGGGG
-        GGGGGGGG  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG  GGGGGGGG
-        GGGGGGGG  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG  GGGGGGGG
-        GGGGGGGG  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG  GGGGGGGG
-        GGGGGGGG  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG  GGGGGGGG
-        GGGGGGGG  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG  GGGGGGGG
-        GGGGGGGG  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG  GGGGGGGG
-        GGGGGGGG  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG  GGGGGGGG
-        GGGGGGGG  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG  GGGGGGGG
-        GGGGGGGG  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG  GGGGGGGG
-        GGGGGGG   GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG   GGGGGGG
-         GGGGG    GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG    GGGGG
-                  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-                  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-                   GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-                   GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-                    GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-                         GGGGGGGGG         GGGGGGGGG
-                         GGGGGGGGG         GGGGGGGGG
-                         GGGGGGGGG         GGGGGGGGG
-                         GGGGGGGGG         GGGGGGGGG
-                         GGGGGGGGG         GGGGGGGGG
-                         GGGGGGGGG         GGGGGGGGG
-                         GGGGGGGGG         GGGGGGGGG
-                          GGGGGGG           GGGGGGG
-                          GGGGGGG           GGGGGGG
 ```
 
 CONFIG
@@ -96,17 +51,11 @@ Check res/values/default_settings.xml for default configuration
 REQUIREMENTS
 ============
 
-Requires - Android 2.2 - SDK Level 8  - as minimum SDK version
+Requires - SDK Level 15  - as minimum SDK version
 
-Currently using - Android 4.2 - SDK Level 17 - as target SDK version
+Currently using - SDK Level 21 - as target SDK version
 
-ActionBarSherlock - Version 4.2.0
-
-JSoup HTML Parser - Version 1.7.1
-
-Google Analytics - Version 2
-
-Google AdMob Ads SDK - Version 6.2.1
+@see faqr/build.gradle
 
 ... TODO more stuff here ...
 
@@ -116,10 +65,9 @@ CREATING A RELEASE
 
 Temporarily delete everything in /assets to reduce size of the APK
 
-Update the android:versionCode and android:versionName in AndroidManifest.xml
+Update the versionCode and versionName in app/build.gradle
 
-Using Eclipse ADT - Right click the project > Android Tools > Export Signed Application Package
-Be sure to select the Savored Production Keystore to sign the package
+Using Android Studio > Menu > Build > Generate Signed APK...
 
 se.johnston@gmail.com owns the app in Google Play
 
