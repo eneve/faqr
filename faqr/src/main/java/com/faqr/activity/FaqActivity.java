@@ -2386,7 +2386,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         protected void onPostExecute(String result) {
 
             //Start the vibration
-            if (prefs.getBoolean("vibrate", getResources().getBoolean(R.bool.vibrate))) {
+            if (prefs.getBoolean("vibrate", getResources().getBoolean(R.bool.vibrate_default))) {
                 Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(10); // vibrate for 3 seconds (e.g 3000 milliseconds)
             }

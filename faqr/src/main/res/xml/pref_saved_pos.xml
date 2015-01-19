@@ -75,7 +75,7 @@
 
     <!--  -->
     <CheckBoxPreference
-        android:defaultValue="@bool/vibrate"
+        android:defaultValue="@bool/vibrate_default"
         android:key="vibrate"
         android:summary="@string/vibrate_summary"
         android:title="@string/vibrate_title" />
