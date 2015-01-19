@@ -362,7 +362,7 @@ public class MyFaqsActivity extends BaseActivity {
 
                 searchItem.collapseActionView();
 
-                if (null != searchView.getQuery().toString() && !searchView.getQuery().toString().equals("")) {
+                if (null != query && !query.equals("")) {
 
                     // save search
                     // String newRecentSearches = "";
@@ -384,9 +384,9 @@ public class MyFaqsActivity extends BaseActivity {
                     String[] split = recentSearches.split(" --- ");
                     final List<String> list = new ArrayList<String>();
                     Collections.addAll(list, split);
-                    list.remove(searchView.getQuery().toString().trim());
+                    list.remove(query.toString().trim());
                     String newRecentSearches = "";
-                    newRecentSearches += searchView.getQuery().toString().trim();
+                    newRecentSearches += query.toString().trim();
                     for (int i = 0; i < list.size(); i++) {
                         newRecentSearches += " --- " + list.get(i);
                         if (i > 18)
@@ -401,7 +401,7 @@ public class MyFaqsActivity extends BaseActivity {
                     } else {
 
                         Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
-                        intent.putExtra("game", searchView.getQuery().toString());
+                        intent.putExtra("game", query.trim());
 
                         editor.putInt("my_faqs_pos", listView.getFirstVisiblePosition());
                         editor.commit();
