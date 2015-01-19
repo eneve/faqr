@@ -29,7 +29,7 @@
             android:spinnerMode="dialog" />
 
         <TextView
-            android:id="@+id/typface"
+            android:id="@+id/typeface"
             style="@style/DisplayOptionsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,6 +78,7 @@
 
 
         <LinearLayout
+            android:id="@+id/do_text_size"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -123,6 +124,7 @@
 
 
         <LinearLayout
+            android:id="@+id/do_justify"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

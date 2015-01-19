@@ -1255,6 +1255,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             fontSizePlus.setTypeface(tf);
 
 
+
             final TextView leftJustify = (TextView) pw.getContentView().findViewById(R.id.left_justify);
             final TextView centerJustify = (TextView) pw.getContentView().findViewById(R.id.center_justify);
             final TextView rightJustify = (TextView) pw.getContentView().findViewById(R.id.right_justify);
@@ -1325,6 +1326,18 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             leftJustify.setTypeface(tf);
             centerJustify.setTypeface(tf);
             rightJustify.setTypeface(tf);
+
+
+            if (webViewActive) {
+                TextView typefaceTextView = (TextView)  pw.getContentView().findViewById(R.id.typeface);
+                Spinner typefaceSpinner = (Spinner)  pw.getContentView().findViewById(R.id.typeface_spinner);
+                LinearLayout textSizeLayout = (LinearLayout)  pw.getContentView().findViewById(R.id.do_text_size);
+                LinearLayout justifyLayout = (LinearLayout)  pw.getContentView().findViewById(R.id.do_justify);
+                typefaceTextView.setVisibility(View.GONE);
+                typefaceSpinner.setVisibility(View.GONE);
+                textSizeLayout.setVisibility(View.GONE);
+                justifyLayout.setVisibility(View.GONE);
+            }
 
             // quit dialog
             // AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -2408,7 +2421,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             // vibrate dat
             if (prefs.getBoolean("vibrate", getResources().getBoolean(R.bool.vibrate_default))) {
                 Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-                vibrator.vibrate(10); // vibrate for 3 seconds (e.g 3000 milliseconds)
+                vibrator.vibrate(30); // vibrate for 3 seconds (e.g 3000 milliseconds)
             }
 
             String savedPosPlusOne = new Integer(Integer.valueOf(savedPos) + 1).toString();
