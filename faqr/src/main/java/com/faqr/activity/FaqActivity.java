@@ -2294,7 +2294,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     else {
                         listView.setSelection(prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0));
                     }
-
                 }
 
                 ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();

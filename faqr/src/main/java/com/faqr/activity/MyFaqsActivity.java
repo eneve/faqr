@@ -393,6 +393,7 @@ public class MyFaqsActivity extends BaseActivity {
                             break;
                     }
                     SharedPreferences.Editor editor = prefs.edit();
+
                     editor.putString("recent_searches", newRecentSearches);
                     editor.commit();
 
@@ -445,10 +446,13 @@ public class MyFaqsActivity extends BaseActivity {
         searchAutoComplete.setThreshold(0);
         String recentSearches = prefs.getString("recent_searches", "");
         String[] split = recentSearches.split(" --- ");
-        if (split.length == 1 && split[0].equals("")) {
-            split = new String[]{};
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_dropdown_item_1line_faqr, split);
+        final List<String> list = new ArrayList<String>();
+        Collections.addAll(list, split);
+        list.remove("");
+//        if (split.length == 1 && split[0].equals("")) {
+//            split = new String[]{};
+//        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_dropdown_item_1line_faqr, list);
         searchAutoComplete.setAdapter(adapter);
 
         searchAutoComplete.setOnItemClickListener(new OnItemClickListener() {
@@ -474,21 +478,26 @@ public class MyFaqsActivity extends BaseActivity {
                     connectionDialog.show();
                 } else {
 
-                    String recentSearches = prefs.getString("recent_searches", "");
-                    String[] split = recentSearches.split(" --- ");
-                    final List<String> list = new ArrayList<String>();
-                    Collections.addAll(list, split);
-                    list.remove(searchView.getQuery().toString().trim());
-                    String newRecentSearches = "";
-                    newRecentSearches += searchView.getQuery().toString().trim();
-                    for (int i = 0; i < list.size(); i++) {
-                        newRecentSearches += " --- " + list.get(i);
-                        if (i > 18)
-                            break;
-                    }
                     SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("recent_searches", newRecentSearches);
-                    editor.commit();
+
+                    if (null != searchView.getQuery().toString() && searchView.getQuery().toString().equals("")) {
+
+                        String recentSearches = prefs.getString("recent_searches", "");
+                        String[] split = recentSearches.split(" --- ");
+                        final List<String> list = new ArrayList<String>();
+                        Collections.addAll(list, split);
+                        list.remove(searchView.getQuery().toString().trim());
+                        String newRecentSearches = "";
+                        newRecentSearches += searchView.getQuery().toString().trim();
+                        for (int i = 0; i < list.size(); i++) {
+                            newRecentSearches += " --- " + list.get(i);
+                            if (i > 18)
+                                break;
+                        }
+
+                        editor.putString("recent_searches", newRecentSearches);
+                        editor.commit();
+                    }
 
                     Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
                     intent.putExtra("game", textView.getText());
