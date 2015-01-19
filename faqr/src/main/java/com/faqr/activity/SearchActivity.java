@@ -29,7 +29,9 @@ import java.io.File;
 
 /**
  * This Activity provides a help screen for the app
- * 
+ *
+ * LEGACY ACTIVITY USED TO BE USED BY PRE-HONEYCOMB DEVICES
+ *
  * @author eneve
  */
 public class SearchActivity extends BaseActivity {

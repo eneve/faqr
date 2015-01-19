@@ -52,7 +52,9 @@
 
     <!-- v2 defaults -->
 
-    <bool name="vibrate">true</bool>
+    <integer name="font_size_default">0</integer>
+    <integer name="justify_default">1</integer>
+    <bool name="vibrate_default">true</bool>
 
 
 </resources>

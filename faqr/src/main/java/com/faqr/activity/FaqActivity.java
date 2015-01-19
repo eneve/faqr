@@ -892,7 +892,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             }
         });
 
-
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
@@ -924,9 +923,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-//                Toast.makeText(getApplicationContext(), "onMenuItemActionCollapse", Toast.LENGTH_SHORT).show();
-
-
                 // Log.i(TAG, "onMenuItemActionCollapse " + item.getItemId());
                 MenuItem prev = finalMenu.findItem(R.id.menu_prev);
                 prev.setVisible(false);
@@ -976,7 +972,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 return true;
             }
         });
-
 
         MenuItem findItem = menu.findItem(R.id.action_search);
         // MenuItem gotoItem = menu.findItem(R.id.menu_goto);
@@ -1051,7 +1046,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             // Apply the adapter to the spinner
             // spinner.MODE_DIALOG
             theme.setAdapter(themeAdapter);
-            // theme.setBackgroundDrawable(getResources().getDrawable(R.drawable.abs__spinner_ab_default_holo_dark));
 
             Integer themeSetting = Integer.valueOf(prefs.getString("theme", "1"));
             theme.setSelection(themeSetting - 1);
@@ -1067,12 +1061,10 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                         editor.commit();
 
                         setThemeColors();
-
                         toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
-
-
                         adapter.notifyDataSetChanged();
 
+                        // TODO WEBVIEW DOESN'T UPDATE WITH THEME YET
 //                        Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
 //                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                        startActivity(intent);
@@ -1099,7 +1091,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             Integer typefaceSetting = Integer.valueOf(prefs.getString("typeface", "1"));
             typeface.setSelection(typefaceSetting - 1);
-
             typeface.setOnItemSelectedListener(new OnItemSelectedListener() {
                 int spinnerCount = 0;
 
@@ -1118,7 +1109,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 public void onNothingSelected(AdapterView<?> parentView) {
                     // your code here
                 }
-
             });
 
             Spinner fontSize = (Spinner) pw.getContentView().findViewById(R.id.font_size_spinner);
@@ -1161,7 +1151,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 public void onNothingSelected(AdapterView<?> parentView) {
                     // your code here
                 }
-
             });
 
             Spinner varfontSize = (Spinner) pw.getContentView().findViewById(R.id.var_font_size_spinner);
@@ -1214,19 +1203,14 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             fontSizeMinus.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Integer fontSize = prefs.getInt("font_size_v2", 0);
-//                    Toast.makeText(getApplicationContext(), "fontSizeMinus" + fontSize, Toast.LENGTH_SHORT).show();
+                    Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
+                    fontSize = fontSize > 5 ? fontSize - 1 : fontSize;
 
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("font_size_v2", fontSize - 1);
                     editor.commit();
 
                     adapter.notifyDataSetChanged();
-//                    Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    startActivity(intent);
-//                    finish();
-
                 }
             });
 
@@ -1234,11 +1218,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             fontSizePlus.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Integer fontSize = prefs.getInt("font_size_v2", 0);
-//                    Toast.makeText(getApplicationContext(), "fontSizePlus" + fontSize, Toast.LENGTH_SHORT).show();
+                    Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
+                    fontSize = fontSize < 32 ? fontSize + 1 : fontSize;
 
                     SharedPreferences.Editor editor = prefs.edit();
-                    editor.putInt("font_size_v2", fontSize + 1);
+                    editor.putInt("font_size_v2", fontSize);
                     editor.commit();
 
                     adapter.notifyDataSetChanged();
@@ -1257,7 +1241,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             leftJustify.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Integer justify = prefs.getInt("justify_v2", 0);
+                    Integer justify = prefs.getInt("justify_v2", getResources().getInteger(R.integer.justify_default));
 //                    Toast.makeText(getApplicationContext(), "leftJustify" + 0, Toast.LENGTH_SHORT).show();
 
                     SharedPreferences.Editor editor = prefs.edit();
@@ -1275,7 +1259,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             centerJustify.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Integer justify = prefs.getInt("justify_v2", 0);
+                    Integer justify = prefs.getInt("justify_v2", getResources().getInteger(R.integer.justify_default));
 //                    Toast.makeText(getApplicationContext(), "centerJustify" + 1, Toast.LENGTH_SHORT).show();
 
                     SharedPreferences.Editor editor = prefs.edit();
@@ -1293,7 +1277,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             rightJustify.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Integer justify = prefs.getInt("justify_v2", 0);
+                    Integer justify = prefs.getInt("justify_v2", getResources().getInteger(R.integer.justify_default));
 //                    Toast.makeText(getApplicationContext(), "rightJustify" + 2, Toast.LENGTH_SHORT).show();
 
                     SharedPreferences.Editor editor = prefs.edit();
@@ -1308,7 +1292,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 }
             });
 
-            Integer justify = prefs.getInt("justify_v2", 0);
+            Integer justify = prefs.getInt("justify_v2", getResources().getInteger(R.integer.justify_default));
             if (justify == 0) {
                 leftJustify.setTextColor(getResources().getColor(R.color.faqr_light_Background));
             } else if (justify == 1) {
@@ -1640,7 +1624,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 if (monoFontSize.equalsIgnoreCase("auto")) {
 
                     // V2 font size
-                    Integer fontSize = prefs.getInt("font_size_v2", 0);
+                    Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
                     nameView.setTextSize(Float.valueOf(autoMonoFontSize + fontSize));
 
                     // make bold for small fonts
@@ -1655,7 +1639,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // nameView.setTypeface(tf);
 
                 // if (!line.startsWith("         ")) {
-                Integer justify = prefs.getInt("justify_v2", 0);
+                Integer justify = prefs.getInt("justify_v2", getResources().getInteger(R.integer.justify_default));
 
                 if (justify == 0) {
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) nameView.getLayoutParams();
@@ -1713,7 +1697,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     }
 
                     // V2 font size
-                    Integer fontSize = prefs.getInt("font_size_v2", 0);
+                    Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
                     nameView.setTextSize(varAutoMonoFontSize + fontSize);
 
                 } else {
