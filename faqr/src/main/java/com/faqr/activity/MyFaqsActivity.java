@@ -36,6 +36,8 @@ import android.widget.Toast;
 
 import com.faqr.FaqrApp;
 import com.faqr.R;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.io.File;
 import java.text.ParseException;
@@ -299,13 +301,11 @@ public class MyFaqsActivity extends BaseActivity {
         // EasyTracker.getInstance(this).activityStart(this); // Add this method.
 
         // Get tracker.
-//        Tracker t = ((FaqrApp) getApplication()).getTracker(FaqrApp.TrackerName.GLOBAL_TRACKER);
-
+        Tracker t = ((FaqrApp) getApplication()).getTracker(FaqrApp.TrackerName.GLOBAL_TRACKER);
         // Set screen name.
-//        t.setScreenName(getClass().getName());
-
+        t.setScreenName(getClass().getName());
         // Send a screen view.
-//        t.send(new HitBuilders.AppViewBuilder().build());
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
@@ -327,15 +327,13 @@ public class MyFaqsActivity extends BaseActivity {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
-
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setQueryHint(getResources().getString(R.string.search_hint));
         searchView.setIconifiedByDefault(true);
-
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "onclick", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "onclick", Toast.LENGTH_SHORT).show();
             }
         });
 

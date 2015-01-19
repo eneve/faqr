@@ -16,12 +16,14 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
@@ -81,6 +83,8 @@ import android.widget.Toast;
 
 import com.faqr.FaqrApp;
 import com.faqr.R;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -170,6 +174,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     // faqmark
     private Integer faqmarkPos = -1;
 
+    private Toolbar toolbar;
+
     /** Called when the activity is first created. */
     @SuppressLint("NewApi")
     @Override
@@ -199,7 +205,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         setContentView(R.layout.activity_faq);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
@@ -813,22 +819,20 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-//        EasyTracker.getInstance(this).activityStart(this); // Add this method.
+        // EasyTracker.getInstance(this).activityStart(this); // Add this method.
+
+        // Get tracker.
+        Tracker t = ((FaqrApp) getApplication()).getTracker(FaqrApp.TrackerName.GLOBAL_TRACKER);
+        // Set screen name.
+        t.setScreenName(getClass().getName());
+        // Send a screen view.
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
     public void onStop() {
         super.onStop();
 //        EasyTracker.getInstance(this).activityStop(this); // Add this method.
-    }
-
-    @Override
-    /** Called when the phone orientation is changed */
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        // forces the recalculation of the mono font size
-        autoMonoFontSize = -1.0f;
     }
 
     /** Called when a button is clicked */
@@ -1061,10 +1065,18 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("theme", new Integer(position + 1).toString());
                         editor.commit();
-                        Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
+
+                        setThemeColors();
+
+                        toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
+
+
+                        adapter.notifyDataSetChanged();
+
+//                        Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        startActivity(intent);
+//                        finish();
                     }
                     spinnerCount++;
                 }
@@ -1110,6 +1122,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             });
 
             Spinner fontSize = (Spinner) pw.getContentView().findViewById(R.id.font_size_spinner);
+            fontSize.setVisibility(View.GONE);
+
             // Create an ArrayAdapter using the string array and a default spinner layout
             ArrayAdapter<CharSequence> fontSizeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.font_size_list_titles, android.R.layout.simple_spinner_item);
             // Specify the layout to use when the list of choices appears
@@ -1128,7 +1142,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 }
             }
             fontSize.setSelection(pos);
-
             fontSize.setOnItemSelectedListener(new OnItemSelectedListener() {
                 int spinnerCount = 0;
 
@@ -1152,6 +1165,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             });
 
             Spinner varfontSize = (Spinner) pw.getContentView().findViewById(R.id.var_font_size_spinner);
+            varfontSize.setVisibility(View.GONE);
+
             // Create an ArrayAdapter using the string array and a default spinner layout
             ArrayAdapter<CharSequence> varfontSizeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.font_size_list_titles, android.R.layout.simple_spinner_item);
             // Specify the layout to use when the list of choices appears
@@ -1170,7 +1185,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             }
 
             varfontSize.setSelection(varpos);
-
             varfontSize.setOnItemSelectedListener(new OnItemSelectedListener() {
 
                 int spinnerCount = 0;
@@ -1194,6 +1208,118 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 }
 
             });
+
+
+            TextView fontSizeMinus = (TextView) pw.getContentView().findViewById(R.id.text_smaller);
+            fontSizeMinus.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Integer fontSize = prefs.getInt("font_size_v2", 0);
+//                    Toast.makeText(getApplicationContext(), "fontSizeMinus" + fontSize, Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("font_size_v2", fontSize - 1);
+                    editor.commit();
+
+                    adapter.notifyDataSetChanged();
+//                    Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(intent);
+//                    finish();
+
+                }
+            });
+
+            TextView fontSizePlus = (TextView) pw.getContentView().findViewById(R.id.text_larger);
+            fontSizePlus.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Integer fontSize = prefs.getInt("font_size_v2", 0);
+//                    Toast.makeText(getApplicationContext(), "fontSizePlus" + fontSize, Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("font_size_v2", fontSize + 1);
+                    editor.commit();
+
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+            Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(), getResources().getString(R.string.glyphicons_file));
+            fontSizeMinus.setTypeface(tf);
+            fontSizePlus.setTypeface(tf);
+
+
+            final TextView leftJustify = (TextView) pw.getContentView().findViewById(R.id.left_justify);
+            final TextView centerJustify = (TextView) pw.getContentView().findViewById(R.id.center_justify);
+            final TextView rightJustify = (TextView) pw.getContentView().findViewById(R.id.right_justify);
+
+            leftJustify.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Integer justify = prefs.getInt("justify_v2", 0);
+//                    Toast.makeText(getApplicationContext(), "leftJustify" + 0, Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("justify_v2", 0);
+                    editor.commit();
+
+                    leftJustify.setTextColor(getResources().getColor(R.color.faqr_light_Background));
+                    centerJustify.setTextColor(getResources().getColor(R.color.faqr_dark_Background));
+                    rightJustify.setTextColor(getResources().getColor(R.color.faqr_dark_Background));
+
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+            centerJustify.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Integer justify = prefs.getInt("justify_v2", 0);
+//                    Toast.makeText(getApplicationContext(), "centerJustify" + 1, Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("justify_v2", 1);
+                    editor.commit();
+
+                    leftJustify.setTextColor(getResources().getColor(R.color.faqr_dark_Background));
+                    centerJustify.setTextColor(getResources().getColor(R.color.faqr_light_Background));
+                    rightJustify.setTextColor(getResources().getColor(R.color.faqr_dark_Background));
+
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+            rightJustify.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Integer justify = prefs.getInt("justify_v2", 0);
+//                    Toast.makeText(getApplicationContext(), "rightJustify" + 2, Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("justify_v2", 2);
+                    editor.commit();
+
+                    leftJustify.setTextColor(getResources().getColor(R.color.faqr_dark_Background));
+                    centerJustify.setTextColor(getResources().getColor(R.color.faqr_dark_Background));
+                    rightJustify.setTextColor(getResources().getColor(R.color.faqr_light_Background));
+
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+            Integer justify = prefs.getInt("justify_v2", 0);
+            if (justify == 0) {
+                leftJustify.setTextColor(getResources().getColor(R.color.faqr_light_Background));
+            } else if (justify == 1) {
+                centerJustify.setTextColor(getResources().getColor(R.color.faqr_light_Background));
+            } else {
+                rightJustify.setTextColor(getResources().getColor(R.color.faqr_light_Background));
+            }
+
+            leftJustify.setTypeface(tf);
+            centerJustify.setTypeface(tf);
+            rightJustify.setTypeface(tf);
 
             // quit dialog
             // AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -1512,7 +1638,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     }
                 }
                 if (monoFontSize.equalsIgnoreCase("auto")) {
-                    nameView.setTextSize(Float.valueOf(autoMonoFontSize));
+
+                    // V2 font size
+                    Integer fontSize = prefs.getInt("font_size_v2", 0);
+                    nameView.setTextSize(Float.valueOf(autoMonoFontSize + fontSize));
+
                     // make bold for small fonts
                     if (autoMonoFontSize <= 7.0f) {
                         nameView.setTextAppearance(getApplicationContext(), R.style.MonoTextBold);
@@ -1525,10 +1655,24 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // nameView.setTypeface(tf);
 
                 // if (!line.startsWith("         ")) {
-                RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) nameView.getLayoutParams();
-                lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
-                lp.addRule(RelativeLayout.CENTER_VERTICAL);
-                nameView.setLayoutParams(lp);
+                Integer justify = prefs.getInt("justify_v2", 0);
+
+                if (justify == 0) {
+                    RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) nameView.getLayoutParams();
+                    lp.addRule(RelativeLayout.ALIGN_LEFT);
+                    lp.addRule(RelativeLayout.CENTER_VERTICAL);
+                    nameView.setLayoutParams(lp);
+                } else if (justify == 1) {
+                    RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) nameView.getLayoutParams();
+                    lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                    lp.addRule(RelativeLayout.CENTER_VERTICAL);
+                    nameView.setLayoutParams(lp);
+                } else {
+                    RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) nameView.getLayoutParams();
+                    lp.addRule(RelativeLayout.ALIGN_RIGHT);
+                    lp.addRule(RelativeLayout.CENTER_VERTICAL);
+                    nameView.setLayoutParams(lp);
+                }
                 // }
 
                 // nameView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
@@ -1556,13 +1700,21 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // auto font size
                 if (variableFontSize.equalsIgnoreCase("auto")) {
 
+                    Float varAutoMonoFontSize = 13.0f;
                     if (autoMonoFontSize <= 10.0f) {
-                        nameView.setTextSize(Float.valueOf("13.0f"));
+//                        varAutoMonoFontSize = 13.0f;
+                        varAutoMonoFontSize = autoMonoFontSize + 2.0f;
                     } else if (autoMonoFontSize >= 15.0f) {
-                        nameView.setTextSize(Float.valueOf("15.0f"));
+//                        varAutoMonoFontSize = 15.0f;
+                        varAutoMonoFontSize = autoMonoFontSize;
                     } else {
-                        nameView.setTextSize(Float.valueOf("14.0f"));
+//                        varAutoMonoFontSize = 14.0f;
+                        varAutoMonoFontSize = autoMonoFontSize;
                     }
+
+                    // V2 font size
+                    Integer fontSize = prefs.getInt("font_size_v2", 0);
+                    nameView.setTextSize(varAutoMonoFontSize + fontSize);
 
                 } else {
                     nameView.setTextSize(Float.valueOf(variableFontSize));
@@ -2249,6 +2401,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         protected void onPostExecute(String result) {
 
+            //Start the vibration
+            if (prefs.getBoolean("vibrate", getResources().getBoolean(R.bool.vibrate))) {
+                Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(20); // vibrate for 3 seconds (e.g 3000 milliseconds)
+            }
+
+
             String savedPosPlusOne = new Integer(Integer.valueOf(savedPos) + 1).toString();
 
             // if faqmarks
@@ -2701,13 +2860,49 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         mHideHandler.sendEmptyMessageDelayed(0, delayMillis);
     }
 
-    public int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
+    @Override
+    /** Called when the phone orientation is changed */
+    public void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
+
+        // forces the recalculation of the mono font size
+        autoMonoFontSize = -1.0f;
+        configureOrientation(config.orientation);
+    }
+
+    public void configureOrientation(int orientation) {
+        switch(orientation) {
+            case Configuration.ORIENTATION_LANDSCAPE:
+                setupLandscape();
+                break;
+            case Configuration.ORIENTATION_PORTRAIT:
+                setupPortrait();
+                break;
         }
-        return result;
+    }
+
+    /**
+     * Called when Portrait
+     */
+    public void setupPortrait() {
+        if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
+            params.setMargins(0, getStatusBarHeight(), 0, 0);
+            toolbar.setLayoutParams(params);
+        }
+
+    }
+
+    /**
+     * Called when landscape
+     */
+    public void setupLandscape() {
+        if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
+            params.setMargins(0, getStatusBarHeight(), getNavigationBarHeight(), 0);
+            toolbar.setLayoutParams(params);
+        }
+
     }
 
     public void setFind(boolean status) {

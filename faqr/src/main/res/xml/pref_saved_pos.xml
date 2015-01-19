@@ -72,4 +72,12 @@
         android:title="@string/quit_confirmation_title" />
     -->
 
+
+    <!--  -->
+    <CheckBoxPreference
+        android:defaultValue="@bool/vibrate"
+        android:key="vibrate"
+        android:summary="@string/vibrate_summary"
+        android:title="@string/vibrate_title" />
+
 </PreferenceScreen>

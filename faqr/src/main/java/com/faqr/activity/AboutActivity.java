@@ -11,7 +11,10 @@ import android.text.util.Linkify;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.faqr.FaqrApp;
 import com.faqr.R;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 
 /**
@@ -74,13 +77,11 @@ public class AboutActivity extends BaseActivity {
         // EasyTracker.getInstance(this).activityStart(this); // Add this method.
 
         // Get tracker.
-//        Tracker t = ((FaqrApp) getApplication()).getTracker(FaqrApp.TrackerName.GLOBAL_TRACKER);
-
+        Tracker t = ((FaqrApp) getApplication()).getTracker(FaqrApp.TrackerName.GLOBAL_TRACKER);
         // Set screen name.
-//        t.setScreenName(getClass().getName());
-
+        t.setScreenName(getClass().getName());
         // Send a screen view.
-//        t.send(new HitBuilders.AppViewBuilder().build());
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override

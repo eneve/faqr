@@ -43,6 +43,28 @@
     <!-- 79 characters/line is the traditional standard for ASCII text files -->
     <string name="standard_width">===============================================================================</string>
 
+    <!-- Glyphicons -->
+
+    <string name="glyphicons_file">fonts/glyphicons-regular.ttf</string>
+
+    <string name="icon_checked">\ue153</string>
+    <string name="icon_unchecked">\ue154</string>
+    <string name="icon_thumbs_up">\ue344</string>
+    <string name="icon_user">\ue004</string>
+    <string name="icon_exercise">\ue592</string>
+    <string name="icon_conversation">\ue245</string>
+    <string name="icon_headset">\ue078</string>
+    <string name="icon_exit">\ue389</string>
+    <string name="icon_chevron_right">\ue224</string>
+    <string name="icon_chevron_left">\ue225</string>
+
+    <string name="icon_text_smaller">\ue116</string>
+    <string name="icon_text_bigger">\ue117</string>
+
+    <string name="icon_left_justify">\ue111</string>
+    <string name="icon_right_justify">\ue113</string>
+    <string name="icon_center_justify">\ue112</string>
+
 
     <!-- v2 -->
     <string name="title_activity_nav">NavActivity</string>

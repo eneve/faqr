@@ -4,14 +4,17 @@
 
 package com.faqr.activity;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
+import com.faqr.FaqrApp;
 import com.faqr.R;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 /**
  * This Activity determines which activity to forward to on app start
@@ -33,6 +36,14 @@ public class MainActivity extends BaseActivity {
         // ActionBar actionBar = getSupportActionBar();
         // actionBar.setDisplayHomeAsUpEnabled(true);
         // }
+
+        ///////////////////////////////
+        /// TODO SET SOME DEFAULTS FOR V2
+        //////////////////////////////////////////////////
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("mono_font_size", "Auto");
+        editor.putString("variable_font_size", "Auto");
+        editor.commit();
 
 
         // get the current FAQ
@@ -68,7 +79,14 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-//        EasyTracker.getInstance(this).activityStart(this); // Add this method.
+        // EasyTracker.getInstance(this).activityStart(this); // Add this method.
+
+        // Get tracker.
+        Tracker t = ((FaqrApp) getApplication()).getTracker(FaqrApp.TrackerName.GLOBAL_TRACKER);
+        // Set screen name.
+        t.setScreenName(getClass().getName());
+        // Send a screen view.
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override

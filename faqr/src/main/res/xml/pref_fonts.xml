@@ -12,15 +12,15 @@
         android:title="@string/typeface_title" />
     
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
-    <ListPreference
-        android:defaultValue="@string/mono_font_size_default"
-        android:entries="@array/font_size_list_titles"
-        android:entryValues="@array/font_size_list_values"
-        android:key="mono_font_size"
-        android:negativeButtonText="@string/cancel"
-        android:positiveButtonText="@null"
-        android:summary="@string/mono_font_size_summary"
-        android:title="@string/mono_font_size_title" />
+    <!--<ListPreference-->
+        <!--android:defaultValue="@string/mono_font_size_default"-->
+        <!--android:entries="@array/font_size_list_titles"-->
+        <!--android:entryValues="@array/font_size_list_values"-->
+        <!--android:key="mono_font_size"-->
+        <!--android:negativeButtonText="@string/cancel"-->
+        <!--android:positiveButtonText="@null"-->
+        <!--android:summary="@string/mono_font_size_summary"-->
+        <!--android:title="@string/mono_font_size_title" />-->
 
     <!--  -->
     <!-- <CheckBoxPreference
@@ -30,15 +30,15 @@
         android:title="@string/use_variable_font_title" /> -->
 
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
-    <ListPreference
-        android:defaultValue="@string/variable_font_size_default"
-        android:entries="@array/font_size_list_titles"
-        android:entryValues="@array/font_size_list_values"
-        android:key="variable_font_size"
-        android:negativeButtonText="@string/cancel"
-        android:positiveButtonText="@null"
-        android:summary="@string/variable_font_size_summary"
-        android:title="@string/variable_font_size_title" />
+    <!--<ListPreference-->
+        <!--android:defaultValue="@string/variable_font_size_default"-->
+        <!--android:entries="@array/font_size_list_titles"-->
+        <!--android:entryValues="@array/font_size_list_values"-->
+        <!--android:key="variable_font_size"-->
+        <!--android:negativeButtonText="@string/cancel"-->
+        <!--android:positiveButtonText="@null"-->
+        <!--android:summary="@string/variable_font_size_summary"-->
+        <!--android:title="@string/variable_font_size_title" />-->
 
     <!-- <CheckBoxPreference
         android:defaultValue="@bool/use_serif_font_default"

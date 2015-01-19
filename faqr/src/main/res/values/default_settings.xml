@@ -50,4 +50,9 @@
 
     <bool name="use_serif_font_default">false</bool>
 
+    <!-- v2 defaults -->
+
+    <bool name="vibrate">true</bool>
+
+
 </resources>

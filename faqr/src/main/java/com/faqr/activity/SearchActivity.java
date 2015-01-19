@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.faqr.FaqrApp;
 import com.faqr.R;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.io.File;
 
@@ -207,7 +209,14 @@ public class SearchActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-//        EasyTracker.getInstance(this).activityStart(this); // Add this method.
+        // EasyTracker.getInstance(this).activityStart(this); // Add this method.
+
+        // Get tracker.
+        Tracker t = ((FaqrApp) getApplication()).getTracker(FaqrApp.TrackerName.GLOBAL_TRACKER);
+        // Set screen name.
+        t.setScreenName(getClass().getName());
+        // Send a screen view.
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override

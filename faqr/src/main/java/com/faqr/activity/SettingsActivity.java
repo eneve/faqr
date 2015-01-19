@@ -31,7 +31,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.faqr.FaqrApp;
 import com.faqr.R;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.List;
 
@@ -115,7 +118,14 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     @Override
     public void onStart() {
         super.onStart();
-//        EasyTracker.getInstance(this).activityStart(this); // Add this method.
+        // EasyTracker.getInstance(this).activityStart(this); // Add this method.
+
+        // Get tracker.
+        Tracker t = ((FaqrApp) getApplication()).getTracker(FaqrApp.TrackerName.GLOBAL_TRACKER);
+        // Set screen name.
+        t.setScreenName(getClass().getName());
+        // Send a screen view.
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
@@ -192,20 +202,20 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         }
 
         // if (key.equals("mono_font_size")) {
-        String monoFont = preferences.getString("mono_font_size", "1");
-        if (monoFont.equals("Auto"))
-            getPreferenceScreen().findPreference("mono_font_size").setSummary(monoFont);
-        else
-            getPreferenceScreen().findPreference("mono_font_size").setSummary(monoFont + " pt");
-        // }
+//        String monoFont = preferences.getString("mono_font_size", "1");
+//        if (monoFont.equals("Auto"))
+//            getPreferenceScreen().findPreference("mono_font_size").setSummary(monoFont);
+//        else
+//            getPreferenceScreen().findPreference("mono_font_size").setSummary(monoFont + " pt");
+//        // }
 
         // if (key.equals("variable_font_size")) {
-        String variableFont = preferences.getString("variable_font_size", "1");
-        if (variableFont.equals("Auto"))
-            getPreferenceScreen().findPreference("variable_font_size").setSummary(variableFont);
-        else
-            getPreferenceScreen().findPreference("variable_font_size").setSummary(variableFont + " pt");
-        // }
+//        String variableFont = preferences.getString("variable_font_size", "1");
+//        if (variableFont.equals("Auto"))
+//            getPreferenceScreen().findPreference("variable_font_size").setSummary(variableFont);
+//        else
+//            getPreferenceScreen().findPreference("variable_font_size").setSummary(variableFont + " pt");
+//        // }
 
         // auto-rotate screen set summary
         if (preferences.getString("highlight_faqmark", "1").equals("1")) {

@@ -90,6 +90,10 @@
         <item>20</item>
     </string-array>
 
+
+    <string name="vibrate_title">Vibrate</string>
+    <string name="vibrate_summary">Vibrate when location is saved</string>
+
     <!-- screen -->
     <string name="pref_header_screen">Display</string>
     
