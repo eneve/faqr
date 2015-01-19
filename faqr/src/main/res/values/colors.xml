@@ -22,6 +22,9 @@
     <item name="black" type="color">#FF000000</item>
 
 
+    <item name="sepia_text" type="color">#FF645032</item>
+    <item name="sepia_Background" type="color">#FFECE1CA</item>
+
     <!--
 
 

@@ -363,9 +363,9 @@ public class BaseActivity extends ActionBarActivity {
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
             //            setTheme(R.style.Appnewlighttheme);
 
-            themeColor = getResources().getColor(R.color.primary);
-            themeTextColor = getResources().getColor(R.color.faqr_dark_Background);
-            themeBackgroundColor = getResources().getColor(R.color.faqr_light_Background);
+            themeColor = getResources().getColor(R.color.sepia_theme_color);
+            themeTextColor = getResources().getColor(R.color.sepia_text);
+            themeBackgroundColor = getResources().getColor(R.color.sepia_Background);
             // themeColor = getResources().getColor(R.color.sepia_theme_color);
             // themeBackgroundColor = getResources().getColor(R.color.sepia_theme_color);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_sepia_corner);

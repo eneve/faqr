@@ -164,6 +164,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     // our webview
     private WebView webView;
     private boolean webViewActive = false;
+    private CookieManager cookieManager;
+
 
     private float autoMonoFontSize = -1.0f;
 
@@ -203,7 +205,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         // }
 
         setContentView(R.layout.activity_faq);
-
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -257,8 +258,20 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             }
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
 //            bg = (RelativeLayout) findViewById(R.id.bg);
-            bg.setBackgroundColor(0xFFECE1CA);
-            themeColor = getResources().getColor(R.color.sepia_theme_color);
+//            bg.setBackgroundColor(0xFFECE1CA);
+//            themeColor = getResources().getColor(R.color.sepia_theme_color);
+
+            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+//                setTheme(R.style.AppDarkOverlayTheme);
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
+                params.setMargins(0, getStatusBarHeight(), 0, 0);
+                toolbar.setLayoutParams(params);
+            } else {
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
+                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+                bg.setLayoutParams(params);
+            }
 
         }
 
@@ -479,7 +492,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         // Cookie sessionCookie = myapp.cookie;
         CookieSyncManager.createInstance(this);
-        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager = CookieManager.getInstance();
         // if (sessionCookie != null) {
         // cookieManager.removeSessionCookie();
         // String cookieString = sessionCookie.getName() + "=" + sessionCookie.getValue() + "; domain=" + sessionCookie.getDomain();
@@ -712,6 +725,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     // }
                 }
             });
+
+            configureOrientation(this.getResources().getConfiguration().orientation);
 
             showSystemUI();
         }
@@ -1064,7 +1079,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                         toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
                         adapter.notifyDataSetChanged();
 
-                        // TODO WEBVIEW DOESN'T UPDATE WITH THEME YET
+                        // set webView css
+                        cookieManager.setCookie(".gamefaqs.com", "css_color=" + themeCssColor + "; Domain=.gamefaqs.com");
+                        webView.loadUrl(currFaqMeta[5].trim());
 //                        Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
 //                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                        startActivity(intent);
@@ -1204,10 +1221,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 @Override
                 public void onClick(View v) {
                     Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
-                    fontSize = fontSize > 5 ? fontSize - 1 : fontSize;
+
+                    // 7 seems to the limit before it gets weird
+                    fontSize = fontSize > -7 ? fontSize - 1 : fontSize;
+//                    Toast.makeText(getApplicationContext(), "fontSize" + fontSize, Toast.LENGTH_SHORT).show();
 
                     SharedPreferences.Editor editor = prefs.edit();
-                    editor.putInt("font_size_v2", fontSize - 1);
+                    editor.putInt("font_size_v2", fontSize);
                     editor.commit();
 
                     adapter.notifyDataSetChanged();
@@ -1219,7 +1239,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 @Override
                 public void onClick(View v) {
                     Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
-                    fontSize = fontSize < 32 ? fontSize + 1 : fontSize;
+
+                    fontSize = fontSize < 7 ? fontSize + 1 : fontSize;
 
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("font_size_v2", fontSize);
@@ -1724,13 +1745,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             }
 
             // sepia text color
-            if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
-            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
-            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
-            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
-                nameView.setTextColor(0xFF645032);
-            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("5")) {
-            }
+//            if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
+//            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
+//            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
+//            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
+//                nameView.setTextColor(0xFF645032);
+//            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("5")) {
+//            }
 
             // theme goodness
             nameView.setTextColor(themeTextColor);
@@ -2385,12 +2406,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         protected void onPostExecute(String result) {
 
-            //Start the vibration
+            // vibrate dat
             if (prefs.getBoolean("vibrate", getResources().getBoolean(R.bool.vibrate_default))) {
                 Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(10); // vibrate for 3 seconds (e.g 3000 milliseconds)
             }
-
 
             String savedPosPlusOne = new Integer(Integer.valueOf(savedPos) + 1).toString();
 

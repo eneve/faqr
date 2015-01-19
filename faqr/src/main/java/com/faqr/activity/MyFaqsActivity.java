@@ -1107,7 +1107,7 @@ public class MyFaqsActivity extends BaseActivity {
 
             // fancy animations
             listView.setVisibility(View.VISIBLE);
-            loading.setVisibility(View.GONE);
+//            loading.setVisibility(View.GONE);
 
             Animation fadeInAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_anim);
             Animation fadeOutAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_anim);
