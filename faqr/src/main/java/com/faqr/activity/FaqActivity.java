@@ -1081,7 +1081,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                         // set webView css
                         cookieManager.setCookie(".gamefaqs.com", "css_color=" + themeCssColor + "; Domain=.gamefaqs.com");
-                        webView.loadUrl(currFaqMeta[5].trim());
+                        if (webViewActive)
+                            webView.loadUrl(currFaqMeta[5].trim());
 //                        Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
 //                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                        startActivity(intent);
@@ -1677,8 +1678,10 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                 if (justify == 0) {
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) nameView.getLayoutParams();
-                    lp.addRule(RelativeLayout.ALIGN_LEFT);
+                    lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
                     lp.addRule(RelativeLayout.CENTER_VERTICAL);
+                    lp.setMargins(16, 0, 8, 0);
+//                    nameView.setPadding(0, 8, 0, 8);
                     nameView.setLayoutParams(lp);
                 } else if (justify == 1) {
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) nameView.getLayoutParams();
@@ -1687,8 +1690,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     nameView.setLayoutParams(lp);
                 } else {
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) nameView.getLayoutParams();
-                    lp.addRule(RelativeLayout.ALIGN_RIGHT);
+                    lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                     lp.addRule(RelativeLayout.CENTER_VERTICAL);
+                    lp.setMargins(8, 0, 16, 0);
                     nameView.setLayoutParams(lp);
                 }
                 // }
@@ -1696,7 +1700,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // nameView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
                 // nameView.setGravity( Gravity.CENTER | Gravity.CENTER);
-                view.setPadding(0, 10, 0, 10);
+                view.setPadding(0, 8, 0, 8);
 
             } else if (prefs.getString("typeface", getResources().getString(R.string.typeface_default)).equals("2") || prefs.getString("typeface", getResources().getString(R.string.typeface_default)).equals("3")) {
 
@@ -1738,7 +1742,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     nameView.setTextSize(Float.valueOf(variableFontSize));
                 }
 
-                view.setPadding(10, 10, 10, 10);
+                view.setPadding(8, 8, 8, 8);
             }
 
             // set the text

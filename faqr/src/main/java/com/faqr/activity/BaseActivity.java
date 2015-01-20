@@ -71,7 +71,7 @@ public class BaseActivity extends ActionBarActivity {
         // extras
         extras = getIntent().getExtras();
 
-
+        // theme independent colors
         primaryColor = getResources().getColor(R.color.primary);
         primaryDarkColor = getResources().getColor(R.color.primary_dark);
         accentColor = getResources().getColor(R.color.accent);
@@ -334,7 +334,11 @@ public class BaseActivity extends ActionBarActivity {
         return result;
     }
 
-
+    /**
+     * THEME!!!
+     *
+     *
+     */
     public void setThemeColors() {
         if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
             themeColor = getResources().getColor(R.color.gamefaqs_dark_color);

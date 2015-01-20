@@ -35,7 +35,7 @@ public class AboutActivity extends BaseActivity {
         }
 
 //        toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
-
+//
         // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
