@@ -2425,7 +2425,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             // vibrate dat
             if (prefs.getBoolean("vibrate", getResources().getBoolean(R.bool.vibrate_default))) {
                 Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-                vibrator.vibrate(30); // vibrate for 3 seconds (e.g 3000 milliseconds)
+                vibrator.vibrate(50); // vibrate for 3 seconds (e.g 3000 milliseconds)
             }
 
             String savedPosPlusOne = new Integer(Integer.valueOf(savedPos) + 1).toString();
