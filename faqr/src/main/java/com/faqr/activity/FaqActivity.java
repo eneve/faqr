@@ -1224,7 +1224,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
 
                     // 7 seems to the limit before it gets weird
-                    fontSize = fontSize > -7 ? fontSize - 1 : fontSize;
+                    fontSize = fontSize > -6 ? fontSize - 1 : fontSize;
 //                    Toast.makeText(getApplicationContext(), "fontSize" + fontSize, Toast.LENGTH_SHORT).show();
 
                     SharedPreferences.Editor editor = prefs.edit();
@@ -1241,7 +1241,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 public void onClick(View v) {
                     Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
 
-                    fontSize = fontSize < 7 ? fontSize + 1 : fontSize;
+                    fontSize = fontSize < 8 ? fontSize + 1 : fontSize;
 
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("font_size_v2", fontSize);
@@ -1680,7 +1680,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) nameView.getLayoutParams();
                     lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
                     lp.addRule(RelativeLayout.CENTER_VERTICAL);
-                    lp.setMargins(16, 0, 8, 0);
+                    lp.setMargins(16, 0, 0, 0);
 //                    nameView.setPadding(0, 8, 0, 8);
                     nameView.setLayoutParams(lp);
                 } else if (justify == 1) {
@@ -1692,7 +1692,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) nameView.getLayoutParams();
                     lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                     lp.addRule(RelativeLayout.CENTER_VERTICAL);
-                    lp.setMargins(8, 0, 16, 0);
+                    lp.setMargins(0, 0, 16, 0);
                     nameView.setLayoutParams(lp);
                 }
                 // }
@@ -1722,17 +1722,14 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // auto font size
                 if (variableFontSize.equalsIgnoreCase("auto")) {
 
-                    Float varAutoMonoFontSize = 13.0f;
-                    if (autoMonoFontSize <= 10.0f) {
-//                        varAutoMonoFontSize = 13.0f;
-                        varAutoMonoFontSize = autoMonoFontSize + 2.0f;
-                    } else if (autoMonoFontSize >= 15.0f) {
-//                        varAutoMonoFontSize = 15.0f;
-                        varAutoMonoFontSize = autoMonoFontSize;
-                    } else {
-//                        varAutoMonoFontSize = 14.0f;
-                        varAutoMonoFontSize = autoMonoFontSize;
-                    }
+//                    Float varAutoMonoFontSize = 13.0f;
+//                    if (autoMonoFontSize <= 15.0f) {
+//                        varAutoMonoFontSize = autoMonoFontSize + 2.0f;
+//                    } else {
+////                        varAutoMonoFontSize = 14.0f;
+//                        varAutoMonoFontSize = autoMonoFontSize;
+//                    }
+                    Float varAutoMonoFontSize = autoMonoFontSize + 2.5f;
 
                     // V2 font size
                     Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
@@ -2425,7 +2422,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             // vibrate dat
             if (prefs.getBoolean("vibrate", getResources().getBoolean(R.bool.vibrate_default))) {
                 Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-                vibrator.vibrate(50); // vibrate for 3 seconds (e.g 3000 milliseconds)
+                vibrator.vibrate(25); // vibrate for 3 seconds (e.g 3000 milliseconds)
             }
 
             String savedPosPlusOne = new Integer(Integer.valueOf(savedPos) + 1).toString();
