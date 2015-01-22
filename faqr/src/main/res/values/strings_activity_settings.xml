@@ -103,8 +103,8 @@
     <string name="use_true_black_summary">Useful for AMOLED screens</string>
     <string name="use_lights_out_title">Use Low Profile</string>
     <string name="use_lights_out_summary">Dim the notification bar while reading</string>
-    <string name="use_immersive_mode_title">Use Immersive Mode</string>
-    <string name="use_immersive_mode_summary">Use immersive reading mode</string>
+    <string name="use_immersive_mode_title">Immersive Mode</string>
+    <string name="use_immersive_mode_summary">Use full screen reading mode</string>
     <string name="hide_status_bar_title">Hide Notification Bar</string>
     <string name="hide_status_bar_summary">Hide the notification bar</string>
     <string name="hide_status_bar_land_title">Hide Notification Bar Landscape</string>
