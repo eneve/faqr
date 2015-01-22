@@ -142,6 +142,9 @@ public class MyFaqsActivity extends BaseActivity {
         noResults = (LinearLayout) findViewById(R.id.no_results);
         noResults.setVisibility(View.GONE);
 
+        TextView noResultsText = (TextView) findViewById(R.id.no_results_text);
+        noResultsText.setTextColor(themeTextColor);
+
         /** called when a list item is clicked */
         // listView.setOnItemClickListener(sectionAdapter.itemClickListener);
         // listView.setOnLongClickListener(sectionAdapter.i)

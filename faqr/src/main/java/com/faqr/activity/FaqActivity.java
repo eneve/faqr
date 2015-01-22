@@ -2107,6 +2107,12 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // this will create a place holder file even tho we aren't using the fucking web archive which sux!
                 // webView.saveWebArchive(getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath());
 
+                // webview time!
+                webView.loadUrl(currFaqMeta[5].trim());
+
+                // this will create a place holder file even tho we aren't using the fucking web archive which sux!
+                webView.saveWebArchive(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
+
                 webViewActive = true;
 
                 File file = new File(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
