@@ -545,7 +545,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 hideWebViewMenuOptions = true;
                 if (null != menu) {
                     MenuItem opt = menu.findItem(R.id.action_search);
-                    opt.setVisible(false);
+//                    opt.setVisible(false);
                     // opt = menu.findItem(R.id.menu_goto);
                     // opt.setVisible(false);
                     opt = menu.findItem(R.id.menu_faqmarks);
@@ -935,7 +935,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // close the search view
                 // Toast.makeText(getApplicationContext(), "onQueryTextSubmit", Toast.LENGTH_SHORT).show();
                 // finalMenu.findItem(R.id.menu_search).collapseActionView();
-                new FindNextTask().execute(new String[] { query });
+                if (webViewActive) {
+                    webView.findAll(query);
+                } else {
+                    new FindNextTask().execute(new String[]{query});
+                }
                 return true;
             }
         });
@@ -945,6 +949,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 // Log.i(TAG, "onMenuItemActionCollapse " + item.getItemId());
+                if (webViewActive) {
+                    // clear the find
+                    webView.findAll("");
+                }
+
                 MenuItem prev = finalMenu.findItem(R.id.menu_prev);
                 prev.setVisible(false);
                 MenuItem next = finalMenu.findItem(R.id.menu_next);
@@ -998,7 +1007,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         // MenuItem gotoItem = menu.findItem(R.id.menu_goto);
         faqmarksItem = menu.findItem(R.id.menu_faqmarks);
         if (hideWebViewMenuOptions) {
-            findItem.setVisible(false);
+//            findItem.setVisible(false);
             // gotoItem.setVisible(false);
             faqmarksItem.setVisible(false);
         }
@@ -1364,11 +1373,20 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         case R.id.menu_prev:
             // find_prev();
-            new FindPrevTask().execute(new String[] {});
+            if (webViewActive) {
+                webView.findNext(false);
+            } else {
+                new FindPrevTask().execute(new String[]{});
+            }
             return true;
         case R.id.menu_next:
             // find_next();
-            new FindNextTask().execute(new String[] {});
+            if (webViewActive) {
+//                webView.findAll("");
+                webView.findNext(true);
+            } else {
+                new FindNextTask().execute(new String[]{});
+            }
             return true;
         case R.id.menu_goto_prev:
             // find_prev();
