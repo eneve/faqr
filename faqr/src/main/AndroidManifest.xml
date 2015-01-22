@@ -69,11 +69,7 @@
         <!-- android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" /> -->
         <activity
             android:name=".activity.NavActivity"
-            android:label="@string/title_activity_nav"
-            android:parentActivityName=".activity.BaseActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.faqr.activity.BaseActivity" />
+            android:label="@string/title_activity_nav" >
         </activity>
     </application>
 

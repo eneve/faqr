@@ -231,6 +231,7 @@ public class SearchResultsActivity extends BaseActivity {
                     intent.putExtra("game", game);
                     intent.putExtra("url", url);
                     startActivity(intent);
+//                    finish();
                 }
 
             }
@@ -267,11 +268,14 @@ public class SearchResultsActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        // if (this.getCurrentFocus() != null)
-        // this.getCurrentFocus().clearFocus();
-        //
-        // if (searchView != null)
-        // searchView.clearFocus();
+        // prevent the searchView from getting focus
+        listView.requestFocus();
+
+//        if (this.getCurrentFocus() != null)
+//            this.getCurrentFocus().clearFocus();
+//
+//        if (searchView != null)
+//            searchView.clearFocus();
     }
 
     /** Called when phone hard keys are pressed */

@@ -37,9 +37,9 @@ public class MainActivity extends BaseActivity {
         // actionBar.setDisplayHomeAsUpEnabled(true);
         // }
 
-        ///////////////////////////////
-        /// TODO SET SOME DEFAULTS FOR V2
-        //////////////////////////////////////////////////
+        /////////////////////////////////////////////////////
+        /// TODO SET SOME DEFAULTS FOR V2 - OVERRIDE EXISTING
+        /////////////////////////////////////////////////////
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("mono_font_size", "Auto");
         editor.putString("variable_font_size", "Auto");
