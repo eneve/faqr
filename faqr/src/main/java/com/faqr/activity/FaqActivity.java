@@ -652,6 +652,12 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 @Override
                 public void onSystemUiVisibilityChange(int flags) {
                     boolean visible = (flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+//                    boolean visible = (mDecorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+                    if (visible) {
+                        getSupportActionBar().show();
+                    } else {
+//                        showSystemUI();
+                    }
                     // controlsView.animate()
                     // .alpha(visible ? 1 : 0)
                     // .translationY(visible ? 0 : controlsView.getHeight());
