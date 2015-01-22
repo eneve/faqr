@@ -923,9 +923,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextChange(String s) {
+            public boolean onQueryTextChange(String query) {
                 // find_text_changed(s);
-                new FindTextChangedTask().execute(new String[] { s });
+                if (webViewActive) {
+                    webView.findAll(query);
+                } else {
+                    new FindNextTask().execute(new String[]{query});
+                }
 //                find = true;
                 return true;
             }
@@ -945,7 +949,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         });
 
         MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
-
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 // Log.i(TAG, "onMenuItemActionCollapse " + item.getItemId());
