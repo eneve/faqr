@@ -577,6 +577,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 }
 
                 getSupportActionBar().setIcon(android.R.color.transparent);
+
+                // inject javascript into the webview
+//                webView.loadUrl("javascript:(function() { " +
+//                    "document.getElementsByTagName('body')[0].style.color = 'red'; " +
+//                    "})()");
             }
 
             @Override
@@ -1895,8 +1900,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 prevCurrTime2 = currTime;
             }
 
-
-
             return view;
         }
     }
@@ -2837,6 +2840,16 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         }
     };
 
+    // Calculate the % of scroll progress in the actual web page content
+    // http://stackoverflow.com/questions/6855715/maintain-webview-content-scroll-position-on-orientation-change
+    private float calculateProgression(WebView content) {
+        float positionTopView = content.getTop();
+        float contentHeight = content.getContentHeight();
+        float currentScrollPosition = content.getScrollY();
+        float percentWebview = (currentScrollPosition - positionTopView) / contentHeight;
+        return percentWebview;
+    }
+
     // //////////////////////
     // / IMMERSIVE STUFF
 
@@ -2860,38 +2873,27 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
     private void hideSystemUI() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LOW_PROFILE | View.SYSTEM_UI_FLAG_IMMERSIVE);
-
+            mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE | View.SYSTEM_UI_FLAG_IMMERSIVE);
             getSupportActionBar().hide();
-
-
         } else if (!webViewActive) {
-
             mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
             // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
-
             // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
             getSupportActionBar().hide();
             // ActionBar actionBar = getSupportActionBar();
             // actionBar.hide();
         } else if (webViewActive) {
-
             mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
-
         }
     }
 
     private void showSystemUI() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-
             getSupportActionBar().show();
-
         } else  {
             // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             mDecorView.setSystemUiVisibility(0);
-
             getSupportActionBar().show();
             // ActionBar actionBar = getSupportActionBar();
             // actionBar.show();

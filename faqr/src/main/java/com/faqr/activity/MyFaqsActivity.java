@@ -75,10 +75,12 @@ public class MyFaqsActivity extends BaseActivity {
     private Menu menu;
 
     private SearchView searchView;
+    private ArrayAdapter<String> searchViewAdapter;
 
     // dialogs
     protected AlertDialog faqDialog;
     protected AlertDialog deleteConfirmDialog;
+    protected AlertDialog clearConfirmDialog;
     protected AlertDialog deleteAllConfirmDialog;
 
     @Override
@@ -273,9 +275,39 @@ public class MyFaqsActivity extends BaseActivity {
             }
         });
 
-        // delete all confirm dialog
+        // clear search history confirm dialog
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyFaqsActivity.this);
-        dialogBuilder.setMessage("Are you sure you want to delete all of your saved FAQs.").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        dialogBuilder.setMessage("Are you sure you want to clear your search history?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("recent_searches", "");
+                editor.commit();
+
+
+                String recentSearches = prefs.getString("recent_searches", "");
+                String[] split = recentSearches.split(" --- ");
+                final List<String> list = new ArrayList<String>();
+                Collections.addAll(list, split);
+                list.remove("");
+
+                final SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete) searchView.findViewById(R.id.search_src_text);
+                searchViewAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.simple_dropdown_item_1line_faqr, list);
+                searchAutoComplete.setAdapter(searchViewAdapter);
+
+
+
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // do nothing
+            }
+        });
+        clearConfirmDialog = dialogBuilder.create();
+
+        // delete all confirm dialog
+        dialogBuilder = new AlertDialog.Builder(MyFaqsActivity.this);
+        dialogBuilder.setMessage("Are you sure you want to delete all of your saved FAQs?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // start the delete all task
                 new DeleteAllTask().execute(new String[] {});
@@ -455,8 +487,8 @@ public class MyFaqsActivity extends BaseActivity {
 //        if (split.length == 1 && split[0].equals("")) {
 //            split = new String[]{};
 //        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_dropdown_item_1line_faqr, list);
-        searchAutoComplete.setAdapter(adapter);
+        searchViewAdapter = new ArrayAdapter<String>(this, R.layout.simple_dropdown_item_1line_faqr, list);
+        searchAutoComplete.setAdapter(searchViewAdapter);
 
         searchAutoComplete.setOnItemClickListener(new OnItemClickListener() {
 
@@ -594,6 +626,9 @@ public class MyFaqsActivity extends BaseActivity {
                 // finish();
                 // }
             }
+            return true;
+        case R.id.menu_clear:
+            clearConfirmDialog.show();
             return true;
         case R.id.menu_delete:
             deleteAllConfirmDialog.show();
@@ -1266,6 +1301,8 @@ public class MyFaqsActivity extends BaseActivity {
 
         @Override
         public int compare(File o1, File o2) {
+            // TODO there is a NPE here when the size is 6
+            // Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- Johnathan 'Zy' Sawyer --- 1.02 --- 1267K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211
             String[] faqsMeta1 = prefs.getString(o1.getName(), "").split(" --- ");
             String o1Name = faqsMeta1[6];
             String[] faqsMeta2 = prefs.getString(o2.getName(), "").split(" --- ");

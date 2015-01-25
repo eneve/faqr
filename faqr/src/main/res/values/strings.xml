@@ -29,6 +29,7 @@
     <string name="menu_about">About</string>
     <string name="menu_clear">Clear</string>
     <string name="close">Close</string>
+    <string name="menu_clear_history">Clear Search History</string>
     <string name="menu_delete">Delete All FAQs</string>
     <string name="menu_delete_faqmarks">Delete All FAQmarks</string>
     <string name="menu_sort">Sort FAQs</string>
