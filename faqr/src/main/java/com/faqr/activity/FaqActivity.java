@@ -218,62 +218,61 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         // theme goodness
         toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
-        if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
-
-            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                // setTheme(R.style.AppBlackOverlayTheme);
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-                params.setMargins(0, getStatusBarHeight(), 0, 0);
-                toolbar.setLayoutParams(params);
-            } else {
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
-                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-                bg.setLayoutParams(params);
-            }
-        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
-
-            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-//                setTheme(R.style.AppBlackOverlayTheme);
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-                params.setMargins(0, getStatusBarHeight(), 0, 0);
-                toolbar.setLayoutParams(params);
-            } else {
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
-                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-                bg.setLayoutParams(params);
-            }
-        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
-            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-//                setTheme(R.style.AppDarkOverlayTheme);
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-                params.setMargins(0, getStatusBarHeight(), 0, 0);
-                toolbar.setLayoutParams(params);
-            } else {
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
-                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-                bg.setLayoutParams(params);
-            }
-        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
-//            bg = (RelativeLayout) findViewById(R.id.bg);
-//            bg.setBackgroundColor(0xFFECE1CA);
-//            themeColor = getResources().getColor(R.color.sepia_theme_color);
-
-            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-//                setTheme(R.style.AppDarkOverlayTheme);
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-                params.setMargins(0, getStatusBarHeight(), 0, 0);
-                toolbar.setLayoutParams(params);
-            } else {
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
-                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-                bg.setLayoutParams(params);
-            }
-
-        }
+//        if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
+//
+//            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+//                // setTheme(R.style.AppBlackOverlayTheme);
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
+//                params.setMargins(0, getStatusBarHeight(), 0, 0);
+//                toolbar.setLayoutParams(params);
+//            } else {
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
+//                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//                bg.setLayoutParams(params);
+//            }
+//        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
+//
+//            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+////                setTheme(R.style.AppBlackOverlayTheme);
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
+//                params.setMargins(0, getStatusBarHeight(), 0, 0);
+//                toolbar.setLayoutParams(params);
+//            } else {
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
+//                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//                bg.setLayoutParams(params);
+//            }
+//        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
+//            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+////                setTheme(R.style.AppDarkOverlayTheme);
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
+//                params.setMargins(0, getStatusBarHeight(), 0, 0);
+//                toolbar.setLayoutParams(params);
+//            } else {
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
+//                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//                bg.setLayoutParams(params);
+//            }
+//        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
+////            bg = (RelativeLayout) findViewById(R.id.bg);
+////            bg.setBackgroundColor(0xFFECE1CA);
+////            themeColor = getResources().getColor(R.color.sepia_theme_color);
+//
+//            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+////                setTheme(R.style.AppDarkOverlayTheme);
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
+//                params.setMargins(0, getStatusBarHeight(), 0, 0);
+//                toolbar.setLayoutParams(params);
+//            } else {
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
+//                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//                bg.setLayoutParams(params);
+//            }
+//        }
 
 
         // show back if we came from search
@@ -582,6 +581,46 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 //                webView.loadUrl("javascript:(function() { " +
 //                    "document.getElementsByTagName('body')[0].style.color = 'red'; " +
 //                    "})()");
+
+
+                assert view != null;
+                view.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        String currFaq = prefs.getString("curr_faq", "");
+                        // currFaq example
+                        // http___m_gamefaqs_com_psp_615911-final-fantasy-iv-the-complete-collection_faqs_62211
+                        String faqMeta = prefs.getString(prefs.getString("curr_faq", ""), "");
+
+                        // set last read date
+//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
+//                        SharedPreferences.Editor editor = prefs.edit();
+//                        editor.putString(prefs.getString("curr_faq", "") + "___last_read", sdf.format(new Date()));
+
+                        // faqMeta example
+                        // Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- Johnathan 'Zy' Sawyer --- 1.02 --- 1267K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211
+                        Log.w(TAG, "-----------------------------");
+                        Log.w(TAG, currFaq);
+                        Log.w(TAG, faqMeta);
+                        Log.w(TAG, "-----------------------------");
+                        String[] currFaqMeta = faqMeta.split(" --- ");
+//
+//
+                        int position = prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0);
+
+
+                        float webviewsize = webView.getContentHeight() - webView.getTop();
+                        float positionInWV = webviewsize * 500;
+                        int positionY = Math.round(webView.getTop() + positionInWV);
+                        webView.scrollTo(0, position);
+                    }
+                    // Delay the scrollTo to make it work
+                }, 300);
+
+
+                listView.setSelectionFromTop(prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0), getActionBarHeight() + getStatusBarHeight());
+
             }
 
             @Override
@@ -648,6 +687,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             startActivity(intent);
             finish();
         }
+
+        // configure orientation
+        configureOrientation(this.getResources().getConfiguration().orientation);
 
         // immersive webview
         mDecorView = getWindow().getDecorView();
@@ -736,8 +778,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     // }
                 }
             });
-
-            configureOrientation(this.getResources().getConfiguration().orientation);
 
             showSystemUI();
         }
@@ -1062,8 +1102,18 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()) {
 
+        // Save the web scroll position
+        if (webViewActive) {
+//            editor = prefs.edit();
+//            String scrollY = new Integer(webView.getScrollY()).toString();
+//            Toast.makeText(getApplicationContext(), scrollY, Toast.LENGTH_SHORT).show();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", webView.getScrollY());
+            editor.commit();
+        }
+
+        switch (item.getItemId()) {
         case R.id.menu_display_options:
 
             View menuItemView = findViewById(R.id.bg); // SAME ID AS MENU ID
@@ -1104,8 +1154,18 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                         // set webView css
                         cookieManager.setCookie(".gamefaqs.com", "css_color=" + themeCssColor + "; Domain=.gamefaqs.com");
-                        if (webViewActive)
+                        if (webViewActive) {
+
+//                            String scrollY = new Integer(webView.getScrollY()).toString();
+//                            Toast.makeText(getApplicationContext(), scrollY, Toast.LENGTH_SHORT).show();
+//
+//                            editor = prefs.edit();
+//                            editor.putInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", webView.getScrollY());
+//                            editor.commit();
+
+
                             webView.loadUrl(currFaqMeta[5].trim());
+                        }
 //                        Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
 //                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                        startActivity(intent);
@@ -1561,7 +1621,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                 return true;
             }
-
             if (extras == null || (extras != null && extras.getBoolean("from_search") != true)) {
                 intent = new Intent(this, MyFaqsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -2875,15 +2934,19 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE | View.SYSTEM_UI_FLAG_IMMERSIVE);
             getSupportActionBar().hide();
-        } else if (!webViewActive) {
-            mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
-            // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
-            // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-            getSupportActionBar().hide();
-            // ActionBar actionBar = getSupportActionBar();
-            // actionBar.hide();
-        } else if (webViewActive) {
-            mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
+        } else {
+            if (!webViewActive) {
+                mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+                // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
+                // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+                getSupportActionBar().hide();
+                // ActionBar actionBar = getSupportActionBar();
+                // actionBar.hide();
+            } else if (webViewActive) {
+//                mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
+                mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+//                getSupportActionBar().hide();
+            }
         }
     }
 
@@ -2937,24 +3000,44 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
      * Called when Portrait
      */
     public void setupPortrait() {
-        if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-            params.setMargins(0, getStatusBarHeight(), 0, 0);
-            toolbar.setLayoutParams(params);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+//                setTheme(R.style.AppDarkOverlayTheme);
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
+                params.setMargins(0, getStatusBarHeight(), 0, 0);
+                toolbar.setLayoutParams(params);
+            } else {
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getRootView().getLayoutParams();
+                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+                toolbar.getRootView().setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+                toolbar.getRootView().setLayoutParams(params);
+            }
+        } else {
+//            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getRootView().getLayoutParams();
+//            params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//            toolbar.getRootView().setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//            toolbar.getRootView().setLayoutParams(params);
         }
-
     }
 
     /**
      * Called when landscape
      */
     public void setupLandscape() {
-        if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-            params.setMargins(0, getStatusBarHeight(), getNavigationBarHeight(), 0);
-            toolbar.setLayoutParams(params);
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
+                params.setMargins(0, getStatusBarHeight(), getNavigationBarHeight(), 0);
+                toolbar.setLayoutParams(params);
+            }else {
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getRootView().getLayoutParams();
+                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+                toolbar.getRootView().setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+                toolbar.getRootView().setLayoutParams(params);
+            }
+        } else {
 
+        }
     }
 
     public void setFind(boolean status) {
