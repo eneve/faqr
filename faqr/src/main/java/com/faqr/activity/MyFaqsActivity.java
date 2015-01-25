@@ -1303,11 +1303,15 @@ public class MyFaqsActivity extends BaseActivity {
         public int compare(File o1, File o2) {
             // TODO there is a NPE here when the size is 6
             // Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- Johnathan 'Zy' Sawyer --- 1.02 --- 1267K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211
-            String[] faqsMeta1 = prefs.getString(o1.getName(), "").split(" --- ");
-            String o1Name = faqsMeta1[6];
-            String[] faqsMeta2 = prefs.getString(o2.getName(), "").split(" --- ");
-            String o2Name = faqsMeta2[6];
-            return (o1Name.compareTo(o2Name));
+            try {
+                String[] faqsMeta1 = prefs.getString(o1.getName(), "").split(" --- ");
+                String[] faqsMeta2 = prefs.getString(o2.getName(), "").split(" --- ");
+                String o1Name = faqsMeta1[6];
+                String o2Name = faqsMeta2[6];
+                return (o1Name.compareTo(o2Name));
+            } catch (Exception e) {
+                return (o1.getName().compareTo(o2.getName()));
+            }
         }
     }
 

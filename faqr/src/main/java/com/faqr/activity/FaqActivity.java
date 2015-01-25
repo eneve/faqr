@@ -605,10 +605,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                         Log.w(TAG, faqMeta);
                         Log.w(TAG, "-----------------------------");
                         String[] currFaqMeta = faqMeta.split(" --- ");
-//
-//
-                        int position = prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0);
 
+                        int position = prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0);
 
                         float webviewsize = webView.getContentHeight() - webView.getTop();
                         float positionInWV = webviewsize * 500;
@@ -1164,7 +1162,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 //                            editor.commit();
 
 
-                            webView.loadUrl(currFaqMeta[5].trim());
+                            webView.reload(); //loadUrl(currFaqMeta[5].trim());
                         }
 //                        Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
 //                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -2197,7 +2195,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // webView.saveWebArchive(getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath());
 
                 // webview time!
-                webView.loadUrl(currFaqMeta[5].trim());
+                webView.loadUrl(currFaqMeta[5].trim()); // + "?single=1");
 
                 // this will create a place holder file even tho we aren't using the fucking web archive which sux!
                 webView.saveWebArchive(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
@@ -2339,7 +2337,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 }
 
                 // webview time!
-                webView.loadUrl(currFaqMeta[5].trim());
+                webView.loadUrl(currFaqMeta[5].trim()); // + "?single=1");
 
             } else {
 
@@ -3007,10 +3005,10 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 params.setMargins(0, getStatusBarHeight(), 0, 0);
                 toolbar.setLayoutParams(params);
             } else {
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getRootView().getLayoutParams();
-                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-                toolbar.getRootView().setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-                toolbar.getRootView().setLayoutParams(params);
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getRootView().getLayoutParams();
+//                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//                toolbar.getRootView().setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//                toolbar.getRootView().setLayoutParams(params);
             }
         } else {
 //            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getRootView().getLayoutParams();
