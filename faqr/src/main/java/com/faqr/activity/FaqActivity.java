@@ -582,39 +582,42 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 //                    "document.getElementsByTagName('body')[0].style.color = 'red'; " +
 //                    "})()");
 
-
-                assert view != null;
-                view.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        String currFaq = prefs.getString("curr_faq", "");
-                        // currFaq example
-                        // http___m_gamefaqs_com_psp_615911-final-fantasy-iv-the-complete-collection_faqs_62211
-                        String faqMeta = prefs.getString(prefs.getString("curr_faq", ""), "");
-
-                        // set last read date
-//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
-//                        SharedPreferences.Editor editor = prefs.edit();
-//                        editor.putString(prefs.getString("curr_faq", "") + "___last_read", sdf.format(new Date()));
-
-                        // faqMeta example
-                        // Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- Johnathan 'Zy' Sawyer --- 1.02 --- 1267K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211
-                        Log.w(TAG, "-----------------------------");
-                        Log.w(TAG, currFaq);
-                        Log.w(TAG, faqMeta);
-                        Log.w(TAG, "-----------------------------");
-                        String[] currFaqMeta = faqMeta.split(" --- ");
-
-                        int position = prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0);
-
-                        float webviewsize = webView.getContentHeight() - webView.getTop();
-                        float positionInWV = webviewsize * 500;
-                        int positionY = Math.round(webView.getTop() + positionInWV);
-                        webView.scrollTo(0, position);
-                    }
-                    // Delay the scrollTo to make it work
-                }, 300);
+                    // restore current webview locations
+//                assert view != null;
+//                view.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                        String currFaq = prefs.getString("curr_faq", "");
+//                        // currFaq example
+//                        // http___m_gamefaqs_com_psp_615911-final-fantasy-iv-the-complete-collection_faqs_62211
+//                        String faqMeta = prefs.getString(prefs.getString("curr_faq", ""), "");
+//
+//                        // set last read date
+////                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
+////                        SharedPreferences.Editor editor = prefs.edit();
+////                        editor.putString(prefs.getString("curr_faq", "") + "___last_read", sdf.format(new Date()));
+//
+//                        // faqMeta example
+//                        // Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- Johnathan 'Zy' Sawyer --- 1.02 --- 1267K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211
+//                        Log.w(TAG, "-----------------------------");
+//                        Log.w(TAG, currFaq);
+//                        Log.w(TAG, faqMeta);
+//                        Log.w(TAG, "-----------------------------");
+//                        String[] currFaqMeta = faqMeta.split(" --- ");
+//
+//                        int position = prefs.getInt(webView.getUrl() + "curr_pos", 0);
+//
+//
+////                        int position = prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_url", 0);
+//
+//                        float webviewsize = webView.getContentHeight() - webView.getTop();
+//                        float positionInWV = webviewsize * 500;
+//                        int positionY = Math.round(webView.getTop() + positionInWV);
+//                        webView.scrollTo(0, position);
+//                    }
+//                    // Delay the scrollTo to make it work
+//                }, 300);
 
 
                 listView.setSelectionFromTop(prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0), getActionBarHeight() + getStatusBarHeight());
@@ -805,6 +808,14 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 webView.goBack();
                 return true;
             } else {
+
+                // Save the web scroll position
+                if (webViewActive) {
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt(webView.getUrl() + "curr_pos", webView.getScrollY());
+                    editor.commit();
+                }
+
                 if (goTo) {
                     goTo = false;
                     MenuItem gotoPrev = menu.findItem(R.id.menu_goto_prev);
@@ -1107,7 +1118,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 //            String scrollY = new Integer(webView.getScrollY()).toString();
 //            Toast.makeText(getApplicationContext(), scrollY, Toast.LENGTH_SHORT).show();
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", webView.getScrollY());
+            editor.putInt(webView.getUrl() + "curr_pos", webView.getScrollY());
             editor.commit();
         }
 
@@ -2515,7 +2526,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             // vibrate dat
             if (prefs.getBoolean("vibrate", getResources().getBoolean(R.bool.vibrate_default))) {
                 Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-                vibrator.vibrate(25); // vibrate for 3 seconds (e.g 3000 milliseconds)
+                vibrator.vibrate(100); // vibrate for 3 seconds (e.g 3000 milliseconds)
             }
 
             String savedPosPlusOne = new Integer(Integer.valueOf(savedPos) + 1).toString();
@@ -3028,10 +3039,10 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 params.setMargins(0, getStatusBarHeight(), getNavigationBarHeight(), 0);
                 toolbar.setLayoutParams(params);
             }else {
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getRootView().getLayoutParams();
-                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-                toolbar.getRootView().setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-                toolbar.getRootView().setLayoutParams(params);
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getRootView().getLayoutParams();
+//                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//                toolbar.getRootView().setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
+//                toolbar.getRootView().setLayoutParams(params);
             }
         } else {
 
