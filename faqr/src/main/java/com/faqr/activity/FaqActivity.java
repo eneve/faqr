@@ -83,6 +83,7 @@ import android.widget.Toast;
 
 import com.faqr.FaqrApp;
 import com.faqr.R;
+import com.faqr.view.ObservableWebView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -162,7 +163,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     protected AlertDialog quitDialog;
 
     // our webview
-    private WebView webView;
+    private ObservableWebView webView;
     private boolean webViewActive = false;
     private CookieManager cookieManager;
 
@@ -176,7 +177,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     // faqmark
     private Integer faqmarkPos = -1;
 
+
     private Toolbar toolbar;
+    private Boolean toolbarAnim = false;
 
     /** Called when the activity is first created. */
     @SuppressLint("NewApi")
@@ -466,18 +469,70 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         autoMonoFontSize = -1.0f;
 
         // webview
-        webView = (WebView) findViewById(R.id.webview);
+        webView = (ObservableWebView) findViewById(R.id.webview);
+        webView.setOnScrollChangedCallback(new ObservableWebView.OnScrollChangedCallback(){
+            public void onScroll(int l, int t, int oldl, int oldt){
+                //Do stuff
+//                Log.d(TAG,"We Scrolled etc..." + l + " " + t + " " + oldl + " " + oldt);
+
+                if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+                    if (t > oldt && getSupportActionBar().isShowing()) {
+//                        getSupportActionBar().hide();
+
+                        hideSystemUI();
+
+//                        Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_anim);
+//                        toolbar.startAnimation(slide);
+//
+//                        slide.setAnimationListener(new Animation.AnimationListener(){
+//                            @Override
+//                            public void onAnimationStart(Animation arg0) {
+//                            }
+//                            @Override
+//                            public void onAnimationRepeat(Animation arg0) {
+//                            }
+//                            @Override
+//                            public void onAnimationEnd(Animation arg0) {
+//                                getSupportActionBar().hide();
+//                            }
+//                        });
+
+
+                    } else if (t < oldt && !getSupportActionBar().isShowing()) {
+//                        getSupportActionBar().show();
+
+
+                        showSystemUI();
+
+//                        Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down_anim);
+//                        toolbar.startAnimation(slide);
+//
+//                        slide.setAnimationListener(new Animation.AnimationListener(){
+//                            @Override
+//                            public void onAnimationStart(Animation arg0) {
+//                            }
+//                            @Override
+//                            public void onAnimationRepeat(Animation arg0) {
+//                            }
+//                            @Override
+//                            public void onAnimationEnd(Animation arg0) {
+//                                getSupportActionBar().show();
+//                            }
+//                        });
+                    }
+                }
+            }
+        });
+
         webView.getSettings().setJavaScriptEnabled(true);
         // fit the width of screen
         // webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
         // remove a weird white line on the right size
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-
         // webView.getSettings().setSupportZoom(true);
         // webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setRenderPriority(RenderPriority.HIGH);
         // webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
-
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NORMAL);
@@ -547,6 +602,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 //                    opt.setVisible(false);
                     // opt = menu.findItem(R.id.menu_goto);
                     // opt.setVisible(false);
+                    opt = menu.findItem(R.id.menu_display_options);
+                    opt.setVisible(false);
                     opt = menu.findItem(R.id.menu_faqmarks);
                     opt.setVisible(false);
                 }
@@ -620,7 +677,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 //                }, 300);
 
 
-                listView.setSelectionFromTop(prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0), getActionBarHeight() + getStatusBarHeight());
+//                listView.setSelectionFromTop(prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0), getActionBarHeight() + getStatusBarHeight());
 
             }
 
@@ -982,6 +1039,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 if (webViewActive) {
                     webView.findAll(query);
                 } else {
+                    findString = query;
                     new FindNextTask().execute(new String[]{query});
                 }
 //                find = true;
@@ -996,6 +1054,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 if (webViewActive) {
                     webView.findAll(query);
                 } else {
+                    findString = query;
                     new FindNextTask().execute(new String[]{query});
                 }
                 return true;
@@ -1128,7 +1187,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             View menuItemView = findViewById(R.id.bg); // SAME ID AS MENU ID
 
             LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.display_options, null, false),600, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.display_options, null, false), 600, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             pw.setBackgroundDrawable(getResources().getDrawable(R.drawable.ab_bottom_solid_faqr_dark));
             // The code below assumes that the root container has an id called 'main'
             pw.setAnimationStyle(R.style.OptionsAnimationPopup);
@@ -2918,6 +2977,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         return percentWebview;
     }
 
+
+
     // //////////////////////
     // / IMMERSIVE STUFF
 
@@ -2942,18 +3003,74 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     private void hideSystemUI() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE | View.SYSTEM_UI_FLAG_IMMERSIVE);
-            getSupportActionBar().hide();
+//            getSupportActionBar().hide();
+
+            Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_anim);
+            if (!toolbarAnim)
+                toolbar.startAnimation(slide);
+            slide.setAnimationListener(new Animation.AnimationListener(){
+                @Override
+                public void onAnimationStart(Animation arg0) {
+                    toolbarAnim = true;
+                }
+                @Override
+                public void onAnimationRepeat(Animation arg0) {
+                }
+                @Override
+                public void onAnimationEnd(Animation arg0) {
+                    toolbarAnim = false;
+                    getSupportActionBar().hide();
+                }
+            });
+
+
+
         } else {
             if (!webViewActive) {
                 mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
                 // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
                 // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-                getSupportActionBar().hide();
-                // ActionBar actionBar = getSupportActionBar();
+                Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_anim);
+                if (!toolbarAnim)
+                    toolbar.startAnimation(slide);
+
+                slide.setAnimationListener(new Animation.AnimationListener(){
+                    @Override
+                    public void onAnimationStart(Animation arg0) {
+                        toolbarAnim = true;
+                    }
+                    @Override
+                    public void onAnimationRepeat(Animation arg0) {
+                    }
+                    @Override
+                    public void onAnimationEnd(Animation arg0) {
+                        toolbarAnim = false;
+                        getSupportActionBar().hide();
+                    }
+                });                // ActionBar actionBar = getSupportActionBar();
                 // actionBar.hide();
             } else if (webViewActive) {
 //                mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
                 mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+
+                Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_anim);
+                if (!toolbarAnim)
+                    toolbar.startAnimation(slide);
+
+                slide.setAnimationListener(new Animation.AnimationListener(){
+                    @Override
+                    public void onAnimationStart(Animation arg0) {
+                        toolbarAnim = true;
+                    }
+                    @Override
+                    public void onAnimationRepeat(Animation arg0) {
+                    }
+                    @Override
+                    public void onAnimationEnd(Animation arg0) {
+                        toolbarAnim = false;
+                        getSupportActionBar().hide();
+                    }
+                });
 //                getSupportActionBar().hide();
             }
         }
@@ -2962,11 +3079,50 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     private void showSystemUI() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            getSupportActionBar().show();
+
+            Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down_anim);
+            if (!toolbarAnim)
+                toolbar.startAnimation(slide);
+
+            slide.setAnimationListener(new Animation.AnimationListener(){
+                @Override
+                public void onAnimationStart(Animation arg0) {
+                    toolbarAnim = true;
+                }
+                @Override
+                public void onAnimationRepeat(Animation arg0) {
+                }
+                @Override
+                public void onAnimationEnd(Animation arg0) {
+                    toolbarAnim = false;
+                    getSupportActionBar().show();
+                }
+            });
+
         } else  {
             // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             mDecorView.setSystemUiVisibility(0);
-            getSupportActionBar().show();
+
+            Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down_anim);
+            if (!toolbarAnim)
+                toolbar.startAnimation(slide);
+
+            slide.setAnimationListener(new Animation.AnimationListener(){
+                @Override
+                public void onAnimationStart(Animation arg0) {
+                    toolbarAnim = true;
+                }
+                @Override
+                public void onAnimationRepeat(Animation arg0) {
+                }
+                @Override
+                public void onAnimationEnd(Animation arg0) {
+                    toolbarAnim = false;
+                    getSupportActionBar().show();
+                }
+            });
+
+
             // ActionBar actionBar = getSupportActionBar();
             // actionBar.show();
         }
@@ -3016,16 +3172,23 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 params.setMargins(0, getStatusBarHeight(), 0, 0);
                 toolbar.setLayoutParams(params);
             } else {
-//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getRootView().getLayoutParams();
-//                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//                toolbar.getRootView().setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//                toolbar.getRootView().setLayoutParams(params);
+                RelativeLayout background = (RelativeLayout) findViewById(R.id.bg);
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) background.getLayoutParams();
+                params.addRule(RelativeLayout.BELOW, R.id.toolbar);
+                background.setLayoutParams(params);
             }
         } else {
-//            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getRootView().getLayoutParams();
-//            params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//            toolbar.getRootView().setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//            toolbar.getRootView().setLayoutParams(params);
+            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+//                setTheme(R.style.AppDarkOverlayTheme);
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
+//                params.setMargins(0, getStatusBarHeight(), 0, 0);
+//                toolbar.setLayoutParams(params);
+            } else {
+                RelativeLayout background = (RelativeLayout) findViewById(R.id.bg);
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) background.getLayoutParams();
+                params.addRule(RelativeLayout.BELOW, R.id.toolbar);
+                background.setLayoutParams(params);
+            }
         }
     }
 
@@ -3039,13 +3202,22 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 params.setMargins(0, getStatusBarHeight(), getNavigationBarHeight(), 0);
                 toolbar.setLayoutParams(params);
             }else {
-//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getRootView().getLayoutParams();
-//                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//                toolbar.getRootView().setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//                toolbar.getRootView().setLayoutParams(params);
+                RelativeLayout background = (RelativeLayout) findViewById(R.id.bg);
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) background.getLayoutParams();
+                params.addRule(RelativeLayout.BELOW, R.id.toolbar);
+                background.setLayoutParams(params);
             }
         } else {
-
+            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
+//                params.setMargins(0, getStatusBarHeight(), getNavigationBarHeight(), 0);
+//                toolbar.setLayoutParams(params);
+            } else {
+                RelativeLayout background = (RelativeLayout) findViewById(R.id.bg);
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) background.getLayoutParams();
+                params.addRule(RelativeLayout.BELOW, R.id.toolbar);
+                background.setLayoutParams(params);
+            }
         }
     }
 
