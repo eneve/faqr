@@ -1182,7 +1182,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             View menuItemView = findViewById(R.id.bg); // SAME ID AS MENU ID
 
             LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.display_options, null, false), 500, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.display_options, null, false), 600, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             pw.setBackgroundDrawable(getResources().getDrawable(R.drawable.ab_bottom_solid_faqr_dark));
             // The code below assumes that the root container has an id called 'main'
             pw.setAnimationStyle(R.style.OptionsAnimationPopup);
@@ -1367,15 +1367,23 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             fontSizeMinus.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
 
-                    // 7 seems to the limit before it gets weird
-                    fontSize = fontSize > -6 ? fontSize - 1 : fontSize;
-//                    Toast.makeText(getApplicationContext(), "fontSize" + fontSize, Toast.LENGTH_SHORT).show();
+                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
+                        fontSize = fontSize > -6 ? fontSize - 1 : fontSize;
 
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putInt("font_size_v2", fontSize);
-                    editor.commit();
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putInt("font_size_v2", fontSize);
+                        editor.commit();
+                    } else {
+                        Integer fontSize = prefs.getInt("font_size_v2_land", getResources().getInteger(R.integer.font_size_default));
+                        fontSize = fontSize > -6 ? fontSize - 1 : fontSize;
+
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putInt("font_size_v2_land", fontSize);
+                        editor.commit();
+                    }
+
 
                     adapter.notifyDataSetChanged();
                 }
@@ -1385,13 +1393,23 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             fontSizePlus.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
 
-                    fontSize = fontSize < 8 ? fontSize + 1 : fontSize;
+                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
+                        fontSize = fontSize < 8 ? fontSize + 1 : fontSize;
 
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putInt("font_size_v2", fontSize);
-                    editor.commit();
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putInt("font_size_v2", fontSize);
+                        editor.commit();
+
+                    } else {
+                        Integer fontSize = prefs.getInt("font_size_v2_land", getResources().getInteger(R.integer.font_size_default));
+                        fontSize = fontSize < 8 ? fontSize + 1 : fontSize;
+
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putInt("font_size_v2_land", fontSize);
+                        editor.commit();
+                    }
 
                     adapter.notifyDataSetChanged();
                 }
@@ -1813,8 +1831,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 if (monoFontSize.equalsIgnoreCase("auto")) {
 
                     // V2 font size
-                    Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
-                    nameView.setTextSize(Float.valueOf(autoMonoFontSize + fontSize));
+                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
+                        nameView.setTextSize(Float.valueOf(autoMonoFontSize + fontSize));
+                    } else {
+                        Integer fontSize = prefs.getInt("font_size_v2_land", getResources().getInteger(R.integer.font_size_default));
+                        nameView.setTextSize(Float.valueOf(autoMonoFontSize + fontSize));
+                    }
 
                     // make bold for small fonts
                     if (autoMonoFontSize <= 7.0f) {
@@ -1886,8 +1909,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     Float varAutoMonoFontSize = autoMonoFontSize + 2.5f;
 
                     // V2 font size
-                    Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
-                    nameView.setTextSize(varAutoMonoFontSize + fontSize);
+                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
+                        nameView.setTextSize(varAutoMonoFontSize + fontSize);
+                    } else {
+                        Integer fontSize = prefs.getInt("font_size_v2_land", getResources().getInteger(R.integer.font_size_default));
+                        nameView.setTextSize(varAutoMonoFontSize + fontSize);
+                    }
 
                 } else {
                     nameView.setTextSize(Float.valueOf(variableFontSize));
