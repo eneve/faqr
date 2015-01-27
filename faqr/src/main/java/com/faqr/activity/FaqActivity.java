@@ -478,9 +478,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
                     if (t > oldt && getSupportActionBar().isShowing()) {
 //                        getSupportActionBar().hide();
-
                         hideSystemUI();
-
 //                        Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_anim);
 //                        toolbar.startAnimation(slide);
 //
@@ -496,14 +494,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 //                                getSupportActionBar().hide();
 //                            }
 //                        });
-
-
                     } else if (t < oldt && !getSupportActionBar().isShowing()) {
 //                        getSupportActionBar().show();
-
-
                         showSystemUI();
-
 //                        Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down_anim);
 //                        toolbar.startAnimation(slide);
 //
@@ -759,7 +752,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     boolean visible = (flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
 //                    boolean visible = (mDecorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
                     if (visible) {
-                        getSupportActionBar().show();
+                        showSystemUI();
+//                        getSupportActionBar().show();
                     } else {
 //                        showSystemUI();
                     }
@@ -768,6 +762,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     // .translationY(visible ? 0 : controlsView.getHeight());
                 }
             });
+
             // webView.setClickable(true);
             final GestureDetector clickDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
                 @Override
@@ -1187,7 +1182,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             View menuItemView = findViewById(R.id.bg); // SAME ID AS MENU ID
 
             LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.display_options, null, false), 600, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.display_options, null, false), 500, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             pw.setBackgroundDrawable(getResources().getDrawable(R.drawable.ab_bottom_solid_faqr_dark));
             // The code below assumes that the root container has an id called 'main'
             pw.setAnimationStyle(R.style.OptionsAnimationPopup);
@@ -3012,6 +3007,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 @Override
                 public void onAnimationStart(Animation arg0) {
                     toolbarAnim = true;
+                    toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 }
                 @Override
                 public void onAnimationRepeat(Animation arg0) {
@@ -3022,9 +3018,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     getSupportActionBar().hide();
                 }
             });
-
-
-
         } else {
             if (!webViewActive) {
                 mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
@@ -3088,6 +3081,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 @Override
                 public void onAnimationStart(Animation arg0) {
                     toolbarAnim = true;
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.primary));
                 }
                 @Override
                 public void onAnimationRepeat(Animation arg0) {
