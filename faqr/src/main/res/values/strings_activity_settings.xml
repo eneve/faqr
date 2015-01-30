@@ -46,48 +46,48 @@
     <string name="multi_saved_pos_title">Multiple FAQmarks</string>
     <string name="multi_saved_pos_summary">Allow for multiple saved positions</string>
     -->
-    <string name="saved_pos_preview_title">My FAQmarks Preview Size</string>
+    <string name="saved_pos_preview_title">My FAQmarks Preview</string>
     <string name="saved_pos_preview_summary">The number of lines to show in the preview on My FAQmarks</string>
 
     <string-array name="saved_pos_preview_list_titles">
-        <item>3 lines</item>
-        <item>4 lines</item>
-        <item>5 lines</item>
-        <item>6 lines</item>
-        <item>7 lines</item>
-        <item>8 lines</item>
-        <item>9 lines</item>
-        <item>10 lines</item>
-        <item>11 lines</item>
-        <item>12 lines</item>
-        <item>13 lines</item>
-        <item>14 lines</item>
-        <item>15 lines</item>
-        <item>16 lines</item>
-        <item>17 lines</item>
-        <item>18 lines</item>
-        <item>19 lines</item>
-        <item>20 lines</item>
+        <item>Short</item>
+        <item>Medium</item>
+        <item>Long</item>
+        <!--<item>6 lines</item>-->
+        <!--<item>7 lines</item>-->
+        <!--<item>8 lines</item>-->
+        <!--<item>9 lines</item>-->
+        <!--<item>10 lines</item>-->
+        <!--<item>11 lines</item>-->
+        <!--<item>12 lines</item>-->
+        <!--<item>13 lines</item>-->
+        <!--<item>14 lines</item>-->
+        <!--<item>15 lines</item>-->
+        <!--<item>16 lines</item>-->
+        <!--<item>17 lines</item>-->
+        <!--<item>18 lines</item>-->
+        <!--<item>19 lines</item>-->
+        <!--<item>20 lines</item>-->
     </string-array>
     <string-array name="saved_pos_preview_list_values">
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
+        <!--<item>3</item>-->
+        <!--<item>4</item>-->
+        <!--<item>5</item>-->
         <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
+        <!--<item>7</item>-->
+        <!--<item>8</item>-->
+        <!--<item>9</item>-->
+        <!--<item>10</item>-->
+        <!--<item>11</item>-->
         <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
+        <!--<item>13</item>-->
+        <!--<item>14</item>-->
+        <!--<item>15</item>-->
+        <!--<item>16</item>-->
+        <!--<item>17</item>-->
+        <!--<item>18</item>-->
+        <!--<item>19</item>-->
+        <item>24</item>
     </string-array>
 
 
@@ -161,6 +161,10 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+
+
+    <string name="use_fast_scroll_title">Fast Scroll</string>
+    <string name="use_fast_scroll_summary">Use fast scrollbar</string>
 
     <!-- fonts -->
     

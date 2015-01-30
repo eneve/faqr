@@ -301,7 +301,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         // listView.setOnItemClickListener(adapter.itemClickListener);
         listView.setAdapter(adapter);
 
-        // listView.setTextFilterEnabled(true);
+        if (prefs.getBoolean("use_fast_scroll", getResources().getBoolean(R.bool.use_fast_scroll_default))) {
+            listView.setFastScrollEnabled(true);
+        } else {
+            listView.setFastScrollEnabled(false);
+        }
+
+            // listView.setTextFilterEnabled(true);
 
         // loading indicator
         loading = (LinearLayout) findViewById(R.id.loading);

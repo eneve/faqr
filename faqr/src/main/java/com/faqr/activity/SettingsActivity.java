@@ -229,7 +229,15 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         }
 
         String previewSize = preferences.getString("saved_pos_preview", "3");
-        getPreferenceScreen().findPreference("saved_pos_preview").setSummary(previewSize + " lines");
+        getPreferenceScreen().findPreference("saved_pos_preview").setSummary(previewSize);
+
+        if (preferences.getString("saved_pos_preview", "6").equals("6")) {
+            getPreferenceScreen().findPreference("saved_pos_preview").setSummary("Short");
+        } else if (preferences.getString("saved_pos_preview", "6").equals("12")) {
+            getPreferenceScreen().findPreference("saved_pos_preview").setSummary("Medium");
+        } else if (preferences.getString("saved_pos_preview", "6").equals("24")) {
+            getPreferenceScreen().findPreference("saved_pos_preview").setSummary("Long");
+        }
 
         // auto-rotate screen set summary
         if (preferences.getString("auto_rotate_screen", "1").equals("1")) {
@@ -549,7 +557,15 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 
         if (key.equals("saved_pos_preview")) {
             String previewSize = preferences.getString("saved_pos_preview", "3");
-            getPreferenceScreen().findPreference("saved_pos_preview").setSummary(previewSize + " lines");
+            getPreferenceScreen().findPreference("saved_pos_preview").setSummary(previewSize);
+
+            if (preferences.getString("saved_pos_preview", "6").equals("6")) {
+                getPreferenceScreen().findPreference("saved_pos_preview").setSummary("Short");
+            } else if (preferences.getString("saved_pos_preview", "6").equals("12")) {
+                getPreferenceScreen().findPreference("saved_pos_preview").setSummary("Medium");
+            } else if (preferences.getString("saved_pos_preview", "6").equals("24")) {
+                getPreferenceScreen().findPreference("saved_pos_preview").setSummary("Long");
+            }
         }
 
         if (key.equals("highlight_faqmark")) {

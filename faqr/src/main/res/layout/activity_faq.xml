@@ -102,7 +102,6 @@
             android:divider="@android:color/background_dark"
             android:dividerHeight="0dp"
             android:fadingEdge="none"
-            android:fastScrollEnabled="true"
             android:listSelector="@android:color/transparent"
             android:overScrollFooter="@drawable/overscroll_glow"
             android:overScrollHeader="@drawable/overscroll_glow"
@@ -116,8 +115,6 @@
             android:layout_below="@+id/find_bar" />
 
     </RelativeLayout>
-
-
 
     <android.support.v7.widget.Toolbar
         xmlns:app="http://schemas.android.com/apk/res-auto"

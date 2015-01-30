@@ -22,7 +22,7 @@
     <bool name="highlight_saved_position_default">true</bool>
     <bool name="saved_position_background_default">false</bool>
     <bool name="multi_saved_position_default">true</bool>
-    <string name="saved_pos_preview_default">6</string>
+    <string name="saved_pos_preview_default">Short</string>
     
     <!-- screen defaults -->
     
@@ -34,6 +34,7 @@
     <bool name="hide_status_bar_land_default">false</bool>
     <bool name="hide_action_bar_default">false</bool>
     <bool name="keep_screen_on_default">false</bool>
+    <bool name="use_fast_scroll_default">true</bool>
     
     <string name="theme_default">1</string>
     <string name="hide_notification_bar_default">1</string>

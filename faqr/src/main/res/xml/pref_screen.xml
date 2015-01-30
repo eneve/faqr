@@ -84,4 +84,11 @@
         android:summary="@string/keep_screen_on_summary"
         android:title="@string/keep_screen_on_title" />
 
+    <!--  -->
+    <CheckBoxPreference
+        android:defaultValue="@bool/use_fast_scroll_default"
+        android:key="use_fast_scroll"
+        android:summary="@string/use_fast_scroll_summary"
+        android:title="@string/use_fast_scroll_title" />
+
 </PreferenceScreen>
