@@ -35,6 +35,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
@@ -3227,7 +3228,15 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-                params.setMargins(0, getStatusBarHeight(), getNavigationBarHeight(), 0);
+                params.setMargins(0, getStatusBarHeight(), 0, 0);
+
+                // fix the toolbar width when nav bar on right
+                DisplayMetrics metrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(metrics);
+//                int fullscreenheight = metrics.heightPixels;
+                int fullscreenwidth = metrics.widthPixels;
+                params.width = fullscreenwidth;
+
                 toolbar.setLayoutParams(params);
             }else {
                 RelativeLayout background = (RelativeLayout) findViewById(R.id.bg);
