@@ -206,7 +206,7 @@ public class SearchResultsActivity extends BaseActivity {
                 }
 
                 // external url
-                if (!url.contains(FaqrApp.GAMEFAQS_URL)) {
+                if (!url.contains(getResources().getString(R.string.GAMEFAQS_URL))) {
 
                     Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
                     // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -309,7 +309,7 @@ public class SearchResultsActivity extends BaseActivity {
         // EasyTracker.getInstance(this).activityStart(this); // Add this method.
 
         // Get tracker.
-        Tracker t = ((FaqrApp) getApplication()).getTracker(FaqrApp.TrackerName.GLOBAL_TRACKER);
+        Tracker t = ((FaqrApp) getApplication()).getTracker();
         // Set screen name.
         t.setScreenName(getClass().getName());
         // Send a screen view.
@@ -750,7 +750,7 @@ public class SearchResultsActivity extends BaseActivity {
                 } else {
                     // String userAgent = new WebView(getApplicationContext()).getSettings().getUserAgentString();
                     // Document doc = Jsoup.connect(SEARCH_URL + gameParam).userAgent(userAgent).referrer("http://www.google.com").timeout(10000).get();
-                    doc = Jsoup.connect(FaqrApp.SEARCH_URL + gameParam).timeout(10000).get();
+                    doc = Jsoup.connect(getResources().getString(R.string.SEARCH_URL) + gameParam).timeout(10000).get();
                 }
 
                 String[] split = url.split("/");
@@ -793,7 +793,7 @@ public class SearchResultsActivity extends BaseActivity {
                                     if (count == 0) {
                                         href = tdElem.select("a").attr("href");
                                         if (href.startsWith("/"))
-                                            href = FaqrApp.GAMEFAQS_URL + href;
+                                            href = getResources().getString(R.string.GAMEFAQS_URL) + href;
                                     } else if (count == 1) {
                                         title = tdElem.select(".faqtitle").text();
                                         title += " by " + tdElem.select(".faqauthor").text();
@@ -812,7 +812,7 @@ public class SearchResultsActivity extends BaseActivity {
                                         img = tdElem.select("img").attr("src");
                                         href = tdElem.select("a").attr("href");
                                         if (href.startsWith("/"))
-                                            href = FaqrApp.GAMEFAQS_URL + href;
+                                            href = getResources().getString(R.string.GAMEFAQS_URL) + href;
                                     } else if (count == 1) {
                                         date = tdElem.text();
                                     } else if (count == 2) {
@@ -869,7 +869,7 @@ public class SearchResultsActivity extends BaseActivity {
                                 } else if (count == 1) {
                                     title = tdElem.select("a").get(0).text();
                                 } else if (count == 2) {
-                                    href = FaqrApp.GAMEFAQS_URL + tdElem.select("a").attr("href");
+                                    href = getResources().getString(R.string.GAMEFAQS_URL) + tdElem.select("a").attr("href");
                                 }
                                 count++;
                             }

@@ -34,7 +34,7 @@ import com.faqr.R;
  */
 public class BaseActivity extends ActionBarActivity {
 
-    protected static final String TAG = "FAQr";
+    protected String TAG;
 
     protected static LayoutInflater inflater = null;
 
@@ -64,6 +64,8 @@ public class BaseActivity extends ActionBarActivity {
 
         // inflater will give us elements in the hotlist_item layout
         inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        TAG = getResources().getString(R.string.TAG);
 
         // preferences
         prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());

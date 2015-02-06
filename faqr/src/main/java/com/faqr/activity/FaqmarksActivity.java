@@ -324,7 +324,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
         // EasyTracker.getInstance(this).activityStart(this); // Add this method.
 
         // Get tracker.
-        Tracker t = ((FaqrApp) getApplication()).getTracker(FaqrApp.TrackerName.GLOBAL_TRACKER);
+        Tracker t = ((FaqrApp) getApplication()).getTracker();
         // Set screen name.
         t.setScreenName(getClass().getName());
         // Send a screen view.

@@ -2,6 +2,20 @@
 <resources>
 
     <string name="app_name">FAQr</string>
+
+    <string name="TAG">FAQr</string>
+
+    <!-- API  -->
+
+    <string name="GAMEFAQS_URL">http://m.gamefaqs.com</string>
+    <string name="SEARCH_URL">/search/index.html?game=</string>
+
+    <!-- Google Analytics  -->
+
+    <string name="GA_TRACKING_ID">UA-37803338-1</string>
+
+    <!-- APP -->
+
     <string name="search">Search</string>
     <string name="loading">Loading…</string>
     <string name="error">Error</string>
