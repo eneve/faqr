@@ -102,6 +102,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -116,7 +117,7 @@ import java.util.List;
 public class FaqActivity extends BaseActivity implements OnClickListener {
 
     // immersive
-    private static final int INITIAL_HIDE_DELAY = 2700;
+    private static final int INITIAL_HIDE_DELAY = 2200;
     private View mDecorView;
 
     // loading
@@ -167,6 +168,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     private ObservableWebView webView;
     private boolean webViewActive = false;
     private CookieManager cookieManager;
+
+    private long webViewThrottleTime;
 
 
     private float autoMonoFontSize = -1.0f;
@@ -358,11 +361,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                    if (!find && !goTo) {
+                    if (!getFind() && !goTo) {
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             boolean visible = (mDecorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
-                            if (visible) {
+                            if (visible && !getFind()) {
                                 hideSystemUI();
                             } else {
                                 showSystemUI();
@@ -376,7 +379,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                             // showSystemUI();
                             // }
 
-                            if (getSupportActionBar().isShowing()) {
+                            if (getSupportActionBar().isShowing() && !getFind()) {
                                 hideSystemUI();
                             } else {
                                 showSystemUI();
@@ -483,9 +486,15 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 //                Log.d(TAG,"We Scrolled etc..." + l + " " + t + " " + oldl + " " + oldt);
 
                 if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                    if (t > oldt && getSupportActionBar().isShowing()) {
+
+                    long currTime = Calendar.getInstance().getTimeInMillis();
+
+
+
+                    if (((currTime - webViewThrottleTime) > 1000) && t > oldt && getSupportActionBar().isShowing() && !getFind()) {
 //                        getSupportActionBar().hide();
                         hideSystemUI();
+                        webViewThrottleTime = Calendar.getInstance().getTimeInMillis();
 //                        Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_anim);
 //                        toolbar.startAnimation(slide);
 //
@@ -501,9 +510,10 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 //                                getSupportActionBar().hide();
 //                            }
 //                        });
-                    } else if (t < oldt && !getSupportActionBar().isShowing()) {
+                    } else if (((currTime - webViewThrottleTime) > 1000) && t < oldt && !getSupportActionBar().isShowing()) {
 //                        getSupportActionBar().show();
                         showSystemUI();
+                        webViewThrottleTime = Calendar.getInstance().getTimeInMillis();
 //                        Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down_anim);
 //                        toolbar.startAnimation(slide);
 //
@@ -632,7 +642,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     getSupportActionBar().setSubtitle(currFaqURL.replaceAll("http://", "").replaceAll("https://", ""));
                 }
 
-                getSupportActionBar().setIcon(android.R.color.transparent);
+//                getSupportActionBar().setIcon(android.R.color.transparent);
 
                 // inject javascript into the webview
 //                webView.loadUrl("javascript:(function() { " +
@@ -776,7 +786,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 public boolean onSingleTapUp(MotionEvent e) {
                     // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     boolean visible = (mDecorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
-                    if (visible) {
+                    if (visible && !getFind()) {
                         hideSystemUI();
                     } else {
                         showSystemUI();
@@ -1101,7 +1111,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 opt = finalMenu.findItem(R.id.menu_about);
                 opt.setVisible(true);
 
-                getSupportActionBar().setIcon(android.R.color.transparent);
+//                getSupportActionBar().setIcon(android.R.color.transparent);
 
 //                find = false;
                 setFind(false);
@@ -2406,7 +2416,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     }
                     getSupportActionBar().setTitle(title);
                 }
-                getSupportActionBar().setIcon(android.R.color.transparent);
+//                getSupportActionBar().setIcon(android.R.color.transparent);
 
                 // theme stuff
                 String html = "";
@@ -2419,8 +2429,14 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
                     bgColor = "#ECE1CA";
                 }
-                html = ("<html><title>" + title + "</title><body style=\"background-color:" + bgColor + ";\"><img src=\"file://" + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath() + "\" align=left></body></html>");
 
+                String paddingTop = "64px";
+                if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+                    Integer paddingImmersive = getStatusBarHeight() + getActionBarHeight();
+                    paddingTop = paddingImmersive.toString() + "px";
+                }
+
+                html = ("<html><title>" + title + "</title><body style=\"background-color:" + bgColor + ";\"><div style=\"width:100%\"><img style=\"display:block;margin:0 auto;padding-top:" + paddingTop + ";\" src=\"file://" + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath() + "\"></body></html>");
                 webView.loadDataWithBaseURL(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath(), html, "text/html", "utf-8", "");
 
                 hideWebViewMenuOptions = true;
@@ -3020,7 +3036,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         // cancel any pending hide action. When the window gains focus,
         // hide the system UI.
         if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-            if (!find && !goTo) {
+            if (!getFind() && !goTo) {
                 if (hasFocus) {
                     delayedHide(INITIAL_HIDE_DELAY);
                 } else {
@@ -3066,6 +3082,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     @Override
                     public void onAnimationStart(Animation arg0) {
                         toolbarAnim = true;
+                        toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                     }
                     @Override
                     public void onAnimationRepeat(Animation arg0) {
@@ -3089,6 +3106,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     @Override
                     public void onAnimationStart(Animation arg0) {
                         toolbarAnim = true;
+                        toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                     }
                     @Override
                     public void onAnimationRepeat(Animation arg0) {
@@ -3140,6 +3158,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 @Override
                 public void onAnimationStart(Animation arg0) {
                     toolbarAnim = true;
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.primary));
                 }
                 @Override
                 public void onAnimationRepeat(Animation arg0) {
@@ -3160,7 +3179,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     private final Handler mHideHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            hideSystemUI();
+            if (!getFind() && !goTo)
+                hideSystemUI();
         }
     };
 
@@ -3256,6 +3276,12 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 background.setLayoutParams(params);
             }
         }
+    }
+
+
+    public boolean getFind() {
+//        Toast.makeText(getApplicationContext(), "getFind + " + find, Toast.LENGTH_SHORT).show();
+        return find;
     }
 
     public void setFind(boolean status) {
