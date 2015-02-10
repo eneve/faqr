@@ -750,7 +750,7 @@ public class SearchResultsActivity extends BaseActivity {
                 } else {
                     // String userAgent = new WebView(getApplicationContext()).getSettings().getUserAgentString();
                     // Document doc = Jsoup.connect(SEARCH_URL + gameParam).userAgent(userAgent).referrer("http://www.google.com").timeout(10000).get();
-                    doc = Jsoup.connect(getResources().getString(R.string.SEARCH_URL) + gameParam).timeout(10000).get();
+                    doc = Jsoup.connect(getResources().getString(R.string.GAMEFAQS_URL) + getResources().getString(R.string.SEARCH_URL) + gameParam).timeout(10000).get();
                 }
 
                 String[] split = url.split("/");

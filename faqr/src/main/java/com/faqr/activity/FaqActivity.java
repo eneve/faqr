@@ -170,6 +170,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     private CookieManager cookieManager;
 
     private long webViewThrottleTime;
+    private boolean webViewReloadSavedPos = true;
 
 
     private float autoMonoFontSize = -1.0f;
@@ -286,7 +287,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         // if (extras != null && extras.getBoolean("from_search") == true) {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        // actionBar.setIcon(android.R.color.transparent);
+        actionBar.setIcon(android.R.color.transparent);
         // }=
         actionBar.setDisplayUseLogoEnabled(false);
 
@@ -602,7 +603,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             }
 
             @Override
-            public void onPageFinished(WebView view, String url) {
+            public void onPageFinished(WebView view, final String url) {
                 // new SleepyTask().execute(new String[] {});
 
                 // set it to try later and try here anyway if perchance menu isn't null
@@ -613,7 +614,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     // opt = menu.findItem(R.id.menu_goto);
                     // opt.setVisible(false);
                     opt = menu.findItem(R.id.menu_display_options);
-                    opt.setVisible(false);
+//                    opt.setVisible(false);
                     opt = menu.findItem(R.id.menu_faqmarks);
                     opt.setVisible(false);
                 }
@@ -649,42 +650,65 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 //                    "document.getElementsByTagName('body')[0].style.color = 'red'; " +
 //                    "})()");
 
-                    // restore current webview locations
-//                assert view != null;
-//                view.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
+                // set last read date
+                SharedPreferences.Editor editor = prefs.edit();
+                String key = currFaqMeta[5].trim() + "curr_url";
+                editor.putString(key, url);
+                editor.commit();
+//                Toast.makeText(getApplicationContext(), "Setting curr_url " + url, Toast.LENGTH_SHORT).show();
+
+                String test = prefs.getString(currFaqMeta[5].trim() + "curr_url", "");
+                getSupportActionBar().setIcon(android.R.color.transparent);
+
+
+
+                // restore current webview locations
+                if (webViewReloadSavedPos) {
+                    assert view != null;
+                    view.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (url.contains("#")) {
+                                webView.loadUrl(url);
+                            }
+
+//                            Toast.makeText(getApplicationContext(), "Setting to position", Toast.LENGTH_SHORT).show();
 //
-//                        String currFaq = prefs.getString("curr_faq", "");
-//                        // currFaq example
-//                        // http___m_gamefaqs_com_psp_615911-final-fantasy-iv-the-complete-collection_faqs_62211
-//                        String faqMeta = prefs.getString(prefs.getString("curr_faq", ""), "");
 //
-//                        // set last read date
-////                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
-////                        SharedPreferences.Editor editor = prefs.edit();
-////                        editor.putString(prefs.getString("curr_faq", "") + "___last_read", sdf.format(new Date()));
+//                            String currFaq = prefs.getString("curr_faq", "");
+//                            // currFaq example
+//                            // http___m_gamefaqs_com_psp_615911-final-fantasy-iv-the-complete-collection_faqs_62211
+//                            String faqMeta = prefs.getString(prefs.getString("curr_faq", ""), "");
 //
-//                        // faqMeta example
-//                        // Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- Johnathan 'Zy' Sawyer --- 1.02 --- 1267K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211
-//                        Log.w(TAG, "-----------------------------");
-//                        Log.w(TAG, currFaq);
-//                        Log.w(TAG, faqMeta);
-//                        Log.w(TAG, "-----------------------------");
-//                        String[] currFaqMeta = faqMeta.split(" --- ");
+//                            // set last read date
+//                            //                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
+//                            //                        SharedPreferences.Editor editor = prefs.edit();
+//                            //                        editor.putString(prefs.getString("curr_faq", "") + "___last_read", sdf.format(new Date()));
 //
-//                        int position = prefs.getInt(webView.getUrl() + "curr_pos", 0);
+//                            // faqMeta example
+//                            // Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- Johnathan 'Zy' Sawyer --- 1.02 --- 1267K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211
+//                            Log.w(TAG, "-----------------------------");
+//                            Log.w(TAG, currFaq);
+//                            Log.w(TAG, faqMeta);
+//                            Log.w(TAG, "-----------------------------");
+//                            String[] currFaqMeta = faqMeta.split(" --- ");
+//
+//                            int position = prefs.getInt(webView.getUrl() + "curr_pos", 0);
 //
 //
-////                        int position = prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_url", 0);
+//                            //                        int position = prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_url", 0);
 //
-//                        float webviewsize = webView.getContentHeight() - webView.getTop();
-//                        float positionInWV = webviewsize * 500;
-//                        int positionY = Math.round(webView.getTop() + positionInWV);
-//                        webView.scrollTo(0, position);
-//                    }
-//                    // Delay the scrollTo to make it work
-//                }, 300);
+//                            float webviewsize = webView.getContentHeight() - webView.getTop();
+//                            float positionInWV = webviewsize * 500;
+//                            int positionY = Math.round(webView.getTop() + positionInWV);
+//                            webView.scrollTo(0, position);
+//
+                            webViewReloadSavedPos = false;
+                        }
+                        // Delay the scrollTo to make it work
+                    }, 300);
+                }
 
 
 //                listView.setSelectionFromTop(prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0), getActionBarHeight() + getStatusBarHeight());
@@ -1111,7 +1135,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 opt = finalMenu.findItem(R.id.menu_about);
                 opt.setVisible(true);
 
-//                getSupportActionBar().setIcon(android.R.color.transparent);
+                getSupportActionBar().setIcon(android.R.color.transparent);
 
 //                find = false;
                 setFind(false);
@@ -2416,7 +2440,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     }
                     getSupportActionBar().setTitle(title);
                 }
-//                getSupportActionBar().setIcon(android.R.color.transparent);
+                getSupportActionBar().setIcon(android.R.color.transparent);
 
                 // theme stuff
                 String html = "";
@@ -2453,7 +2477,14 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 }
 
                 // webview time!
-                webView.loadUrl(currFaqMeta[5].trim()); // + "?single=1");
+
+                String url = currFaqMeta[5].trim();
+                if (!prefs.getString(currFaqMeta[5].trim() + "curr_url", "").equals("")) {
+                    url = prefs.getString(currFaqMeta[5].trim() + "curr_url", "");
+//                    Toast.makeText(getApplicationContext(), "Load URL -- " + url, Toast.LENGTH_LONG).show();
+                }
+
+                webView.loadUrl(url); // + "?single=1");
 
             } else {
 
