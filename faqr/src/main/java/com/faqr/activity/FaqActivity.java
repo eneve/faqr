@@ -1223,7 +1223,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             View menuItemView = findViewById(R.id.bg); // SAME ID AS MENU ID
 
             LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.display_options, null, false), 600, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+
+            int width = Math.round(FaqrApp.convertDpToPixel(200, getApplicationContext()));
+            PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.display_options, null, false), width, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             pw.setBackgroundDrawable(getResources().getDrawable(R.drawable.ab_bottom_solid_faqr_dark));
             // The code below assumes that the root container has an id called 'main'
             pw.setAnimationStyle(R.style.OptionsAnimationPopup);
