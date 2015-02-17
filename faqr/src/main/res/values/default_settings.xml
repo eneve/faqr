@@ -22,7 +22,7 @@
     <bool name="highlight_saved_position_default">true</bool>
     <bool name="saved_position_background_default">false</bool>
     <bool name="multi_saved_position_default">true</bool>
-    <string name="saved_pos_preview_default">Short</string>
+    <string name="saved_pos_preview_default">6</string>
     
     <!-- screen defaults -->
     
