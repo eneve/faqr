@@ -589,7 +589,14 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             String previewText = "";
             String[] lineSplit = line.split("\\n");
 
-            Integer savedPosPreview = Integer.valueOf(prefs.getString("saved_pos_preview", getResources().getString(R.string.saved_pos_preview_default)));
+            Integer savedPosPreview = 6;
+            try {
+                savedPosPreview = Integer.valueOf(prefs.getString("saved_pos_preview", getResources().getString(R.string.saved_pos_preview_default)));
+            } catch (Exception e) {
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("saved_pos_preview", "6");
+                editor.commit();
+            }
 
             int linescount = 0;
             for (int i = 0; i < savedPosPreview; i++) {
@@ -806,7 +813,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
     };
 
     /**
-     * Save the current position
+     * Delete all FAQs
      * 
      * @author eneve
      */
@@ -833,7 +840,10 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             editor.putInt("my_faqmarks_pos", 0);
             editor.commit();
 
-            Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
+            editor.putString("curr_faq", "");
+            editor.commit();
+
+            Intent intent = new Intent(getApplicationContext(), MyFaqsActivity.class);
             startActivity(intent);
             finish();
         }

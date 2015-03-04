@@ -775,7 +775,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             // Toast.makeText(getApplicationContext(), faqMeta + " " + curr_pos + " " + saved_pos, Toast.LENGTH_LONG).show();
             new GetFaqTask().execute(new String[] {});
         } else {
-            Intent intent = new Intent(this, SearchActivity.class);
+            Intent intent = new Intent(this, MyFaqsActivity.class);
             startActivity(intent);
             finish();
         }
@@ -1166,7 +1166,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         // if faqmarks
         if (!TextUtils.isEmpty(prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", ""))) {
-
+            // do nothing
         } else {
             faqmarksItem.setEnabled(false);
         }
@@ -2334,7 +2334,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 webView.loadUrl(currFaqMeta[5].trim()); // + "?single=1");
 
                 // this will create a place holder file even tho we aren't using the fucking web archive which sux!
-                webView.saveWebArchive(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
+                try {
+                    webView.saveWebArchive(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
+                } catch (Exception e) {
+                    // java.lang.NoSuchMethodError: android.webkit.WebView.saveWebArchive ???
+                }
 
                 webViewActive = true;
 
