@@ -1041,9 +1041,15 @@ public class MyFaqsActivity extends BaseActivity {
                     // Log.w(TAG, "TITLE - " + faqsMeta[6].split("\\(")[0].trim());
                     // Log.w(TAG, "FAQS META - " + faqsMeta.toString());
 
-                    String title = faqsMeta[6].split("\\(")[0].trim();
-                    if (title.indexOf(faqsMeta[0].split("\\(|<")[0].trim()) != -1) {
-                        title = title.substring(0, title.indexOf(faqsMeta[0].split("\\(|<")[0].trim())).trim();
+                    String title = "";
+                    try {
+                        title = faqsMeta[6].split("\\(")[0].trim();
+                        if (title.indexOf(faqsMeta[0].split("\\(|<")[0].trim()) != -1) {
+                            title = title.substring(0, title.indexOf(faqsMeta[0].split("\\(|<")[0].trim())).trim();
+                        }
+                    } catch (Exception e) {
+                        if (faqsMeta.length > 0)
+                            title = faqsMeta[0];
                     }
 
                     if (!titles.contains(title)) {
