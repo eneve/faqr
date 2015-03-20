@@ -1165,9 +1165,14 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         }
 
         // if faqmarks
-        if (!TextUtils.isEmpty(prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", ""))) {
-            // do nothing
-        } else {
+
+        try {
+            if (!TextUtils.isEmpty(prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", ""))) {
+                // do nothing
+            } else {
+                faqmarksItem.setEnabled(false);
+            }
+        } catch (Exception e) {
             faqmarksItem.setEnabled(false);
         }
 
@@ -1628,14 +1633,16 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         case R.id.menu_faqmarks:
 
-            if (!prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "").equals("")) {
-
-                intent = new Intent(this, FaqmarksActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
+            try {
+                if (!prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "").equals("")) {
+                    intent = new Intent(this, FaqmarksActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "No FAQmarks. Long press to save one.", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "No FAQmarks. Long press to save one.", Toast.LENGTH_SHORT).show();
-
             }
 
             return true;

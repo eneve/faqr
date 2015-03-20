@@ -854,7 +854,12 @@ public class MyFaqsActivity extends BaseActivity {
             // if (prefs.getString("curr_faq", "").equalsIgnoreCase(file.getName())) {
             // nameView.setText("\u2605 " + faqsMeta[6].split("\\(")[0].trim());
             // } else {
-            nameView.setText(faqsMeta[6].split("\\(")[0].trim());
+            try {
+                nameView.setText(faqsMeta[6].split("\\(")[0].trim());
+            } catch (Exception e) {
+                if (faqsMeta.length > 0)
+                    nameView.setText(faqsMeta[0]);
+            }
             // }
             authorView.setText(faqsMeta[0] + " by " + faqsMeta[2]);
 
@@ -1065,9 +1070,15 @@ public class MyFaqsActivity extends BaseActivity {
                         File file = (File) allData.get(j);
                         String[] faqsMeta = prefs.getString(file.getName(), "").split(" --- ");
 
-                        String title = faqsMeta[6].split("\\(")[0].trim();
-                        if (title.indexOf(faqsMeta[0].split("\\(|<")[0].trim()) != -1) {
-                            title = title.substring(0, title.indexOf(faqsMeta[0].split("\\(|<")[0].trim())).trim();
+                        String title = "";
+                        try {
+                            title = faqsMeta[6].split("\\(")[0].trim();
+                            if (title.indexOf(faqsMeta[0].split("\\(|<")[0].trim()) != -1) {
+                                title = title.substring(0, title.indexOf(faqsMeta[0].split("\\(|<")[0].trim())).trim();
+                            }
+                        } catch (Exception e) {
+                            if (faqsMeta.length > 0)
+                                title = faqsMeta[0];
                         }
 
                         if (title.equals(titles.get(i))) {
