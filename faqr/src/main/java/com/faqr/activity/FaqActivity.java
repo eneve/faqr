@@ -2185,7 +2185,12 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                             }
 
                             // download the faq from the web
-                            Document doc = Jsoup.connect(currFaqURL).timeout(10000).get();
+                            Document doc = Jsoup.connect(currFaqURL)
+                                .header("Accept-Encoding", "gzip, deflate")
+                                .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0")
+                                .maxBodySize(0)
+                                .timeout(600000)
+                                .get();
 
                             Elements titleElem = doc.select("title");
                             for (Element link : titleElem) {
@@ -2213,8 +2218,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                             for (Element elem : pre) {
                                 // text node prevents the removal of leading and trailing whitespace
                                 List<TextNode> nodes = elem.textNodes();
-                                for (TextNode node : nodes)
+                                for (TextNode node : nodes) {
                                     content += node.getWholeText();
+                                }
                                 // content += elem.text();
                             }
 
@@ -2447,6 +2453,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                         }
                         if (subtitle.startsWith("Final Fantasy IV ")) {
                             subtitle = subtitle.replaceAll("Final Fantasy IV ", "");
+                        }
+
+                        // 5/2015 new Gamefaqs title style???
+                        if (subtitle.isEmpty()) {
+                            subtitle = currFaqMeta[0];
                         }
 
                         getSupportActionBar().setSubtitle(subtitle);
