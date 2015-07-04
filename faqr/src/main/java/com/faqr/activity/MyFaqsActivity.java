@@ -54,7 +54,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * This Activity provides a list of the saved FAQs
- * 
+ *
  * @author eneve
  */
 public class MyFaqsActivity extends BaseActivity {
@@ -203,7 +203,7 @@ public class MyFaqsActivity extends BaseActivity {
 
                 // delete dialog
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyFaqsActivity.this);
-                dialogBuilder.setMessage("Are you sure you want to delete " + faqsMeta.split(" --- ")[6] + "?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                dialogBuilder.setMessage("Are you sure you want to delete " + faqsMeta.split(" --- ")[0] + "?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         SharedPreferences.Editor editor = prefs.edit();
 
@@ -1323,10 +1323,13 @@ public class MyFaqsActivity extends BaseActivity {
             try {
                 String[] faqsMeta1 = prefs.getString(o1.getName(), "").split(" --- ");
                 String[] faqsMeta2 = prefs.getString(o2.getName(), "").split(" --- ");
-                String o1Name = faqsMeta1[6];
-                String o2Name = faqsMeta2[6];
+//                String o1Name = faqsMeta1[6];
+//                String o2Name = faqsMeta2[6];
+                String o1Name = faqsMeta1[0];
+                String o2Name = faqsMeta2[0];
                 return (o1Name.compareTo(o2Name));
             } catch (Exception e) {
+                // shouldn't go here anymore now that index is 0 and not 6
                 return (o1.getName().compareTo(o2.getName()));
             }
         }
