@@ -109,9 +109,9 @@ import java.util.List;
 
 /**
  * Faqr - The ultimate GameFAQs reader application for Android 5 Trillion
- * 
+ *
  * DON'T FAQ AROUND!!!!
- * 
+ *
  * @author eneve
  */
 public class FaqActivity extends BaseActivity implements OnClickListener {
@@ -763,10 +763,10 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             editor.putString(prefs.getString("curr_faq", "") + "___last_read", sdf.format(new Date()));
 
             // faqMeta example
-            // Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- Johnathan 'Zy' Sawyer --- 1.02 --- 1267K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211
+            // Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- A Backdated Future --- 1.02 --- 1265K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211 --- Final Fantasy IV: The Complete Collection (PSP) Final Fantasy IV FAQ/Walkthrough by A Backdated Future
             Log.w(TAG, "-----------------------------");
-            Log.w(TAG, currFaq);
-            Log.w(TAG, faqMeta);
+            Log.w(TAG, "currFaq " + currFaq);
+            Log.w(TAG, "faqMeta " + faqMeta);
             Log.w(TAG, "-----------------------------");
             currFaqMeta = faqMeta.split(" --- ");
 
@@ -1787,7 +1787,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
     /**
      * The Faqr list adapter thats smart about displaying ASCII
-     * 
+     *
      * @author eneve
      */
     public class FaqAdapter extends BaseAdapter {
@@ -2106,7 +2106,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
     /**
      * Main Async task that loads the FAQS - trys to read from disk then web then then save the file if necessary
-     * 
+     *
      * @author eneve
      */
     private class GetFaqTask extends AsyncTask<String, Void, String> {
@@ -2616,7 +2616,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
     /**
      * Save the current position
-     * 
+     *
      * @author eneve
      */
     private class CurrPosTask extends AsyncTask<String, Void, String> {
@@ -2632,7 +2632,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
     /**
      * Save the saved position
-     * 
+     *
      * @author eneve
      */
     private class SavedPosTask extends AsyncTask<String, Void, String> {
@@ -2710,7 +2710,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
     /**
      * Find onTextChanged Task
-     * 
+     *
      * @author eneve
      */
     private class FindTextChangedTask extends AsyncTask<String, Void, String> {
@@ -2779,7 +2779,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
     /**
      * Find Prev Task
-     * 
+     *
      * @author eneve
      */
     private class FindPrevTask extends AsyncTask<String, Void, String> {
@@ -2851,7 +2851,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
     /**
      * Find Next Task
-     * 
+     *
      * @author eneve
      */
     private class FindNextTask extends AsyncTask<String, Void, String> {
@@ -2921,7 +2921,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
     /**
      * Goto Prev Task
-     * 
+     *
      * @author eneve
      */
     private class GotoPrevTask extends AsyncTask<String, Void, String> {
@@ -2995,7 +2995,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
     /**
      * Goto Next Task
-     * 
+     *
      * @author eneve
      */
     private class GotoNextTask extends AsyncTask<String, Void, String> {

@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * This provides data and service methods for FAQr
- * 
+ *
  * @author eneve
  */
 public class FaqrApp extends Application {
@@ -45,11 +45,45 @@ public class FaqrApp extends Application {
         return mTracker;
     }
 
+    public String getFaqsMetaElem(String faqMeta, String element) {
+//        Interlude FAQ/Walkthrough --- 09/20/11 --- A Backdated Future --- 1.04 --- 275K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62307 --- Final Fantasy IV: The Complete Collection (PSP) Interlude FAQ/Walkthrough by A Backdated Future
+//        Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- A Backdated Future --- 1.02 --- 1265K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211 --- Final Fantasy IV: The Complete Collection (PSP) Final Fantasy IV FAQ/Walkthrough by A Backdated Future
+//        The After Years FAQ/Walkthrough --- 01/22/12 --- gamingrat --- 1 --- 477K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/63680 --- Final Fantasy IV: The Complete Collection (PSP) The After Years FAQ/Walkthrough by gamingrat
+//        Interlude FAQ/Walkthrough --- 09/20/11 --- A Backdated Future --- 1.04 --- 275K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62307 --- Final Fantasy IV: The Complete Collection (PSP) Interlude FAQ/Walkthrough by A Backdated Future
+//        FAQ/Walkthrough --- 10/06/14 --- noz3r0 --- 1.00 --- 1273K --- http://m.gamefaqs.com/ps3/735143-kingdom-hearts-hd-25-remix/faqs/70271 --- Kingdom Hearts HD 2.5 ReMIX (PS3) FAQ/Walkthrough by noz3r0
+//        The After Years FAQ/Walkthrough --- 01/22/12 --- gamingrat --- 1 --- 477K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/63680 --- Final Fantasy IV: The Complete Collection (PSP) The After Years FAQ/Walkthrough by gamingrat
+//        FAQ/Walkthrough --- 10/06/14 --- noz3r0 --- 1.00 --- 1273K --- http://m.gamefaqs.com/ps3/735143-kingdom-hearts-hd-25-remix/faqs/70271 --- Kingdom Hearts HD 2.5 ReMIX (PS3) FAQ/Walkthrough by noz3r0
+//        Interlude FAQ/Walkthrough --- 09/20/11 --- A Backdated Future --- 1.04 --- 275K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62307 --- Final Fantasy IV: The Complete Collection (PSP) Interlude FAQ/Walkthrough by A Backdated Future
+//        FAQ/Walkthrough (X360) --- 08/15/11 --- etjester --- Final --- 410K --- http://m.gamefaqs.com/ps3/689056-mass-effect/faqs/51033 --- Mass Effect FAQ/Walkthrough for PlayStation 3 by etjester - GameFAQs
+//        FAQ/Walkthrough *new*  <HTML> --- 06/08/15 --- Suikosun --- 0.1 --- 49K --- http://m.gamefaqs.com/ps4/702760-the-witcher-3-wild-hunt/faqs/71878 --- The Witcher 3: Wild Hunt FAQ/Walkthrough for PlayStation 4 by Suikosun - GameFAQs --- TYPE=HTML
 
+
+        // data.add(title + " --- " + date + " --- " + author + " --- " + version + " --- " + size + " --- " + href);
+
+        String faqMetaPart = "";
+        if (element == "title") {
+
+        } else if (element == "date") {
+
+        } else if (element == "author") {
+
+        } else if (element == "version") {
+
+        } else if (element == "size") {
+
+        } else if (element == "href") {
+
+        } else if (element == "webtitle") {
+
+        }
+
+
+        return faqMetaPart;
+    }
 
     /**
      * Sort the FAQr data files from other meta data in the files dir
-     * 
+     *
      * @param files
      * @return
      */
@@ -349,7 +383,7 @@ public class FaqrApp extends Application {
 
     /**
      * Convert GameFAQs representation to full name
-     * 
+     *
      * @param name
      *            The shortened symbol
      * @return The full name of the console
@@ -411,7 +445,7 @@ public class FaqrApp extends Application {
 
     /**
      * toTitleCase - also detects roman numerals
-     * 
+     *
      * @param givenString
      * @return the title cased string
      */
@@ -434,7 +468,7 @@ public class FaqrApp extends Application {
 
     /**
      * Check if a string is a version (e.g. 1.1, 23.74.48, etc.)
-     * 
+     *
      * @param str
      * @return
      */

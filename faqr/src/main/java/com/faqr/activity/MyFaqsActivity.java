@@ -832,6 +832,8 @@ public class MyFaqsActivity extends BaseActivity {
             File file = (File) allData.get(position);
             String[] faqsMeta = prefs.getString(file.getName(), "").split(" --- ");
 
+            Log.i(TAG, prefs.getString(file.getName(), ""));
+
             // name
             TextView nameView = (TextView) view.findViewById(R.id.name);
             TextView authorView = (TextView) view.findViewById(R.id.author);
@@ -1325,8 +1327,8 @@ public class MyFaqsActivity extends BaseActivity {
                 String[] faqsMeta2 = prefs.getString(o2.getName(), "").split(" --- ");
 //                String o1Name = faqsMeta1[6];
 //                String o2Name = faqsMeta2[6];
-                String o1Name = faqsMeta1[0];
-                String o2Name = faqsMeta2[0];
+                String o1Name = faqsMeta1[6];
+                String o2Name = faqsMeta2[6];
                 return (o1Name.compareTo(o2Name));
             } catch (Exception e) {
                 // shouldn't go here anymore now that index is 0 and not 6
