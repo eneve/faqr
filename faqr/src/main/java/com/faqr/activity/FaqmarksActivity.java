@@ -247,11 +247,6 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-
-        // low profile
-        if (prefs.getBoolean("use_lights_out", getResources().getBoolean(R.bool.use_lights_out_default))) {
-            listView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-        }
     }
 
     /** Called when phone hard keys are pressed */
