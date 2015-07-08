@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE"/>
 
-
     <application
         android:name=".FaqrApp"
         android:allowBackup="true"
@@ -34,11 +33,6 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/menu_faqmarks" >
         </activity>
-        <!--<activity-->
-            <!--android:name=".activity.SearchActivity"-->
-            <!--android:configChanges="orientation|screenSize|keyboardHidden"-->
-            <!--android:label="@string/menu_search" >-->
-        <!--</activity>-->
         <activity
             android:name=".activity.SearchResultsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -53,11 +47,6 @@
             android:name=".activity.SettingsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/menu_settings" >
-        </activity>
-        <activity
-            android:name=".activity.HelpActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:label="@string/menu_help" >
         </activity>
         <activity
             android:name=".activity.AboutActivity"
