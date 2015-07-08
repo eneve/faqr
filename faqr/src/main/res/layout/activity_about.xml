@@ -40,10 +40,11 @@
                 android:text="@string/about_general_title" />
 
             <TextView
+                android:id="@+id/section_1_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/about_general_1" />
+                android:text="@string/about_general_summary" />
 
             <TextView
                 android:id="@+id/section_2_title"
@@ -51,50 +52,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/about_general_title_2" />
+                android:text="@string/about_features_title" />
 
             <TextView
+                android:id="@+id/section_2_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/about_general_2" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="@string/about_general_3"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="@string/about_general_4" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="@string/about_general_5" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="@string/about_general_6" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="@string/about_general_7" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="@string/about_general_8" />
+                android:text="@string/about_features_summary" />
 
             <TextView
                 android:id="@+id/section_3_title"
@@ -105,6 +70,7 @@
                 android:text="@string/about_disclaimer_title" />
 
             <TextView
+                android:id="@+id/section_3_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
@@ -119,6 +85,7 @@
                 android:text="@string/about_more_title" />
 
             <TextView
+                android:id="@+id/section_4_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
@@ -164,6 +131,7 @@
 
             <TextView
                 style="@style/AboutTitleText"
+                android:id="@+id/version_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_version_title" />

@@ -11,10 +11,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -36,11 +34,11 @@ import android.widget.Toast;
 
 import com.faqr.FaqrApp;
 import com.faqr.R;
+import com.faqr.model.FaqMeta;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,7 +63,6 @@ public class MyFaqsActivity extends BaseActivity {
 
     // section list view
     private StickyListHeadersListView listView;
-    // private MyFaqsSectionListAdapter sectionAdapter;
     private List data = new ArrayList();
     private List titles = new ArrayList();
 
@@ -93,49 +90,12 @@ public class MyFaqsActivity extends BaseActivity {
             setSupportActionBar(toolbar);
         }
 
-        ActionBar actionBar = getSupportActionBar();
-        // actionBar.setDisplayHomeAsUpEnabled(true);
-
-
-        // theme goodness
         toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
-        if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
-
-            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                // setTheme(R.style.AppBlackOverlayTheme);
-            }
-        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
-
-            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-//                setTheme(R.style.AppBlackOverlayTheme);
-            }
-        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
-            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-//                setTheme(R.style.AppDarkOverlayTheme);
-            }
-        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
-            // RelativeLayout bg = (RelativeLayout) findViewById(R.id.bg);
-            // bg.setBackgroundColor(0xFFECE1CA);
-            // themeColor = getResources().getColor(R.color.sepia_theme_color);
-
-        }
 
         // set the list adapter
         adapter = new MyFaqsListAdapter();
-        // setListAdapter(adapter);
-
-        // sectionAdapter = new MyFaqsSectionListAdapter();
-        // setListAdapter(sectionAdapter);
         listView = (StickyListHeadersListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
-
-
-        // extras = getIntent().getExtras();
-        // if (extras != null) {
-        // Integer myFaqsScrollPos = extras.getInt("MyFaqsScrollPosition", 0);
-        // int my_faqs_pos = prefs.getInt("my_faqs_pos", 0);
-        // listView.setSelection(my_faqs_pos);
-        // }
 
         // loading indicator
         loading = (LinearLayout) findViewById(R.id.loading);
@@ -148,25 +108,8 @@ public class MyFaqsActivity extends BaseActivity {
         noResultsText.setTextColor(themeTextColor);
 
         /** called when a list item is clicked */
-        // listView.setOnItemClickListener(sectionAdapter.itemClickListener);
-        // listView.setOnLongClickListener(sectionAdapter.i)
-
         listView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
-                // final File file = (File) adapterData.get(position);
-                // final String faqsMeta = prefs.getString(file.getName(), "");
-                // final String faqsMetaLastRead = prefs.getString(file.getName() + "___last_read", "");
-                // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
-                //
-                // SharedPreferences.Editor editor = prefs.edit();
-                // editor.putString("curr_faq", file.getName());
-                // editor.putString(file.getName() + "___last_read", sdf.format(new Date()));
-                // editor.commit();
-                // Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
-                // // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                // startActivity(intent);
-                // // finish();
 
                 final File file = (File) allData.get(position);
                 final String faqsMeta = prefs.getString(file.getName(), "");
@@ -198,12 +141,11 @@ public class MyFaqsActivity extends BaseActivity {
 
                 final TextView metaView = (TextView) view.findViewById(R.id.meta);
 
-                // final File file = (File) adapterData.get(position);
-                final String faqsMeta = prefs.getString(metaView.getText().toString(), "");
+                FaqMeta faqMeta = new FaqMeta(prefs.getString(metaView.getText().toString(), ""));
 
                 // delete dialog
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyFaqsActivity.this);
-                dialogBuilder.setMessage("Are you sure you want to delete " + faqsMeta.split(" --- ")[0] + "?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                dialogBuilder.setMessage("Are you sure you want to delete " + faqMeta.getTitle() + "?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         SharedPreferences.Editor editor = prefs.edit();
 
@@ -215,8 +157,6 @@ public class MyFaqsActivity extends BaseActivity {
                                 file = f;
                             }
                         }
-
-                        // File file = (File) adapterData.get(position);
 
                         String currFaq = prefs.getString("curr_faq", "");
 
@@ -284,7 +224,6 @@ public class MyFaqsActivity extends BaseActivity {
                 editor.putString("recent_searches", "");
                 editor.commit();
 
-
                 String recentSearches = prefs.getString("recent_searches", "");
                 String[] split = recentSearches.split(" --- ");
                 final List<String> list = new ArrayList<String>();
@@ -294,8 +233,6 @@ public class MyFaqsActivity extends BaseActivity {
                 final SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete) searchView.findViewById(R.id.search_src_text);
                 searchViewAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.simple_dropdown_item_1line_faqr, list);
                 searchAutoComplete.setAdapter(searchViewAdapter);
-
-
 
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -318,7 +255,6 @@ public class MyFaqsActivity extends BaseActivity {
             }
         });
         deleteAllConfirmDialog = dialogBuilder.create();
-        // deleteAllConfirmDialog.setTitle("Delete All FAQs?");
 
         // init the faq list view
         new InitTask().execute(new String[] {});
@@ -333,7 +269,6 @@ public class MyFaqsActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // EasyTracker.getInstance(this).activityStart(this); // Add this method.
 
         // Get tracker.
         Tracker t = ((FaqrApp) getApplication()).getTracker();
@@ -346,7 +281,6 @@ public class MyFaqsActivity extends BaseActivity {
     @Override
     public void onStop() {
         super.onStop();
-//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override
@@ -354,10 +288,6 @@ public class MyFaqsActivity extends BaseActivity {
 //        super.onCreateOptionsMenu(menu);
         this.menu = menu;
         getMenuInflater().inflate(R.menu.activity_my_faqs, menu);
-        // MenuItem dateItem = menu.findItem(R.id.menu_sort_date);
-        // dateItem.setTitle("\u2605 Sort By Date Added");
-
-        // final MenuItem searchItemOld = menu.findItem(R.id.menu_search_old);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         final MenuItem searchItem = menu.findItem(R.id.action_search);
@@ -372,15 +302,6 @@ public class MyFaqsActivity extends BaseActivity {
             }
         });
 
-//        LinearLayout searchText = (LinearLayout) searchView.findViewById(R.id.abs__search_plate);
-//        // searchText.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
-//        int pL = searchText.getPaddingLeft();
-//        int pT = searchText.getPaddingTop();
-//        int pR = searchText.getPaddingRight();
-//        int pB = searchText.getPaddingBottom();
-//        searchText.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
-//        searchText.setPadding(pL, pT, pR, pB);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String s) {
@@ -392,29 +313,9 @@ public class MyFaqsActivity extends BaseActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // close the search view
-                // Toast.makeText(getApplicationContext(), "onQueryTextSubmit", Toast.LENGTH_SHORT).show();
-                // finalMenu.findItem(R.id.menu_search).collapseActionView();
-
                 searchItem.collapseActionView();
 
                 if (null != query && !query.equals("")) {
-
-                    // save search
-                    // String newRecentSearches = "";
-                    // String recentSearches = prefs.getString("recent_searches", "");
-                    // if (!recentSearches.contains(searchView.getQuery().toString())) {
-                    // newRecentSearches += searchView.getQuery().toString();
-                    // String[] split = recentSearches.split(" --- ");
-                    // for (int i = 0; i < split.length; i++) {
-                    // newRecentSearches += " --- " + split[i];
-                    // if (i > 18)
-                    // break;
-                    // }
-                    // SharedPreferences.Editor editor = prefs.edit();
-                    // editor.putString("recent_searches", newRecentSearches);
-                    // editor.commit();
-                    // }
-
                     String recentSearches = prefs.getString("recent_searches", "");
                     String[] split = recentSearches.split(" --- ");
                     final List<String> list = new ArrayList<String>();
@@ -435,14 +336,12 @@ public class MyFaqsActivity extends BaseActivity {
                     if (!isNetworkAvailable()) {
                         connectionDialog.show();
                     } else {
-
                         Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
                         intent.putExtra("game", query.trim());
 
                         editor.putInt("my_faqs_pos", listView.getFirstVisiblePosition());
                         editor.commit();
 
-                        // intent.putExtra("MyFaqsScrollPosition", listView.getFirstVisiblePosition());
                         startActivity(intent);
                         finish();
                     }
@@ -455,57 +354,26 @@ public class MyFaqsActivity extends BaseActivity {
             }
         });
 
-        // Android < 3.0 enter key
-        // searchView.setOnKeyListener(new OnKeyListener() {
-        // public boolean onKey(View v, int keyCode, KeyEvent event) {
-        // if (event.getAction() == KeyEvent.ACTION_DOWN) {
-        // switch (keyCode) {
-        // case KeyEvent.KEYCODE_DPAD_CENTER:
-        // case KeyEvent.KEYCODE_ENTER:
-        // Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
-        // intent.putExtra("game", searchView.getQuery().toString());
-        // startActivity(intent);
-        // finish();
-        //
-        // return true;
-        // default:
-        // break;
-        // }
-        // }
-        // return false;
-        // }
-        // });
-
         final SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete) searchView.findViewById(R.id.search_src_text);
-        // searchView.findViewById(abs__search_src_text)
         searchAutoComplete.setThreshold(0);
         String recentSearches = prefs.getString("recent_searches", "");
         String[] split = recentSearches.split(" --- ");
         final List<String> list = new ArrayList<String>();
         Collections.addAll(list, split);
         list.remove("");
-//        if (split.length == 1 && split[0].equals("")) {
-//            split = new String[]{};
-//        }
+
         searchViewAdapter = new ArrayAdapter<String>(this, R.layout.simple_dropdown_item_1line_faqr, list);
         searchAutoComplete.setAdapter(searchViewAdapter);
-
         searchAutoComplete.setOnItemClickListener(new OnItemClickListener() {
 
             /**
              * Implements OnItemClickListener
              */
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // if (DBG)
-                // Log.w(TAG, "onItemClick() position " + position);
-                // onItemClicked(position, KeyEvent.KEYCODE_UNKNOWN, null);
 
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
                 searchAutoComplete.setText(textView.getText());
-
-                // String recentSearches = prefs.getString("recent_searches", "");
-                // String[] split = recentSearches.split(" --- ");
 
                 searchItem.collapseActionView();
 
@@ -545,87 +413,25 @@ public class MyFaqsActivity extends BaseActivity {
         });
 
         MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
-
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                // Log.i(TAG, "onMenuItemActionCollapse " + item.getItemId());
-                // MenuItem prev = finalMenu.findItem(R.id.menu_prev);
-                // prev.setVisible(false);
-                // MenuItem next = finalMenu.findItem(R.id.menu_next);
-                // next.setVisible(false);
-                // MenuItem opt = finalMenu.findItem(R.id.menu_downloads);
-                // opt.setVisible(true);
-                // MenuItem opt = finalMenu.findItem(R.id.menu_search);
-                // opt.setVisible(true);
-                // MenuItem opt = finalMenu.findItem(R.id.menu_goto);
-                // opt.setVisible(true);
-                // opt = finalMenu.findItem(R.id.menu_lock);
-                // opt.setVisible(true);
-                // opt = finalMenu.findItem(R.id.menu_settings);
-                // opt.setVisible(true);
-                // opt = finalMenu.findItem(R.id.menu_about);
-                // opt.setVisible(true);
-
-                // find = false;
-                // currFindPos = 0;
-
                 return true; // Return true to collapse action view
             }
 
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
-                // find = true;
-                // Log.i(TAG, "onMenuItemActionExpand " + item.getItemId());
                 return true;
             }
         });
-
-        // searchView.setSuggestionsAdapter(new FaqSearchAdapter(this, searchManager.getSearchableInfo(getComponentName()), searchView));
 
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // MenuItem alphaItem = menu.findItem(R.id.menu_sort_alpha);
-        // MenuItem dateItem = menu.findItem(R.id.menu_sort_date);
-        // MenuItem sizeItem = menu.findItem(R.id.menu_sort_size);
         Intent intent;
         switch (item.getItemId()) {
-        // case R.id.menu_search_old: // check connectivity
-        // if (!isNetworkAvailable()) {
-        // connectionDialog.show();
-        // // Toast.makeText(getApplicationContext(),
-        // // "There is no internet connection available, Please connect to wifi or data plan and try again.",
-        // // Toast.LENGTH_LONG).show();
-        // } else {
-        // // if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-        // // intent = new Intent(this, SearchActivity.class);
-        // // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        // //
-        // // SharedPreferences.Editor editor = prefs.edit();
-        // // editor.putInt("my_faqs_pos", listView.getFirstVisiblePosition());
-        // // editor.commit();
-        // //
-        // // startActivity(intent);
-        // // finish();
-        // // }
-        // }
-        // return true;
         case R.id.action_search: // check connectivity
-            if (!isNetworkAvailable()) {
-                // connectionDialog.show();
-                // Toast.makeText(getApplicationContext(),
-                // "There is no internet connection available, Please connect to wifi or data plan and try again.",
-                // Toast.LENGTH_LONG).show();
-            } else {
-                // if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-                // intent = new Intent(this, SearchActivity.class);
-                // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                // startActivity(intent);
-                // finish();
-                // }
-            }
             return true;
         case R.id.menu_clear:
             clearConfirmDialog.show();
@@ -633,123 +439,6 @@ public class MyFaqsActivity extends BaseActivity {
         case R.id.menu_delete:
             deleteAllConfirmDialog.show();
             return true;
-            // case R.id.menu_sort:
-            // AlertDialog.Builder builder = new Builder(this);
-            // // builder.setTitle("Sort FAQs");
-            // String[] types = { "By Last Read", "By Title", "By Date Added", "By Size" };
-            // Integer currSort = Integer.valueOf(prefs.getString("curr_my_faqs_sort", "1"));
-            // types[currSort] = "\u2605 " + types[currSort];
-            // builder.setItems(types, new OnClickListener() {
-            // @Override
-            // public void onClick(DialogInterface dialog, int which) {
-            // SharedPreferences.Editor editor = prefs.edit();
-            // dialog.dismiss();
-            // switch (which) {
-            // case 0:
-            // // Collections.sort(adapterData, new MyLastComparable());
-            // // adapter.notifyDataSetChanged();
-            // // sectionAdapter.notifyDataSetChanged();
-            // //
-            // // editor.putInt("my_faqs_pos", 0);
-            // // editor.commit();
-            // // new InitTask().execute(new String[] {});
-            //
-            // Intent intent = new Intent(getApplicationContext(), MyFaqsActivity.class);
-            // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            //
-            // editor = prefs.edit();
-            // editor.putString("curr_my_faqs_sort", "0");
-            // editor.putInt("my_faqs_pos", 0);
-            // editor.commit();
-            //
-            // startActivity(intent);
-            // finish();
-            //
-            // break;
-            // case 1:
-            // // Collections.sort(adapterData, new MyAlphaComparable());
-            // // adapter.notifyDataSetChanged();
-            // // sectionAdapter.notifyDataSetChanged();
-            // // editor.putString("curr_my_faqs_sort", "1");
-            // // editor.putInt("my_faqs_pos", 0);
-            // // editor.commit();
-            // // new InitTask().execute(new String[] {});
-            //
-            // intent = new Intent(getApplicationContext(), MyFaqsActivity.class);
-            // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            //
-            // editor = prefs.edit();
-            // editor.putString("curr_my_faqs_sort", "1");
-            // editor.putInt("my_faqs_pos", 0);
-            // editor.commit();
-            //
-            // startActivity(intent);
-            // finish();
-            //
-            // break;
-            // case 2:
-            // // Collections.sort(adapterData, new MyDateComparable());
-            // // adapter.notifyDataSetChanged();
-            // // sectionAdapter.notifyDataSetChanged();
-            // // editor.putString("curr_my_faqs_sort", "2");
-            // // editor.putInt("my_faqs_pos", 0);
-            // // editor.commit();
-            // // new InitTask().execute(new String[] {});
-            //
-            // intent = new Intent(getApplicationContext(), MyFaqsActivity.class);
-            // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            //
-            // editor = prefs.edit();
-            // editor.putString("curr_my_faqs_sort", "2");
-            // editor.putInt("my_faqs_pos", 0);
-            // editor.commit();
-            //
-            // startActivity(intent);
-            // finish();
-            //
-            // break;
-            // case 3:
-            // // Collections.sort(adapterData, new MySizeComparable());
-            // // adapter.notifyDataSetChanged();
-            // // sectionAdapter.notifyDataSetChanged();
-            // // editor.putString("curr_my_faqs_sort", "3");
-            // // editor.putInt("my_faqs_pos", 0);
-            // // editor.commit();
-            // // new InitTask().execute(new String[] {});
-            //
-            // intent = new Intent(getApplicationContext(), MyFaqsActivity.class);
-            // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            //
-            // editor = prefs.edit();
-            // editor.putString("curr_my_faqs_sort", "3");
-            // editor.putInt("my_faqs_pos", 0);
-            // editor.commit();
-            //
-            // startActivity(intent);
-            // finish();
-            //
-            // break;
-            // }
-            // }
-            // });
-            //
-            // builder.show();
-            // return true;
-
-            // case R.id.menu_sort_date:
-            // Collections.sort(adapterData, new MyDateComparable());
-            // adapter.notifyDataSetChanged();
-            // alphaItem.setTitle("Sort By Title");
-            // dateItem.setTitle("\u2605 Sort By Date Added");
-            // sizeItem.setTitle("Sort By Size");
-            // return true;
-            // case R.id.menu_sort_size:
-            // Collections.sort(adapterData, new MySizeComparable());
-            // adapter.notifyDataSetChanged();
-            // alphaItem.setTitle("Sort By Title");
-            // dateItem.setTitle("Sort By Date Added");
-            // sizeItem.setTitle("\u2605 Sort By Size");
-            // return true;
         case R.id.menu_settings:
             intent = new Intent(this, SettingsActivity.class);
             intent.putExtra("fromActivity", "My FAQs");
@@ -766,10 +455,6 @@ public class MyFaqsActivity extends BaseActivity {
             startActivity(intent);
             return true;
         case android.R.id.home:
-            // intent = new Intent(this, FaqActivity.class);
-            // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            // startActivity(intent);
-            // finish();
             return true;
         default:
             return false;
@@ -779,27 +464,6 @@ public class MyFaqsActivity extends BaseActivity {
     /** Called when phone hard keys are pressed */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-        // Intent searchIntent = new Intent(this, FaqActivity.class);
-        // searchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        // startActivity(searchIntent);
-        // finish();
-        // return true;
-        // }
-        if ((keyCode == KeyEvent.KEYCODE_SEARCH)) {
-            // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            MenuItem searchMenuItem = menu.findItem(R.id.action_search);
-            searchView = (SearchView) searchMenuItem.getActionView();
-            searchMenuItem.expandActionView();
-            // } else {
-            // Intent searchIntent = new Intent(this, SearchActivity.class);
-            // searchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            // startActivity(searchIntent);
-            // finish();
-            // return true;
-            // }
-            return true;
-        }
         return super.onKeyDown(keyCode, event);
     }
 
@@ -830,9 +494,9 @@ public class MyFaqsActivity extends BaseActivity {
             View view = inflater.inflate(R.layout.search_result_item_2, parent, false);
 
             File file = (File) allData.get(position);
-            String[] faqsMeta = prefs.getString(file.getName(), "").split(" --- ");
 
-            Log.i(TAG, prefs.getString(file.getName(), ""));
+            FaqMeta faqMeta = new FaqMeta(prefs.getString(file.getName(), ""));
+
 
             // name
             TextView nameView = (TextView) view.findViewById(R.id.name);
@@ -844,43 +508,22 @@ public class MyFaqsActivity extends BaseActivity {
             TextView metaView = (TextView) view.findViewById(R.id.meta);
             metaView.setText(file.getName());
 
-            String dateFix = faqsMeta[1];
+            String dateFix = faqMeta.getDate();
             if (dateFix.startsWith("0"))
                 dateFix = dateFix.substring(1);
 
-            String versionAndSize = "v" + faqsMeta[3] + "/" + faqsMeta[4].replaceAll("K", "k");
-            if (faqsMeta[3].trim().equals("") && !faqsMeta[3].equalsIgnoreCase("Final"))
-                versionAndSize = faqsMeta[4].replaceAll("K", "k");
+            String versionAndSize = "v" + faqMeta.getVersion() + "/" + faqMeta.getSize().replaceAll("K", "k");
+            if (faqMeta.getVersion().trim().equals("") && !faqMeta.getVersion().equalsIgnoreCase("Final"))
+                versionAndSize = faqMeta.getSize().replaceAll("K", "k");
 
-            // curr faq gets an indictator
-            // if (prefs.getString("curr_faq", "").equalsIgnoreCase(file.getName())) {
-            // nameView.setText("\u2605 " + faqsMeta[6].split("\\(")[0].trim());
-            // } else {
-            try {
-                nameView.setText(faqsMeta[6].split("\\(")[0].trim());
-            } catch (Exception e) {
-                if (faqsMeta.length > 0)
-                    nameView.setText(faqsMeta[0]);
-            }
-            // }
-            authorView.setText(faqsMeta[0] + " by " + faqsMeta[2]);
+            nameView.setText(faqMeta.getTitle());
+            authorView.setText(faqMeta.getAuthor());
 
-            // sort by title
-            if (Integer.valueOf(prefs.getString("curr_my_faqs_sort", "1")) == 1) {
-                nameView.setText(faqsMeta[0]);
-                authorView.setText(faqsMeta[2]);
-            }
-
-            // sort by size
-            if (Integer.valueOf(prefs.getString("curr_my_faqs_sort", "1")) == 3) {
-                versionAndSize = faqsMeta[4].replaceAll("K", "k");
-            }
-
+            // curr faq gets an indicator
             if (prefs.getString("curr_faq", "").equalsIgnoreCase(file.getName())) {
                 nameView.setText("\u2605 " + nameView.getText());
             }
 
-            // if (!item.split(" --- ")[3].isEmpty() && !item.split(" --- ")[3].startsWith("v"))
             versionView.setText(dateFix);
             sizeView.setText(versionAndSize);
 
@@ -902,36 +545,28 @@ public class MyFaqsActivity extends BaseActivity {
             int sectionCount = 0;
             for (int i = 0; i < allData.size(); i++) {
                 count += ((ArrayList) data.get(i)).size();
-
                 if (position < count) {
                     break;
                 }
-
                 sectionCount += 1;
             }
-
             textView.setText(titles.get(sectionCount).toString());
 
             // theme goodness
             view.setBackgroundColor(primaryColor);
-
-
 
             return view;
         }
 
         @Override
         public long getHeaderId(int position) {
-
             int count = 0;
             int sectionCount = 0;
             for (int i = 0; i < allData.size(); i++) {
                 count += ((ArrayList) data.get(i)).size();
-
                 if (position < count) {
                     break;
                 }
-
                 sectionCount += 1;
             }
 
@@ -939,7 +574,6 @@ public class MyFaqsActivity extends BaseActivity {
         }
 
     }
-
 
 
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -966,204 +600,34 @@ public class MyFaqsActivity extends BaseActivity {
             allData = Arrays.asList(files);
 
             // current sorting
-            Integer currSort = Integer.valueOf(prefs.getString("curr_my_faqs_sort", "1"));
-            switch (currSort) {
-            case 0:
-                Collections.sort(allData, new MyLastComparable());
-                break;
-            case 1:
-                Collections.sort(allData, new MyAlphaComparable());
-                break;
-            case 2:
-                Collections.sort(allData, new MyDateComparable());
-                break;
-            case 3:
-                Collections.sort(allData, new MySizeComparable());
-                break;
+            Collections.sort(allData, new MyAlphaComparable());
+
+            titles = new ArrayList();
+            data = new ArrayList();
+
+            // titles loop
+            for (int i = 0; i < allData.size(); i++) {
+                File file = (File) allData.get(i);
+                FaqMeta faqMeta = new FaqMeta(prefs.getString(file.getName(), ""));
+                String title = faqMeta.getGameTitle();
+                if (!titles.contains(title)) {
+                    titles.add(title);
+                }
             }
 
-            // HARD CIRCUIT THE SORT HERE !!!!
-            currSort = 1;
-            // section list adapter
-            switch (currSort) {
-            case 0:
+            // data loop
+            for (int i = 0; i < titles.size(); i++) {
+                ArrayList<File> sectionFiles = new ArrayList<File>();
+                for (int j = 0; j < allData.size(); j++) {
+                    File file = (File) allData.get(j);
 
-                String[] dateViewedTitles = new String[] { "Most Recently Read" }; // , "Read Past Week", "Read Past Month", "Read Past Year" };
-                List[] dateViewedData = new List[] { new ArrayList(), new ArrayList(), new ArrayList(), new ArrayList(), new ArrayList() };
-
-                for (int i = 0; i < allData.size(); i++) {
-                    File file = (File) allData.get(i);
-                    String[] faqsMeta = prefs.getString(file.getName(), "").split(" --- ");
-
-                    String faqLastRead1 = prefs.getString(file.getName() + "___last_read", "");
-                    Date d = new Date();
-                    try {
-                        d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ").parse(faqLastRead1);
-                    } catch (ParseException e) {
-
-                        e.printStackTrace();
+                    FaqMeta faqMeta = new FaqMeta(prefs.getString(file.getName(), ""));
+                    String title = faqMeta.getGameTitle();
+                    if (title.equals(titles.get(i))) {
+                        sectionFiles.add(allData.get(j));
                     }
-
-                    // Calendar cal = Calendar.getInstance();
-                    // cal.add(Calendar.DATE, -3);
-                    // Date pastDay = cal.getTime();
-                    // cal = Calendar.getInstance();
-                    // cal.add(Calendar.DATE, -7);
-                    // Date pastWeek = cal.getTime();
-                    // cal = Calendar.getInstance();
-                    // cal.add(Calendar.DATE, -30);
-                    // Date pastMonth = cal.getTime();
-                    //
-                    // Log.w(TAG, "FILE " + d.toString());
-                    // Log.w(TAG, "DAY " + pastDay.toString() + " " + d.compareTo(pastDay));
-                    // Log.w(TAG, "WEEK " + pastWeek.toString() + " " + d.compareTo(pastWeek));
-                    // Log.w(TAG, "MONTH " + pastMonth.toString() + " " + d.compareTo(pastMonth));
-
-                    // if (d.compareTo(pastDay) == 1) {
-                    dateViewedData[0].add(file);
-                    // } else if (d.compareTo(pastWeek) == 1) {
-                    // dateViewedData[1].add(file);
-                    // } else if (d.compareTo(pastMonth) == 1) {
-                    // dateViewedData[2].add(file);
-                    // } else {
-                    // dateViewedData[3].add(file);
-                    // }
-
                 }
-
-                titles = Arrays.asList(dateViewedTitles);
-                data = Arrays.asList(dateViewedData);
-
-                break;
-            case 1:
-
-                titles = new ArrayList();
-                data = new ArrayList();
-
-                // titles loop
-                for (int i = 0; i < allData.size(); i++) {
-                    File file = (File) allData.get(i);
-                    String[] faqsMeta = prefs.getString(file.getName(), "").split(" --- ");
-
-                    // Log.w(TAG, "TITLE - " + faqsMeta[6].split("\\(")[0].trim());
-                    // Log.w(TAG, "FAQS META - " + faqsMeta.toString());
-
-                    String title = "";
-                    try {
-                        title = faqsMeta[6].split("\\(")[0].trim();
-                        if (title.indexOf(faqsMeta[0].split("\\(|<")[0].trim()) != -1) {
-                            title = title.substring(0, title.indexOf(faqsMeta[0].split("\\(|<")[0].trim())).trim();
-                        }
-                    } catch (Exception e) {
-                        if (faqsMeta.length > 0)
-                            title = faqsMeta[0];
-                    }
-
-                    if (!titles.contains(title)) {
-                        titles.add(title);
-                    }
-
-                }
-
-                // data loop
-                for (int i = 0; i < titles.size(); i++) {
-                    ArrayList<File> sectionFiles = new ArrayList<File>();
-                    for (int j = 0; j < allData.size(); j++) {
-                        File file = (File) allData.get(j);
-                        String[] faqsMeta = prefs.getString(file.getName(), "").split(" --- ");
-
-                        String title = "";
-                        try {
-                            title = faqsMeta[6].split("\\(")[0].trim();
-                            if (title.indexOf(faqsMeta[0].split("\\(|<")[0].trim()) != -1) {
-                                title = title.substring(0, title.indexOf(faqsMeta[0].split("\\(|<")[0].trim())).trim();
-                            }
-                        } catch (Exception e) {
-                            if (faqsMeta.length > 0)
-                                title = faqsMeta[0];
-                        }
-
-                        if (title.equals(titles.get(i))) {
-                            sectionFiles.add(allData.get(j));
-                        }
-                    }
-                    data.add(sectionFiles);
-                }
-
-                break;
-            case 2:
-
-                String[] dateAddedTitles = new String[] { "Most Recently Added" }; // , "Added Past Week", "Added Past Month", "Added Past Year" };
-                List[] dateAddedData = new List[] { new ArrayList(), new ArrayList(), new ArrayList(), new ArrayList(), new ArrayList() };
-
-                for (int i = 0; i < allData.size(); i++) {
-                    File file = (File) allData.get(i);
-                    String[] faqsMeta = prefs.getString(file.getName(), "").split(" --- ");
-
-                    // Log.w(TAG, prefs.getString(file.getName(), ""));
-
-                    Date d = new Date(file.lastModified());
-
-                    // Calendar cal = Calendar.getInstance();
-                    // cal.add(Calendar.DATE, -3);
-                    // Date pastDay = cal.getTime();
-                    // cal = Calendar.getInstance();
-                    // cal.add(Calendar.DATE, -7);
-                    // Date pastWeek = cal.getTime();
-                    // cal = Calendar.getInstance();
-                    // cal.add(Calendar.DATE, -30);
-                    // Date pastMonth = cal.getTime();
-
-                    // Log.w(TAG, "FILE " + d.toString());
-                    // Log.w(TAG, "DAY " + pastDay.toString() + " " + d.compareTo(pastDay));
-                    // Log.w(TAG, "WEEK " + pastWeek.toString() + " " + d.compareTo(pastWeek));
-                    // Log.w(TAG, "MONTH " + pastMonth.toString() + " " + d.compareTo(pastMonth));
-
-                    // if (d.compareTo(pastDay) == 1) {
-                    dateAddedData[0].add(file);
-                    // } else if (d.compareTo(pastWeek) == 1) {
-                    // dateAddedData[1].add(file);
-                    // } else if (d.compareTo(pastMonth) == 1) {
-                    // dateAddedData[2].add(file);
-                    // } else {
-                    // dateAddedData[3].add(file);
-                    // }
-                }
-
-                titles = Arrays.asList(dateAddedTitles);
-                data = Arrays.asList(dateAddedData);
-
-                break;
-            case 3:
-                Collections.sort(allData, new MySizeComparable());
-
-                String[] sizeTitles = new String[] { "Largest File Size" }; // ">1000k", ">500k", ">200k", ">50k", "<50k" };
-
-                List[] sizeData = new List[] { new ArrayList(), new ArrayList(), new ArrayList(), new ArrayList(), new ArrayList() };
-
-                // titles loop
-                for (int i = 0; i < allData.size(); i++) {
-                    File file = (File) allData.get(i);
-                    String[] faqsMeta = prefs.getString(file.getName(), "").split(" --- ");
-
-                    Integer size = Integer.valueOf(faqsMeta[4].replaceAll("K", "").trim());
-                    // if (size > 1000) {
-                    sizeData[0].add(file);
-                    // } else if (size > 500) {
-                    // sizeData[1].add(file);
-                    // } else if (size > 200) {
-                    // sizeData[2].add(file);
-                    // } else if (size > 50) {
-                    // sizeData[3].add(file);
-                    // } else {
-                    // sizeData[4].add(file);
-                    // }
-                }
-
-                titles = Arrays.asList(sizeTitles);
-                data = Arrays.asList(sizeData);
-
-                break;
+                data.add(sectionFiles);
             }
 
             return result;
@@ -1195,35 +659,16 @@ public class MyFaqsActivity extends BaseActivity {
             });
             // Now Set your animation
             listView.startAnimation(fadeInAnimation);
-
             loading.startAnimation(fadeOutAnimation);
-
-            // loading.setVisibility(View.GONE);
-            // listView.setVisibility(View.VISIBLE);
 
             int my_faqs_pos = prefs.getInt("my_faqs_pos", 0);
             listView.setSelection(my_faqs_pos);
 
             adapter.notifyDataSetChanged();
-            // sectionAdapter.notifyDataSetChanged();
-
-            // adapter.notifyDataSetChanged();
-            // listView.smoothScrollBy(1000, 1000);
 
             // even tho we aren't using this adapter we can still check it here??
             if (allData.size() < 1) {
-
-                // if android >= 3.0 then stay otherwise force to search
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    noResults.setVisibility(View.VISIBLE);
-                } else {
-                    Toast.makeText(getApplicationContext(), "No saved FAQs. Please search.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            } else {
-
+                noResults.setVisibility(View.VISIBLE);
             }
         }
     };
@@ -1234,10 +679,6 @@ public class MyFaqsActivity extends BaseActivity {
      * @author eneve
      */
     private class DeleteAllTask extends AsyncTask<String, Void, String> {
-
-        protected void onPreExecute() {
-            // do nothing
-        }
 
         @Override
         protected String doInBackground(String... strings) {
@@ -1263,10 +704,6 @@ public class MyFaqsActivity extends BaseActivity {
             editor.remove("curr_faq");
             editor.commit();
 
-            // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // noResults.setVisibility(View.VISIBLE);
-            // } else {
-            // intent
             Intent intent = new Intent(getApplicationContext(), MyFaqsActivity.class);
 
             editor = prefs.edit();
@@ -1276,7 +713,6 @@ public class MyFaqsActivity extends BaseActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
-            // }
         }
     };
 
@@ -1285,37 +721,6 @@ public class MyFaqsActivity extends BaseActivity {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // COMPARABLES
 
-    public class MyLastComparable implements Comparator<File> {
-
-        @Override
-        public int compare(File o1, File o2) {
-            Date date1 = new Date();
-            Date date2 = new Date();
-            try {
-                // start them old if their date hasn't been set yet
-                date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ").parse("1970-01-01 00:00:00.000+0000");
-                date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ").parse("1970-01-01 00:00:00.000+0000");
-            } catch (ParseException e) {
-                Log.e(TAG, e.getMessage());
-            }
-            // now parse the dates
-            try {
-                String faqLastRead1 = prefs.getString(o1.getName() + "___last_read", "");
-                date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ").parse(faqLastRead1);
-            } catch (ParseException e) {
-                Log.e(TAG, e.getMessage());
-            }
-            // now parse the dates
-            try {
-                String faqLastRead2 = prefs.getString(o2.getName() + "___last_read", "");
-                date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ").parse(faqLastRead2);
-            } catch (ParseException e) {
-                Log.e(TAG, e.getMessage());
-            }
-            return (date2.compareTo(date1));
-        }
-    }
-
     public class MyAlphaComparable implements Comparator<File> {
 
         @Override
@@ -1323,34 +728,23 @@ public class MyFaqsActivity extends BaseActivity {
             // TODO there is a NPE here when the size is 6
             // Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- Johnathan 'Zy' Sawyer --- 1.02 --- 1267K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211
             try {
-                String[] faqsMeta1 = prefs.getString(o1.getName(), "").split(" --- ");
-                String[] faqsMeta2 = prefs.getString(o2.getName(), "").split(" --- ");
+//                String[] faqsMeta1 = prefs.getString(o1.getName(), "").split(" --- ");
+//                String[] faqsMeta2 = prefs.getString(o2.getName(), "").split(" --- ");
+
+                FaqMeta faqMeta1 = new FaqMeta(prefs.getString(o1.getName(), ""));
+                FaqMeta faqMeta2 = new FaqMeta(prefs.getString(o2.getName(), ""));
+
 //                String o1Name = faqsMeta1[6];
 //                String o2Name = faqsMeta2[6];
-                String o1Name = faqsMeta1[6];
-                String o2Name = faqsMeta2[6];
-                return (o1Name.compareTo(o2Name));
+//                String o1Name = faqsMeta1[6];
+//                String o2Name = faqsMeta2[6];
+                return (faqMeta1.getGameTitle().compareTo(faqMeta2.getGameTitle()));
             } catch (Exception e) {
                 // shouldn't go here anymore now that index is 0 and not 6
+
+                Log.d(TAG, "Problem with FaqMeta and MyAlphaComparable");
                 return (o1.getName().compareTo(o2.getName()));
             }
         }
     }
-
-    public class MyDateComparable implements Comparator<File> {
-
-        @Override
-        public int compare(File o1, File o2) {
-            return Long.valueOf(((File) o2).lastModified()).compareTo(Long.valueOf(((File) o1).lastModified()));
-        }
-    }
-
-    public class MySizeComparable implements Comparator<File> {
-
-        @Override
-        public int compare(File o1, File o2) {
-            return Long.valueOf(((File) o2).length()).compareTo(Long.valueOf(((File) o1).length()));
-        }
-    }
-
 }

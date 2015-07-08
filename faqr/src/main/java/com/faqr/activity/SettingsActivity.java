@@ -63,11 +63,6 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-        // }
-
         extras = getIntent().getExtras();
         if (extras != null && extras.getString("fromActivity") != null && !TextUtils.isEmpty(extras.getString("fromActivity"))) {
             fromActivity = extras.getString("fromActivity");
@@ -91,21 +86,6 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     protected void onResume() {
         super.onResume();
 
-
-        // hide notification bar
-//        if (prefs.getString("hide_notification_bar", getResources().getString(R.string.hide_notification_bar_default)).equals("1")) {
-//            showStatusBar();
-//        } else if (prefs.getString("hide_notification_bar", getResources().getString(R.string.hide_notification_bar_default)).equals("2")) {
-//            hideStatusBar();
-//        } else if (prefs.getString("hide_notification_bar", getResources().getString(R.string.hide_notification_bar_default)).equals("3")) {
-//            int orientation = getScreenOrientation();
-//            if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE || orientation == ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE) {
-//                hideStatusBar();
-//            } else {
-//                showStatusBar();
-//            }
-//        }
-
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
@@ -118,7 +98,6 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     @Override
     public void onStart() {
         super.onStart();
-        // EasyTracker.getInstance(this).activityStart(this); // Add this method.
 
         // Get tracker.
         Tracker t = ((FaqrApp) getApplication()).getTracker();
@@ -131,13 +110,11 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     @Override
     public void onStop() {
         super.onStop();
-//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
 
         LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
         Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.settings_toolbar, root, false);
@@ -167,30 +144,6 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
-        // if (preferences.getBoolean("highlight_saved_pos", true)) {
-        // getPreferenceScreen().findPreference("saved_pos_background").setEnabled(true);
-        // } else {
-        // getPreferenceScreen().findPreference("saved_pos_background").setEnabled(false);
-        // }
-
-        // if (preferences.getBoolean("use_variable_font", false)) {
-        // getPreferenceScreen().findPreference("use_serif_font").setEnabled(true);
-        // getPreferenceScreen().findPreference("variable_font_size").setEnabled(true);
-        // } else {
-        // getPreferenceScreen().findPreference("use_serif_font").setEnabled(false);
-        // getPreferenceScreen().findPreference("variable_font_size").setEnabled(false);
-        // }
-
-        // disable dark theme
-        // if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-        // getPreferenceScreen().findPreference("use_lights_out").setSummary("Only available in Android 3.0+");
-        // getPreferenceScreen().findPreference("use_lights_out").setEnabled(false);
-        // }
-
-        // if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-        // getPreferenceScreen().findPreference("use_immersive_mode").setSummary("Only available in Android 4.4+");
-        // getPreferenceScreen().findPreference("use_immersive_mode").setEnabled(false);
-        // }
 
         // typeface
         if (preferences.getString("typeface", "1").equals("1")) {
@@ -200,22 +153,6 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         } else if (preferences.getString("typeface", "1").equals("3")) {
             getPreferenceScreen().findPreference("typeface").setSummary("Variable Serif");
         }
-
-        // if (key.equals("mono_font_size")) {
-//        String monoFont = preferences.getString("mono_font_size", "1");
-//        if (monoFont.equals("Auto"))
-//            getPreferenceScreen().findPreference("mono_font_size").setSummary(monoFont);
-//        else
-//            getPreferenceScreen().findPreference("mono_font_size").setSummary(monoFont + " pt");
-//        // }
-
-        // if (key.equals("variable_font_size")) {
-//        String variableFont = preferences.getString("variable_font_size", "1");
-//        if (variableFont.equals("Auto"))
-//            getPreferenceScreen().findPreference("variable_font_size").setSummary(variableFont);
-//        else
-//            getPreferenceScreen().findPreference("variable_font_size").setSummary(variableFont + " pt");
-//        // }
 
         // auto-rotate screen set summary
         if (preferences.getString("highlight_faqmark", "1").equals("1")) {
@@ -249,14 +186,6 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 
         }
 
-        // hide notification bar set summary
-//        if (prefs.getString("hide_notification_bar", getResources().getString(R.string.hide_notification_bar_default)).equals("1")) {
-//            getPreferenceScreen().findPreference("hide_notification_bar").setSummary("Always show");
-//        } else if (prefs.getString("hide_notification_bar", getResources().getString(R.string.hide_notification_bar_default)).equals("2")) {
-//            getPreferenceScreen().findPreference("hide_notification_bar").setSummary("Always hide");
-//        } else if (prefs.getString("hide_notification_bar", getResources().getString(R.string.hide_notification_bar_default)).equals("3")) {
-//            getPreferenceScreen().findPreference("hide_notification_bar").setSummary("Hide in landscape");
-//        }
 
         // hide notification bar set summary
         if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
@@ -457,7 +386,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     /**
      * Binds a preference's summary to its value. More specifically, when the preference's value is changed, its summary (line of text below the preference title) is updated to reflect the value. The summary is also immediately updated upon
      * calling this method. The exact display format is dependent on the type of preference.
-     * 
+     *
      * @see #sBindPreferenceSummaryToValueListener
      */
     private void bindPreferenceSummaryToValue(Preference preference) {

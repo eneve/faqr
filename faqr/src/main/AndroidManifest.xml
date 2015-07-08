@@ -34,11 +34,11 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/menu_faqmarks" >
         </activity>
-        <activity
-            android:name=".activity.SearchActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:label="@string/menu_search" >
-        </activity>
+        <!--<activity-->
+            <!--android:name=".activity.SearchActivity"-->
+            <!--android:configChanges="orientation|screenSize|keyboardHidden"-->
+            <!--android:label="@string/menu_search" >-->
+        <!--</activity>-->
         <activity
             android:name=".activity.SearchResultsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"

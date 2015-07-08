@@ -6,7 +6,6 @@ package com.faqr.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -18,7 +17,7 @@ import com.google.android.gms.analytics.Tracker;
 
 /**
  * This Activity determines which activity to forward to on app start
- * 
+ *
  * @author eneve
  */
 public class MainActivity extends BaseActivity {
@@ -31,11 +30,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // overridePendingTransition(R.anim.pull_in_from_left, R.anim.hold);
         setContentView(R.layout.activity_help);
-
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-        // ActionBar actionBar = getSupportActionBar();
-        // actionBar.setDisplayHomeAsUpEnabled(true);
-        // }
 
         /////////////////////////////////////////////////////
         /// TODO SET SOME DEFAULTS FOR V2 - OVERRIDE EXISTING
@@ -63,23 +57,17 @@ public class MainActivity extends BaseActivity {
         } else {
 
             // what to do if there are no faqs
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                Intent intent = new Intent(this, MyFaqsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-            } else {
-                Intent intent = new Intent(this, SearchActivity.class);
-                startActivity(intent);
-                finish();
-            }
+            Intent intent = new Intent(this, MyFaqsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+
         }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        // EasyTracker.getInstance(this).activityStart(this); // Add this method.
 
         // Get tracker.
         Tracker t = ((FaqrApp) getApplication()).getTracker();
@@ -92,7 +80,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onStop() {
         super.onStop();
-//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override

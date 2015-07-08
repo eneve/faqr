@@ -16,6 +16,10 @@ import android.view.ViewGroup;
 import com.faqr.R;
 import com.faqr.fragment.NavigationDrawerFragment;
 
+/**
+ * Activity with NavDrawer
+ *
+ */
 public class NavActivity extends BaseActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 

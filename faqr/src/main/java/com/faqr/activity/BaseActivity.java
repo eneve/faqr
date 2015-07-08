@@ -14,7 +14,6 @@ import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
@@ -29,7 +28,7 @@ import com.faqr.R;
 
 /**
  * This Activity provides a base Activity
- * 
+ *
  * @author eneve
  */
 public class BaseActivity extends ActionBarActivity {
@@ -307,12 +306,10 @@ public class BaseActivity extends ActionBarActivity {
     protected int getActionBarHeight() {
         int actionBarHeight = 0;
         TypedValue tv = new TypedValue();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
-                actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
-        } else if (getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) {
+        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
         }
+
         return actionBarHeight;
     }
 

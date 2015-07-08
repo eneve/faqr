@@ -11,24 +11,25 @@
         android:icon="@drawable/ic_navigation_expand"
         app:showAsAction="always"
         android:title="@string/menu_next"/>
-    <item
-        android:id="@+id/menu_goto_prev"
-        android:icon="@drawable/ic_navigation_collapse"
-        app:showAsAction="always"
-        android:title="@string/menu_prev"/>
-    <item
-        android:id="@+id/menu_goto_next"
-        android:icon="@drawable/ic_navigation_expand"
-        app:showAsAction="always"
-        android:title="@string/menu_next"/>
-    <item
-        android:id="@+id/menu_goto_close"
-        android:icon="@drawable/ic_navigation_cancel"
-        app:showAsAction="always"
-        android:title="@string/menu_close"/>
-    
-    
-    
+
+    <!--<item-->
+        <!--android:id="@+id/menu_goto_prev"-->
+        <!--android:icon="@drawable/ic_navigation_collapse"-->
+        <!--app:showAsAction="always"-->
+        <!--android:title="@string/menu_prev"/>-->
+    <!--<item-->
+        <!--android:id="@+id/menu_goto_next"-->
+        <!--android:icon="@drawable/ic_navigation_expand"-->
+        <!--app:showAsAction="always"-->
+        <!--android:title="@string/menu_next"/>-->
+    <!--<item-->
+        <!--android:id="@+id/menu_goto_close"-->
+        <!--android:icon="@drawable/ic_navigation_cancel"-->
+        <!--app:showAsAction="always"-->
+        <!--android:title="@string/menu_close"/>-->
+
+
+
     <item
         android:id="@+id/menu_display_options"
         android:icon="@drawable/ic_menu_settings_dark"
@@ -60,7 +61,7 @@
         android:icon="@drawable/ic_search_white_24dp"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
-    
+
     <item
         android:id="@+id/menu_browser"
         android:icon="@drawable/ic_menu_view"

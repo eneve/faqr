@@ -5,7 +5,6 @@
 package com.faqr.activity;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
@@ -28,16 +27,13 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -51,8 +47,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -79,11 +73,11 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.faqr.FaqrApp;
 import com.faqr.R;
+import com.faqr.model.FaqMeta;
 import com.faqr.view.ObservableWebView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -177,7 +171,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
     // current faq info
     private String currFaq = "";
-    private String[] currFaqMeta = new String[] {};
+//    private String[] currFaqMeta = new String[] {};
+
+    private FaqMeta currFaqMeta = new FaqMeta();
 
     // faqmark
     private Integer faqmarkPos = -1;
@@ -192,26 +188,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // theme stuff
-
-        // DO NOT DELETE YET DO NOT DELETE YET DO NOT DELETE YET
-
-        // if (prefs.getBoolean("use_dark_theme", getResources().getBoolean(R.bool.use_dark_theme_default))) {
-        // if (prefs.getBoolean("use_true_black", getResources().getBoolean(R.bool.use_true_black_default))) {
-        // if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default))) {
-        // setTheme(R.style.AppBlackOverlayTheme);
-        // }
-        // } else {
-        // if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default))) {
-        // setTheme(R.style.AppDarkOverlayTheme);
-        // }
-        // }
-        // } else {
-        // if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default))) {
-        // setTheme(R.style.AppLightOverlayTheme);
-        // }
-        // }
-
         setContentView(R.layout.activity_faq);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -221,89 +197,22 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         RelativeLayout bg = (RelativeLayout) findViewById(R.id.bg);
 
+        // theme goodness
+        toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
 
         listView = (ListView) findViewById(R.id.list);
 
-        // theme goodness
-        toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
-//        if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
-//
-//            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-//                // setTheme(R.style.AppBlackOverlayTheme);
-//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-//                params.setMargins(0, getStatusBarHeight(), 0, 0);
-//                toolbar.setLayoutParams(params);
-//            } else {
-//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
-//                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//                bg.setLayoutParams(params);
-//            }
-//        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
-//
-//            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-////                setTheme(R.style.AppBlackOverlayTheme);
-//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-//                params.setMargins(0, getStatusBarHeight(), 0, 0);
-//                toolbar.setLayoutParams(params);
-//            } else {
-//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
-//                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//                bg.setLayoutParams(params);
-//            }
-//        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
-//            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-////                setTheme(R.style.AppDarkOverlayTheme);
-//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-//                params.setMargins(0, getStatusBarHeight(), 0, 0);
-//                toolbar.setLayoutParams(params);
-//            } else {
-//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
-//                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//                bg.setLayoutParams(params);
-//            }
-//        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
-////            bg = (RelativeLayout) findViewById(R.id.bg);
-////            bg.setBackgroundColor(0xFFECE1CA);
-////            themeColor = getResources().getColor(R.color.sepia_theme_color);
-//
-//            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-////                setTheme(R.style.AppDarkOverlayTheme);
-//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-//                params.setMargins(0, getStatusBarHeight(), 0, 0);
-//                toolbar.setLayoutParams(params);
-//            } else {
-//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bg.getLayoutParams();
-//                params.setMargins(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//                bg.setPadding(0, getStatusBarHeight() + toolbar.getHeight(), 0, 0);
-//                bg.setLayoutParams(params);
-//            }
-//        }
-
-
-        // show back if we came from search
-        // if (extras != null && extras.getBoolean("from_search") == true) {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(android.R.color.transparent);
-        // }=
         actionBar.setDisplayUseLogoEnabled(false);
 
         extras = getIntent().getExtras();
         if (extras != null) {
             faqmarkPos = extras.getInt("FAQmarkPosition", -1);
-            // int my_faqs_pos = prefs.getInt("my_faqs_pos", 0);
-            // listView.setSelection(my_faqs_pos);
         }
 
-        // set the list adapter
         adapter = new FaqAdapter();
-        // setListAdapter(adapter);
-        // ListView listView = listView;
-
-        // listView.setOnItemClickListener(adapter.itemClickListener);
         listView.setAdapter(adapter);
 
         if (prefs.getBoolean("use_fast_scroll", getResources().getBoolean(R.bool.use_fast_scroll_default))) {
@@ -312,50 +221,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             listView.setFastScrollEnabled(false);
         }
 
-            // listView.setTextFilterEnabled(true);
-
         // loading indicator
         loading = (LinearLayout) findViewById(R.id.loading);
         error = (LinearLayout) findViewById(R.id.error);
-
-        // Android < 3.0 find bar
-        find_bar = (LinearLayout) findViewById(R.id.find_bar);
-        // if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-        find_bar_prev = (Button) findViewById(R.id.btn_prev);
-        find_bar_prev.setOnClickListener(this);
-        find_bar_next = (Button) findViewById(R.id.btn_next);
-        find_bar_next.setOnClickListener(this);
-        find_bar_close = (Button) findViewById(R.id.btn_close);
-        find_bar_close.setOnClickListener(this);
-        find_bar_text = (EditText) findViewById(R.id.find_text);
-        find_bar_text.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
-                // do nothing
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // do nothing
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // find_text_changed(s.toString());
-                new FindTextChangedTask().execute(new String[] { s.toString() });
-            }
-        });
-        find_bar_text.setOnEditorActionListener(new OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(find_bar_text.getWindowToken(), 0);
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
-        // }
-        find_bar.setVisibility(View.GONE);
 
         /** called when a list item is clicked */
         listView.setOnItemClickListener(new OnItemClickListener() {
@@ -372,20 +240,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                                 showSystemUI();
                             }
                         } else {
-
-                            // boolean visible = (mDecorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0;
-                            // if (visible) {
-                            // hideSystemUI();
-                            // } else {
-                            // showSystemUI();
-                            // }
-
                             if (getSupportActionBar().isShowing() && !getFind()) {
                                 hideSystemUI();
                             } else {
                                 showSystemUI();
                             }
-                            // }
                         }
                     }
                 }
@@ -413,12 +272,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     new SavedPosTask().execute(new String[] { Integer.valueOf(position).toString() });
                 }
 
-                // show action bar
-                // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                // if (!getSupportActionBar().isShowing() && !find)
-                // getSupportActionBar().show();
-                // }
-
                 // save the postiion
                 if (prefs.getBoolean("highlight_saved_pos", getResources().getBoolean(R.bool.highlight_saved_position_default))) {
                     ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
@@ -430,34 +283,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         listView.setOnScrollListener(new OnScrollListener() {
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                // if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default))) {
-                // long currTime = System.currentTimeMillis();
-                // if (currTime - prevCurrTime > 200) {
-                // if (prevFirstVisibleItem != 0) {
-                // if (firstVisibleItem > prevFirstVisibleItem && !find && !goTo) {
-                // if (getSupportActionBar().isShowing())
-                // getSupportActionBar().hide();
-                // } else if (firstVisibleItem < prevFirstVisibleItem) {
-                // if (!getSupportActionBar().isShowing())
-                // getSupportActionBar().show();
-                // }
-                // }
-                // prevFirstVisibleItem = firstVisibleItem;
-                // prevCurrTime = currTime;
-                // }
-                // }
+               // do nothing
             }
 
-            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                // turn down the lights
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    // if (prefs.getBoolean("use_lights_out", getResources().getBoolean(R.bool.use_lights_out_default))) {
-                    // if (listView.getSystemUiVisibility() != View.SYSTEM_UI_FLAG_LOW_PROFILE) {
-                    // listView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-                    // }
-                    // }
-                }
+                // do nothing
             }
         });
 
@@ -484,95 +314,40 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         webView.setOnScrollChangedCallback(new ObservableWebView.OnScrollChangedCallback(){
             public void onScroll(int l, int t, int oldl, int oldt){
                 //Do stuff
-//                Log.d(TAG,"We Scrolled etc..." + l + " " + t + " " + oldl + " " + oldt);
-
                 if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-
                     long currTime = Calendar.getInstance().getTimeInMillis();
-
-
-
                     if (((currTime - webViewThrottleTime) > 1000) && t > oldt && getSupportActionBar().isShowing() && !getFind()) {
-//                        getSupportActionBar().hide();
                         hideSystemUI();
                         webViewThrottleTime = Calendar.getInstance().getTimeInMillis();
-//                        Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_anim);
-//                        toolbar.startAnimation(slide);
-//
-//                        slide.setAnimationListener(new Animation.AnimationListener(){
-//                            @Override
-//                            public void onAnimationStart(Animation arg0) {
-//                            }
-//                            @Override
-//                            public void onAnimationRepeat(Animation arg0) {
-//                            }
-//                            @Override
-//                            public void onAnimationEnd(Animation arg0) {
-//                                getSupportActionBar().hide();
-//                            }
-//                        });
+
                     } else if (((currTime - webViewThrottleTime) > 1000) && t < oldt && !getSupportActionBar().isShowing()) {
-//                        getSupportActionBar().show();
                         showSystemUI();
                         webViewThrottleTime = Calendar.getInstance().getTimeInMillis();
-//                        Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down_anim);
-//                        toolbar.startAnimation(slide);
-//
-//                        slide.setAnimationListener(new Animation.AnimationListener(){
-//                            @Override
-//                            public void onAnimationStart(Animation arg0) {
-//                            }
-//                            @Override
-//                            public void onAnimationRepeat(Animation arg0) {
-//                            }
-//                            @Override
-//                            public void onAnimationEnd(Animation arg0) {
-//                                getSupportActionBar().show();
-//                            }
-//                        });
                     }
                 }
             }
         });
 
         webView.getSettings().setJavaScriptEnabled(true);
-        // fit the width of screen
-        // webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
-        // remove a weird white line on the right size
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-        // webView.getSettings().setSupportZoom(true);
-        // webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setRenderPriority(RenderPriority.HIGH);
-        // webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NORMAL);
-
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setSupportZoom(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            webView.getSettings().setBuiltInZoomControls(true);
-            webView.getSettings().setDisplayZoomControls(false);
-        }
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setDisplayZoomControls(false);
 
-        // Cookie sessionCookie = myapp.cookie;
         CookieSyncManager.createInstance(this);
         cookieManager = CookieManager.getInstance();
-        // if (sessionCookie != null) {
-        // cookieManager.removeSessionCookie();
-        // String cookieString = sessionCookie.getName() + "=" + sessionCookie.getValue() + "; domain=" + sessionCookie.getDomain();
         cookieManager.setCookie(".gamefaqs.com", "css_color=" + themeCssColor + "; Domain=.gamefaqs.com");
         CookieSyncManager.getInstance().sync();
-        // }
 
         webView.setInitialScale(1);
 
         // caching - larger for newer devices
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            webView.getSettings().setAppCacheMaxSize(10 * 1024 * 1024); // 10MB
-        } else {
-            webView.getSettings().setAppCacheMaxSize(5 * 1024 * 1024); // 5MB
-        }
+        webView.getSettings().setAppCacheMaxSize(10 * 1024 * 1024); // 10MB
         webView.getSettings().setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
         webView.getSettings().setAllowFileAccess(true);
         webView.getSettings().setAppCacheEnabled(true);
@@ -604,17 +379,12 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void onPageFinished(WebView view, final String url) {
-                // new SleepyTask().execute(new String[] {});
 
                 // set it to try later and try here anyway if perchance menu isn't null
                 hideWebViewMenuOptions = true;
                 if (null != menu) {
                     MenuItem opt = menu.findItem(R.id.action_search);
-//                    opt.setVisible(false);
-                    // opt = menu.findItem(R.id.menu_goto);
-                    // opt.setVisible(false);
                     opt = menu.findItem(R.id.menu_display_options);
-//                    opt.setVisible(false);
                     opt = menu.findItem(R.id.menu_faqmarks);
                     opt.setVisible(false);
                 }
@@ -623,44 +393,22 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 error.setVisibility(View.GONE);
                 webView.setVisibility(View.VISIBLE);
 
-                String faqMeta = prefs.getString(prefs.getString("curr_faq", ""), "");
-                String[] currFaqMeta = faqMeta.split(" --- ");
-                // String faqMeta = prefs.getString(Faqr.validFileName(cxurrFaqURL), "");
-                String currFaqURL = currFaqMeta[5];
+                String currFaqURL = currFaqMeta.getUrl();
 
                 if (view != null && view.getTitle() != null) {
-                    String title = view.getTitle();
-                    title = title.replaceAll(" - GameFAQs", "");
-                    title = title.replaceAll("GameFAQs: ", "");
-                    title = title.replaceAll(" - GameSpot.com", "");
-                    title = title.replaceAll("GameSpot.com: ", "");
-                    title = title.replaceAll("GameSpot", "");
-                    title = title.replaceAll("GameFAQs", "");
-                    title = title.replaceAll("-", "");
-                    setTitle(title.trim());
-
-                    getSupportActionBar().setTitle(title.trim());
+                    String title = view.getTitle().trim();
+                    getSupportActionBar().setTitle(title);
                     getSupportActionBar().setSubtitle(currFaqURL.replaceAll("http://", "").replaceAll("https://", ""));
                 }
 
-//                getSupportActionBar().setIcon(android.R.color.transparent);
-
-                // inject javascript into the webview
-//                webView.loadUrl("javascript:(function() { " +
-//                    "document.getElementsByTagName('body')[0].style.color = 'red'; " +
-//                    "})()");
-
                 // set last read date
                 SharedPreferences.Editor editor = prefs.edit();
-                String key = currFaqMeta[5].trim() + "curr_url";
+                String key = currFaqMeta.getUrl() + "curr_url";
                 editor.putString(key, url);
                 editor.commit();
-//                Toast.makeText(getApplicationContext(), "Setting curr_url " + url, Toast.LENGTH_SHORT).show();
 
-                String test = prefs.getString(currFaqMeta[5].trim() + "curr_url", "");
+                String test = prefs.getString(currFaqMeta.getUrl() + "curr_url", "");
                 getSupportActionBar().setIcon(android.R.color.transparent);
-
-
 
                 // restore current webview locations
                 if (webViewReloadSavedPos) {
@@ -668,51 +416,14 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     view.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-
                             if (url.contains("#")) {
                                 webView.loadUrl(url);
                             }
-
-//                            Toast.makeText(getApplicationContext(), "Setting to position", Toast.LENGTH_SHORT).show();
-//
-//
-//                            String currFaq = prefs.getString("curr_faq", "");
-//                            // currFaq example
-//                            // http___m_gamefaqs_com_psp_615911-final-fantasy-iv-the-complete-collection_faqs_62211
-//                            String faqMeta = prefs.getString(prefs.getString("curr_faq", ""), "");
-//
-//                            // set last read date
-//                            //                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
-//                            //                        SharedPreferences.Editor editor = prefs.edit();
-//                            //                        editor.putString(prefs.getString("curr_faq", "") + "___last_read", sdf.format(new Date()));
-//
-//                            // faqMeta example
-//                            // Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- Johnathan 'Zy' Sawyer --- 1.02 --- 1267K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211
-//                            Log.w(TAG, "-----------------------------");
-//                            Log.w(TAG, currFaq);
-//                            Log.w(TAG, faqMeta);
-//                            Log.w(TAG, "-----------------------------");
-//                            String[] currFaqMeta = faqMeta.split(" --- ");
-//
-//                            int position = prefs.getInt(webView.getUrl() + "curr_pos", 0);
-//
-//
-//                            //                        int position = prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_url", 0);
-//
-//                            float webviewsize = webView.getContentHeight() - webView.getTop();
-//                            float positionInWV = webviewsize * 500;
-//                            int positionY = Math.round(webView.getTop() + positionInWV);
-//                            webView.scrollTo(0, position);
-//
                             webViewReloadSavedPos = false;
                         }
                         // Delay the scrollTo to make it work
                     }, 300);
                 }
-
-
-//                listView.setSelectionFromTop(prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0), getActionBarHeight() + getStatusBarHeight());
-
             }
 
             @Override
@@ -744,35 +455,23 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             // don't set any margins in immersive
         }
 
-        // else if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default)) && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)) {
-        // RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) webView.getLayoutParams();
-        // params.setMargins(0, getActionBarHeight(), 0, 0);
-        // webView.setLayoutParams(params);
-        // }
-
         // get the current FAQ
         if (!TextUtils.isEmpty(prefs.getString("curr_faq", ""))) {
             currFaq = prefs.getString("curr_faq", "");
-            // currFaq example
-            // http___m_gamefaqs_com_psp_615911-final-fantasy-iv-the-complete-collection_faqs_62211
-            String faqMeta = prefs.getString(prefs.getString("curr_faq", ""), "");
+            currFaqMeta = new FaqMeta(prefs.getString(prefs.getString("curr_faq", ""), ""));
 
             // set last read date
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString(prefs.getString("curr_faq", "") + "___last_read", sdf.format(new Date()));
 
-            // faqMeta example
-            // Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- A Backdated Future --- 1.02 --- 1265K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211 --- Final Fantasy IV: The Complete Collection (PSP) Final Fantasy IV FAQ/Walkthrough by A Backdated Future
-            Log.w(TAG, "-----------------------------");
-            Log.w(TAG, "currFaq " + currFaq);
-            Log.w(TAG, "faqMeta " + faqMeta);
-            Log.w(TAG, "-----------------------------");
-            currFaqMeta = faqMeta.split(" --- ");
+            Log.i(TAG, "-----------------------------");
+            Log.i(TAG, "currFaq " + currFaq);
+            Log.i(TAG, "faqMeta " + currFaqMeta);
+            Log.i(TAG, "-----------------------------");
 
             int curr_pos = prefs.getInt(prefs.getString("curr_faq", "") + "curr_pos", -1);
             int saved_pos = prefs.getInt(prefs.getString("curr_faq", "") + "saved_pos", -1);
-            // Toast.makeText(getApplicationContext(), faqMeta + " " + curr_pos + " " + saved_pos, Toast.LENGTH_LONG).show();
             new GetFaqTask().execute(new String[] {});
         } else {
             Intent intent = new Intent(this, MyFaqsActivity.class);
@@ -780,7 +479,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             finish();
         }
 
-        // configure orientation
         configureOrientation(this.getResources().getConfiguration().orientation);
 
         // immersive webview
@@ -791,20 +489,14 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 @Override
                 public void onSystemUiVisibilityChange(int flags) {
                     boolean visible = (flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
-//                    boolean visible = (mDecorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
                     if (visible) {
                         showSystemUI();
-//                        getSupportActionBar().show();
                     } else {
 //                        showSystemUI();
                     }
-                    // controlsView.animate()
-                    // .alpha(visible ? 1 : 0)
-                    // .translationY(visible ? 0 : controlsView.getHeight());
                 }
             });
 
-            // webView.setClickable(true);
             final GestureDetector clickDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
                 @Override
                 public boolean onSingleTapUp(MotionEvent e) {
@@ -816,25 +508,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                         showSystemUI();
                     }
                     return true;
-                    // }
-
-                    // else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    // boolean visible = getSupportActionBar().isShowing();
-                    // if (visible) {
-                    // hideSystemUI();
-                    // } else {
-                    // showSystemUI();
-                    // }
-                    // return true;
-                    // } else {
-                    // boolean visible = getSupportActionBar().isShowing();
-                    // if (visible) {
-                    // hideSystemUI();
-                    // } else {
-                    // showSystemUI();
-                    // }
-                    // return true;
-                    // }
                 }
             });
             webView.setOnTouchListener(new View.OnTouchListener() {
@@ -848,28 +521,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     } else {
                         return false;
                     }
-                    // } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    // boolean visible = getSupportActionBar().isShowing();
-                    // if (visible) {
-                    // return clickDetector.onTouchEvent(motionEvent);
-                    // } else {
-                    // return false;
-                    // }
-                    // } else {
-                    // boolean visible = getSupportActionBar().isShowing();
-                    // if (visible) {
-                    // return clickDetector.onTouchEvent(motionEvent);
-                    // } else {
-                    // return false;
-                    // }
-                    // }
-
-                    // boolean visible = (mDecorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
-                    // if (visible) {
-                    // return clickDetector.onTouchEvent(motionEvent);
-                    // } else {
-                    // return false;
-                    // }
                 }
             });
 
@@ -878,19 +529,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     }
 
     /** Called when the activity will start interacting with the user. */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onResume() {
         super.onResume();
-
-        // low profile
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-        //
-        // if (prefs.getBoolean("use_lights_out", getResources().getBoolean(R.bool.use_lights_out_default))) {
-        // listView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-        // }
-        // }
-
     }
 
     /** Called when phone hard keys are pressed */
@@ -901,41 +542,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 webView.goBack();
                 return true;
             } else {
-
                 // Save the web scroll position
                 if (webViewActive) {
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt(webView.getUrl() + "curr_pos", webView.getScrollY());
                     editor.commit();
-                }
-
-                if (goTo) {
-                    goTo = false;
-                    MenuItem gotoPrev = menu.findItem(R.id.menu_goto_prev);
-                    gotoPrev.setVisible(false);
-                    MenuItem gotoNext = menu.findItem(R.id.menu_goto_next);
-                    gotoNext.setVisible(false);
-                    MenuItem gotoClose = menu.findItem(R.id.menu_goto_close);
-                    gotoClose.setVisible(false);
-                    // new GotoTimeoutTask().execute(new String[] {});
-                    MenuItem opt;
-                    // MenuItem opt = menu.findItem(R.id.menu_goto);
-                    // opt.setVisible(true);
-                    // opt = menu.findItem(R.id.menu_lock);
-                    // opt.setVisible(false);
-
-                    if (prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
-                        opt = menu.findItem(R.id.menu_faqmarks);
-                        opt.setVisible(true);
-                    }
-                    opt = menu.findItem(R.id.action_search);
-                    opt.setVisible(true);
-                    opt = menu.findItem(R.id.menu_browser);
-                    opt.setVisible(true);
-                    opt = menu.findItem(R.id.menu_settings);
-                    opt.setVisible(true);
-                    opt = menu.findItem(R.id.menu_about);
-                    opt.setVisible(true);
                 }
 
                 if (extras == null || (extras != null && extras.getBoolean("from_search") != true)) {
@@ -945,37 +556,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 }
                 finish();
             }
-        } else if ((keyCode == KeyEvent.KEYCODE_SEARCH)) {
-            // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            MenuItem searchMenuItem = menu.findItem(R.id.action_search);
-            searchView = (SearchView) searchMenuItem.getActionView();
-            searchMenuItem.expandActionView();
-
-            if (!getSupportActionBar().isShowing())
-                getSupportActionBar().show();
-            MenuItem prev = menu.findItem(R.id.menu_prev);
-            prev.setVisible(true);
-            MenuItem next = menu.findItem(R.id.menu_next);
-            next.setVisible(true);
-            MenuItem opt = menu.findItem(R.id.menu_faqmarks);
-            opt.setVisible(false);
-            // opt = menu.findItem(R.id.menu_goto);
-            // opt.setVisible(false);
-            opt = menu.findItem(R.id.menu_browser);
-            opt.setVisible(false);
-            opt = menu.findItem(R.id.menu_settings);
-            opt.setVisible(false);
-            opt = menu.findItem(R.id.menu_about);
-            opt.setVisible(false);
-
-            // } else {
-            // // Android < 3.0 Find
-            // getSupportActionBar().hide();
-            // find_bar.setVisibility(View.VISIBLE);
-            // find = true;
-            // }
-            return true;
         }
+
         return super.onKeyDown(keyCode, event);
     }
 
@@ -987,7 +569,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        // EasyTracker.getInstance(this).activityStart(this); // Add this method.
 
         // Get tracker.
         Tracker t = ((FaqrApp) getApplication()).getTracker();
@@ -1000,7 +581,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onStop() {
         super.onStop();
-//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     /** Called when a button is clicked */
@@ -1011,30 +591,16 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         } else if (view == find_bar_next) {
             // find_next();
             new FindNextTask().execute(new String[] {});
-        } else if (view == find_bar_close) {
-            // Android < 3.0 Find
-            find_bar.setVisibility(View.GONE);
-            getSupportActionBar().show();
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(find_bar_text.getWindowToken(), 0);
-            find_bar_text.setText("");
-            findString = "";
-
-            setFind(false);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
-
         final Menu finalMenu = menu;
 
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_faq, menu);
 
-        // Get the SearchView and set the searchable configuration
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
@@ -1054,8 +620,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "onclick", Toast.LENGTH_SHORT).show();
-//                find = true;
                 setFind(true);
             }
         });
@@ -1063,7 +627,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-//                find = false;
                 return false;
             }
         });
@@ -1071,22 +634,17 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String query) {
-                // find_text_changed(s);
                 if (webViewActive) {
                     webView.findAll(query);
                 } else {
                     findString = query;
                     new FindNextTask().execute(new String[]{query});
                 }
-//                find = true;
                 return true;
             }
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // close the search view
-                // Toast.makeText(getApplicationContext(), "onQueryTextSubmit", Toast.LENGTH_SHORT).show();
-                // finalMenu.findItem(R.id.menu_search).collapseActionView();
                 if (webViewActive) {
                     webView.findAll(query);
                 } else {
@@ -1100,9 +658,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                // Log.i(TAG, "onMenuItemActionCollapse " + item.getItemId());
                 if (webViewActive) {
-                    // clear the find
                     webView.findAll("");
                 }
 
@@ -1110,24 +666,12 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 prev.setVisible(false);
                 MenuItem next = finalMenu.findItem(R.id.menu_next);
                 next.setVisible(false);
-                // MenuItem opt = finalMenu.findItem(R.id.menu_downloads);
-                // opt.setVisible(true);
-                // MenuItem opt = finalMenu.findItem(R.id.menu_search);
-                // opt.setVisible(true);
                 MenuItem opt;
-                // MenuItem opt = finalMenu.findItem(R.id.menu_goto);
-                // opt.setVisible(true);
-                // opt = finalMenu.findItem(R.id.menu_lock);
-                // opt.setVisible(true);
-                // if (prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
                 opt = finalMenu.findItem(R.id.menu_faqmarks);
                 opt.setVisible(true);
-                // }
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    opt = finalMenu.findItem(R.id.menu_display_options);
-                    opt.setVisible(true);
-                }
+                opt = finalMenu.findItem(R.id.menu_display_options);
+                opt.setVisible(true);
                 opt = finalMenu.findItem(R.id.menu_browser);
                 opt.setVisible(true);
                 opt = finalMenu.findItem(R.id.menu_settings);
@@ -1137,7 +681,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                 getSupportActionBar().setIcon(android.R.color.transparent);
 
-//                find = false;
                 setFind(false);
                 currFindPos = 0;
 
@@ -1146,28 +689,22 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
-//                find = true;
                 setFind(true);
                 Log.i(TAG, "onMenuItemActionExpand " + item.getItemId());
-
 
                 return true;
             }
         });
 
         MenuItem findItem = menu.findItem(R.id.action_search);
-        // MenuItem gotoItem = menu.findItem(R.id.menu_goto);
         faqmarksItem = menu.findItem(R.id.menu_faqmarks);
         if (hideWebViewMenuOptions) {
-//            findItem.setVisible(false);
-            // gotoItem.setVisible(false);
             faqmarksItem.setVisible(false);
         }
 
         // if faqmarks
-
         try {
-            if (!TextUtils.isEmpty(prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", ""))) {
+            if (!TextUtils.isEmpty(prefs.getString(FaqrApp.validFileName(currFaqMeta.getUrl()) + "multi_saved_pos", ""))) {
                 // do nothing
             } else {
                 faqmarksItem.setEnabled(false);
@@ -1176,32 +713,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             faqmarksItem.setEnabled(false);
         }
 
-        // initialize the orientation lock
-        // if (prefs.getInt("orientation_locked", -1) >= 0) {
-        // MenuItem lockMenuItem = menu.findItem(R.id.menu_lock);
-        // lockMenuItem.setTitle("Unlock Orientation");
-        // }
-
         MenuItem prev = menu.findItem(R.id.menu_prev);
         prev.setVisible(false);
         MenuItem next = menu.findItem(R.id.menu_next);
         next.setVisible(false);
 
-        MenuItem gotoPrev = menu.findItem(R.id.menu_goto_prev);
-        gotoPrev.setVisible(false);
-        MenuItem gotoNext = menu.findItem(R.id.menu_goto_next);
-        gotoNext.setVisible(false);
-        MenuItem gotoClose = menu.findItem(R.id.menu_goto_close);
-        gotoClose.setVisible(false);
-
         if (!prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
             MenuItem opt = menu.findItem(R.id.menu_faqmarks);
-            opt.setVisible(false);
-        }
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            MenuItem opt;
-            opt = finalMenu.findItem(R.id.menu_display_options);
             opt.setVisible(false);
         }
 
@@ -1214,9 +732,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         // Save the web scroll position
         if (webViewActive) {
-//            editor = prefs.edit();
-//            String scrollY = new Integer(webView.getScrollY()).toString();
-//            Toast.makeText(getApplicationContext(), scrollY, Toast.LENGTH_SHORT).show();
             SharedPreferences.Editor editor = prefs.edit();
             editor.putInt(webView.getUrl() + "curr_pos", webView.getScrollY());
             editor.commit();
@@ -1224,9 +739,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         switch (item.getItemId()) {
         case R.id.menu_display_options:
-
             View menuItemView = findViewById(R.id.bg); // SAME ID AS MENU ID
-
             LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             int width = Math.round(FaqrApp.convertDpToPixel(200, getApplicationContext()));
@@ -1238,17 +751,12 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             pw.showAtLocation(menuItemView, Gravity.TOP | Gravity.RIGHT, 20, getStatusBarHeight() + getActionBarHeight());
 
             Spinner theme = (Spinner) pw.getContentView().findViewById(R.id.theme_spinner);
-            // Create an ArrayAdapter using the string array and a default spinner layout
             ArrayAdapter<CharSequence> themeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.theme_titles, android.R.layout.simple_spinner_item);
-            // Specify the layout to use when the list of choices appears
             themeAdapter.setDropDownViewResource(R.layout.simple_dropdown_item_1line_faqr);
-            // Apply the adapter to the spinner
-            // spinner.MODE_DIALOG
             theme.setAdapter(themeAdapter);
 
             Integer themeSetting = Integer.valueOf(prefs.getString("theme", "1"));
             theme.setSelection(themeSetting - 1);
-
             theme.setOnItemSelectedListener(new OnItemSelectedListener() {
                 int spinnerCount = 0;
 
@@ -1266,21 +774,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                         // set webView css
                         cookieManager.setCookie(".gamefaqs.com", "css_color=" + themeCssColor + "; Domain=.gamefaqs.com");
                         if (webViewActive) {
-
-//                            String scrollY = new Integer(webView.getScrollY()).toString();
-//                            Toast.makeText(getApplicationContext(), scrollY, Toast.LENGTH_SHORT).show();
-//
-//                            editor = prefs.edit();
-//                            editor.putInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", webView.getScrollY());
-//                            editor.commit();
-
-
-                            webView.reload(); //loadUrl(currFaqMeta[5].trim());
+                            webView.reload();
                         }
-//                        Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                        startActivity(intent);
-//                        finish();
                     }
                     spinnerCount++;
                 }
@@ -1326,12 +821,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             Spinner fontSize = (Spinner) pw.getContentView().findViewById(R.id.font_size_spinner);
             fontSize.setVisibility(View.GONE);
 
-            // Create an ArrayAdapter using the string array and a default spinner layout
             ArrayAdapter<CharSequence> fontSizeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.font_size_list_titles, android.R.layout.simple_spinner_item);
-            // Specify the layout to use when the list of choices appears
             fontSizeAdapter.setDropDownViewResource(R.layout.simple_dropdown_item_1line_faqr);
-            // Apply the adapter to the spinner
-            // spinner.MODE_DIALOG
             fontSize.setAdapter(fontSizeAdapter);
 
             String fontSizeSetting = prefs.getString("mono_font_size", "Auto");
@@ -1368,12 +859,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             Spinner varfontSize = (Spinner) pw.getContentView().findViewById(R.id.var_font_size_spinner);
             varfontSize.setVisibility(View.GONE);
 
-            // Create an ArrayAdapter using the string array and a default spinner layout
             ArrayAdapter<CharSequence> varfontSizeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.font_size_list_titles, android.R.layout.simple_spinner_item);
-            // Specify the layout to use when the list of choices appears
             varfontSizeAdapter.setDropDownViewResource(R.layout.simple_dropdown_item_1line_faqr);
-            // Apply the adapter to the spinner
-            // spinner.MODE_DIALOG
             varfontSize.setAdapter(fontSizeAdapter);
 
             String varfontSizeSetting = prefs.getString("variable_font_size", "Auto");
@@ -1387,7 +874,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             varfontSize.setSelection(varpos);
             varfontSize.setOnItemSelectedListener(new OnItemSelectedListener() {
-
                 int spinnerCount = 0;
 
                 @Override
@@ -1410,7 +896,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             });
 
-
             TextView fontSizeMinus = (TextView) pw.getContentView().findViewById(R.id.text_smaller);
             fontSizeMinus.setOnClickListener(new OnClickListener() {
                 @Override
@@ -1431,7 +916,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                         editor.putInt("font_size_v2_land", fontSize);
                         editor.commit();
                     }
-
 
                     adapter.notifyDataSetChanged();
                 }
@@ -1466,8 +950,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(), getResources().getString(R.string.glyphicons_file));
             fontSizeMinus.setTypeface(tf);
             fontSizePlus.setTypeface(tf);
-
-
 
             final TextView leftJustify = (TextView) pw.getContentView().findViewById(R.id.left_justify);
             final TextView centerJustify = (TextView) pw.getContentView().findViewById(R.id.center_justify);
@@ -1552,24 +1034,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 justifyLayout.setVisibility(View.GONE);
             }
 
-            // quit dialog
-            // AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            // dialogBuilder.setMessage("This will quit the application.").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            // public void onClick(DialogInterface dialog, int id) {
-            // // do nothing
-            // finish();
-            // }
-            // }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            // public void onClick(DialogInterface dialog, int id) {
-            // // do nothing
-            // }
-            // });
-            // dialogBuilder.show();
-
             return true;
 
         case R.id.menu_prev:
-            // find_prev();
             if (webViewActive) {
                 webView.findNext(false);
             } else {
@@ -1577,64 +1044,17 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             }
             return true;
         case R.id.menu_next:
-            // find_next();
             if (webViewActive) {
-//                webView.findAll("");
                 webView.findNext(true);
             } else {
                 new FindNextTask().execute(new String[]{});
             }
             return true;
-        case R.id.menu_goto_prev:
-            // find_prev();
-            // new FindPrevTask().execute(new String[] {});
-
-            new GotoPrevTask().execute(new String[] {});
-            // new GotoTimeoutTask().execute(new String[] {});
-
-            return true;
-        case R.id.menu_goto_next:
-            // find_next();
-
-            new GotoNextTask().execute(new String[] {});
-            // new GotoTimeoutTask().execute(new String[] {});
-
-            return true;
-
-        case R.id.menu_goto_close:
-            goTo = false;
-            MenuItem gotoPrev = menu.findItem(R.id.menu_goto_prev);
-            gotoPrev.setVisible(false);
-            MenuItem gotoNext = menu.findItem(R.id.menu_goto_next);
-            gotoNext.setVisible(false);
-            MenuItem gotoClose = menu.findItem(R.id.menu_goto_close);
-            gotoClose.setVisible(false);
-            // new GotoTimeoutTask().execute(new String[] {});
-            MenuItem opt;
-            // MenuItem opt = menu.findItem(R.id.menu_goto);
-            // opt.setVisible(true);
-            // opt = menu.findItem(R.id.menu_lock);
-            // opt.setVisible(false);
-
-            if (prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
-                opt = menu.findItem(R.id.menu_faqmarks);
-                opt.setVisible(true);
-            }
-            opt = menu.findItem(R.id.action_search);
-            opt.setVisible(true);
-            opt = menu.findItem(R.id.menu_browser);
-            opt.setVisible(true);
-            opt = menu.findItem(R.id.menu_settings);
-            opt.setVisible(true);
-            opt = menu.findItem(R.id.menu_about);
-            opt.setVisible(true);
-
-            return true;
 
         case R.id.menu_faqmarks:
 
             try {
-                if (!prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "").equals("")) {
+                if (!prefs.getString(FaqrApp.validFileName(currFaqMeta.getUrl()) + "multi_saved_pos", "").equals("")) {
                     intent = new Intent(this, FaqmarksActivity.class);
                     startActivity(intent);
                     finish();
@@ -1648,7 +1068,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             return true;
 
         case R.id.action_search:
-            // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if (!getSupportActionBar().isShowing())
                 getSupportActionBar().show();
 
@@ -1658,12 +1077,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             prev.setVisible(true);
             MenuItem next = menu.findItem(R.id.menu_next);
             next.setVisible(true);
+            MenuItem opt;
             opt = menu.findItem(R.id.menu_display_options);
             opt.setVisible(false);
             opt = menu.findItem(R.id.menu_faqmarks);
             opt.setVisible(false);
-            // opt = menu.findItem(R.id.menu_goto);
-            // opt.setVisible(false);
             opt = menu.findItem(R.id.menu_browser);
             opt.setVisible(false);
             opt = menu.findItem(R.id.menu_settings);
@@ -1671,44 +1089,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             opt = menu.findItem(R.id.menu_about);
             opt.setVisible(false);
             return true;
-            // case R.id.menu_goto:
-            // if (prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
-            // goTo = true;
-            // currGotoPos = 0;
-            //
-            // if (!prefs.getString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", "").equals("")) {
-            // if (!getSupportActionBar().isShowing())
-            // getSupportActionBar().show();
-            // // new GotoNextTask().execute(new String[] {});
-            // gotoPrev = menu.findItem(R.id.menu_goto_prev);
-            // gotoPrev.setVisible(true);
-            // gotoNext = menu.findItem(R.id.menu_goto_next);
-            // gotoNext.setVisible(true);
-            // // gotoClose = menu.findItem(R.id.menu_goto_close);
-            // // gotoClose.setVisible(true);
-            // // new GotoTimeoutTask().execute(new String[] {});
-            // opt = menu.findItem(R.id.menu_faqmarks);
-            // opt.setVisible(false);
-            // opt = menu.findItem(R.id.menu_goto);
-            // opt.setVisible(false);
-            // // opt = menu.findItem(R.id.menu_lock);
-            // // opt.setVisible(false);
-            // opt = menu.findItem(R.id.menu_find);
-            // opt.setVisible(false);
-            // opt = menu.findItem(R.id.menu_settings);
-            // opt.setVisible(false);
-            // opt = menu.findItem(R.id.menu_about);
-            // opt.setVisible(false);
-            // } else {
-            // Toast.makeText(getApplicationContext(), "No FAQmarks. Long press to save one.", Toast.LENGTH_SHORT).show();
-            // goTo = false;
-            // }
-            //
-            // }
-            //
-            // return true;
+
         case R.id.menu_browser:
-            String url = currFaqMeta[5];
+            String url = currFaqMeta.getUrl();
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             startActivity(i);
@@ -1723,35 +1106,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             startActivity(intent);
             return true;
         case android.R.id.home:
-            if (goTo) {
-                goTo = false;
-                gotoPrev = menu.findItem(R.id.menu_goto_prev);
-                gotoPrev.setVisible(false);
-                gotoNext = menu.findItem(R.id.menu_goto_next);
-                gotoNext.setVisible(false);
-                gotoClose = menu.findItem(R.id.menu_goto_close);
-                gotoClose.setVisible(false);
-                // new GotoTimeoutTask().execute(new String[] {});
-                // opt = menu.findItem(R.id.menu_goto);
-                // opt.setVisible(true);
-                // opt = menu.findItem(R.id.menu_lock);
-                // opt.setVisible(false);
-
-                if (prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
-                    opt = menu.findItem(R.id.menu_faqmarks);
-                    opt.setVisible(true);
-                }
-                opt = menu.findItem(R.id.action_search);
-                opt.setVisible(true);
-                opt = menu.findItem(R.id.menu_browser);
-                opt.setVisible(true);
-                opt = menu.findItem(R.id.menu_settings);
-                opt.setVisible(true);
-                opt = menu.findItem(R.id.menu_about);
-                opt.setVisible(true);
-
-                return true;
-            }
             if (extras == null || (extras != null && extras.getBoolean("from_search") != true)) {
                 intent = new Intent(this, MyFaqsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -1824,8 +1178,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // //////////
                 // MONO FONT
 
-                // nameView.setTextScaleX(1.3f);
-                // nameView.setTypeface(tf);
                 nameView.setTextAppearance(getApplicationContext(), R.style.MonoText);
 
                 String monoFontSize = prefs.getString("mono_font_size", getResources().getString(R.string.mono_font_size_default));
@@ -1838,21 +1190,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     int measuredHeight = 0;
                     Point size = new Point();
                     WindowManager w = getWindowManager();
-
-                    // account for padding on both sides
-                    // Resources r = getResources();
-                    // float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, r.getDisplayMetrics());
-                    // px = px * 2;
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                        w.getDefaultDisplay().getSize(size);
-                        measuredWidth = Math.round(size.x);
-                        measuredHeight = size.y;
-                    } else {
-                        Display d = w.getDefaultDisplay();
-                        measuredWidth = Math.round(d.getWidth());
-                        measuredHeight = d.getHeight();
-                    }
+                    w.getDefaultDisplay().getSize(size);
+                    measuredWidth = Math.round(size.x);
+                    measuredHeight = size.y;
 
                     int totalCharstoFit = nameView.getPaint().breakText(getResources().getString(R.string.standard_width), true, measuredWidth, null);
                     int count = 0;
@@ -1897,18 +1237,12 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     nameView.setTextSize(Float.valueOf(monoFontSize));
                 }
 
-                // Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/DejaVuSansMono.ttf");
-                // nameView.setTypeface(tf);
-
-                // if (!line.startsWith("         ")) {
                 Integer justify = prefs.getInt("justify_v2", getResources().getInteger(R.integer.justify_default));
-
                 if (justify == 0) {
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) nameView.getLayoutParams();
                     lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
                     lp.addRule(RelativeLayout.CENTER_VERTICAL);
                     lp.setMargins(16, 0, 0, 0);
-//                    nameView.setPadding(0, 8, 0, 8);
                     nameView.setLayoutParams(lp);
                 } else if (justify == 1) {
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) nameView.getLayoutParams();
@@ -1922,11 +1256,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     lp.setMargins(0, 0, 16, 0);
                     nameView.setLayoutParams(lp);
                 }
-                // }
-
-                // nameView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-
-                // nameView.setGravity( Gravity.CENTER | Gravity.CENTER);
                 view.setPadding(0, 8, 0, 8);
 
             } else if (prefs.getString("typeface", getResources().getString(R.string.typeface_default)).equals("2") || prefs.getString("typeface", getResources().getString(R.string.typeface_default)).equals("3")) {
@@ -1949,13 +1278,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // auto font size
                 if (variableFontSize.equalsIgnoreCase("auto")) {
 
-//                    Float varAutoMonoFontSize = 13.0f;
-//                    if (autoMonoFontSize <= 15.0f) {
-//                        varAutoMonoFontSize = autoMonoFontSize + 2.0f;
-//                    } else {
-////                        varAutoMonoFontSize = 14.0f;
-//                        varAutoMonoFontSize = autoMonoFontSize;
-//                    }
                     Float varAutoMonoFontSize = autoMonoFontSize + 2.5f;
 
                     // V2 font size
@@ -1978,53 +1300,16 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             nameView.setText(line);
 
             // handle some padding at the top for when action bar is hidden
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                if (position == 0 && prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                    nameView.setPadding(view.getPaddingLeft(), getActionBarHeight() + getStatusBarHeight(), view.getPaddingRight(), view.getPaddingBottom());
-                } else if (position == lines.length - 1 && prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                    nameView.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), getNavigationBarHeight());
-                }
-                // else if (position == 0 && prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default))) {
-                // nameView.setPadding(view.getPaddingLeft(), getActionBarHeight(), view.getPaddingRight(), view.getPaddingBottom());
-                // }
+            if (position == 0 && prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+                nameView.setPadding(view.getPaddingLeft(), getActionBarHeight() + getStatusBarHeight(), view.getPaddingRight(), view.getPaddingBottom());
+            } else if (position == lines.length - 1 && prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+                nameView.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), getNavigationBarHeight());
             }
-
-            // sepia text color
-//            if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
-//            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
-//            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
-//            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
-//                nameView.setTextColor(0xFF645032);
-//            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("5")) {
-//            }
 
             // theme goodness
             nameView.setTextColor(themeTextColor);
 
-            // saved pos highlighting
-            // if (prefs.getBoolean("highlight_saved_pos", getResources().getBoolean(R.bool.highlight_saved_position_default))) {
-            // if (prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
-            // String savedPosMulti = prefs.getString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
-            // String[] savedPosMultiArray = savedPosMulti.split(",");
-            // if (Arrays.asList(savedPosMultiArray).contains(Integer.valueOf(position).toString())) {
-            //
-            // // saved pos background
-            // if (prefs.getBoolean("saved_pos_background", getResources().getBoolean(R.bool.saved_position_background_default))) {
-            // int pL = view.getPaddingLeft();
-            // int pT = view.getPaddingTop();
-            // int pR = view.getPaddingRight();
-            // int pB = view.getPaddingBottom();
-            // view.setBackgroundDrawable(themeDrawable);
-            // view.setPadding(pL, pT, pR, pB);
-            // nameView.setTextColor(themeColor);
-            // }
-            //
-            // }
-            // }
-            // }
-
-            String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
+            String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta.getUrl()) + "multi_saved_pos", "");
             String[] savedPosMultiArray = savedPosMulti.split(",");
             if (prefs.getString("highlight_faqmark", "1").equals("1")) {
                 if (Arrays.asList(savedPosMultiArray).contains(Integer.valueOf(position).toString())) {
@@ -2085,12 +1370,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("5")) {
                             str.setSpan(new ForegroundColorSpan(0xFF000000), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         }
-
                     }
                 }
-
                 nameView.setText(str);
-
             }
 
             // curr position task
@@ -2131,7 +1413,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             // THIS IS WHERE WE CRASH IF THE METADATA IS CORRUPTED??
             // HOW AND WHY THE METADATA IS CORRUPTED IS CURRENTLY UNKNOWN
             try {
-                currFaqURL = currFaqMeta[5];
+                currFaqURL = currFaqMeta.getUrl();
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
                 return "-999";
@@ -2141,12 +1423,12 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 Log.w(TAG, "===============================================");
                 Log.w(TAG, "READING FROM FILE " + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
 
-                if (currFaqMeta.length == 8 && currFaqMeta[7].trim().equals("TYPE=IMAGE")) {
+                if (currFaqMeta.getType().equals("TYPE=IMAGE")) {
 
                     // IMAGE FAQ
                     return "4";
 
-                } else if (currFaqMeta.length == 8 && currFaqMeta[7].trim().equals("TYPE=HTML")) {
+                } else if (currFaqMeta.getType().equals("TYPE=HTML")) {
 
                     // HTML FAQ
                     return "5";
@@ -2175,7 +1457,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     try {
 
                         // valid gamefaqs url
-                        if (currFaqMeta[5].contains("m.gamefaqs.com")) {
+                        if (currFaqMeta.getUrl().contains("m.gamefaqs.com")) {
 
                             Log.w(TAG, "===============================================");
                             Log.w(TAG, "FETCHING FROM WEB " + currFaqURL);
@@ -2192,15 +1474,14 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                                 .timeout(600000)
                                 .get();
 
-                            Elements titleElem = doc.select("title");
-                            for (Element link : titleElem) {
-                                title += link.text();
+                            Elements titleElem = doc.select(".page-title a");
+                            for (Element elem : titleElem) {
+                                title += elem.text();
                             }
                             title = title.replace("GameFAQs: ", "");
+                            Log.i(TAG, "Got the page.title a as " + title);
 
                             SharedPreferences.Editor editor = prefs.edit();
-                            // editor.putString("faq_title", title);
-                            // editor.commit();
 
                             String faqMeta = prefs.getString(FaqrApp.validFileName(currFaqURL), "");
                             Log.i(TAG, FaqrApp.validFileName(currFaqURL) + " " + faqMeta);
@@ -2211,7 +1492,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                             editor.commit();
 
                             // update our copy of faqr metadata
-                            currFaqMeta = faqMeta.split(" --- ");
+                            currFaqMeta = new FaqMeta(prefs.getString(FaqrApp.validFileName(currFaqURL), ""));
 
                             // parse the content
                             Elements pre = doc.select("pre");
@@ -2221,50 +1502,46 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                                 for (TextNode node : nodes) {
                                     content += node.getWholeText();
                                 }
-                                // content += elem.text();
                             }
 
                             // checking for ASCII FAQ determined by amount of stuff in <pre> tags
                             if (content.length() < 10000) {
 
-                                if (pre.size() > 0) {
-                                    Elements children = pre.get(0).children();
+                                Elements imgresize = doc.select(".ffaq img.imgresize");
 
-                                    // WE HAVE FOUND AN IMAGE
-                                    if (children.size() == 1 && children.get(0).tagName().equals("img")) {
+                                if (imgresize != null) {
+                                    String imagePath = imgresize.get(0).attr("src");
+                                    String[] imagePathSplit = imagePath.split("/");
+                                    String imageName = imagePathSplit[imagePathSplit.length - 1];
 
-                                        String imagePath = children.get(0).attr("src");
-                                        String[] imagePathSplit = imagePath.split("/");
-                                        String imageName = imagePathSplit[imagePathSplit.length - 1];
+                                    InputStream in = new URL(imagePath).openConnection().getInputStream();
 
-                                        InputStream in = new URL(imagePath).openConnection().getInputStream();
+                                    File fileUri = new File(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
+                                    FileOutputStream outStream = null;
+                                    outStream = new FileOutputStream(fileUri);
 
-                                        File fileUri = new File(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
-                                        FileOutputStream outStream = null;
-                                        outStream = new FileOutputStream(fileUri);
-
-                                        byte[] buffer = new byte[1024];
-                                        int len1 = 0;
-                                        while ((len1 = in.read(buffer)) > 0) {
-                                            outStream.write(buffer, 0, len1);
-                                        }
-                                        outStream.close();
-
-                                        // write the image to the disk
-                                        Log.w(TAG, "===============================================");
-                                        Log.w(TAG, "WRITING FILE " + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
-                                        Log.w(TAG, "===============================================");
-
-                                        // append the image information to the url;
-                                        if (faqMeta.split(" --- ").length == 7)
-                                            faqMeta = faqMeta + " --- " + "TYPE=IMAGE";
-                                        editor.putString(FaqrApp.validFileName(currFaqURL), faqMeta);
-                                        editor.commit();
-
-                                        // return a new status code
-                                        return "3";
+                                    byte[] buffer = new byte[1024];
+                                    int len1 = 0;
+                                    while ((len1 = in.read(buffer)) > 0) {
+                                        outStream.write(buffer, 0, len1);
                                     }
+                                    outStream.close();
+
+                                    // write the image to the disk
+                                    Log.w(TAG, "===============================================");
+                                    Log.w(TAG, "WRITING FILE " + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
+                                    Log.w(TAG, "===============================================");
+
+                                    // append the image information to the url;
+                                    if (faqMeta.split(" --- ").length == 7)
+                                        faqMeta = faqMeta + " --- " + "TYPE=IMAGE";
+                                    editor.putString(FaqrApp.validFileName(currFaqURL), faqMeta);
+                                    editor.commit();
+
+                                    // return a new status code
+                                    return "3";
                                 }
+
 
                                 // we didn't get an image apparently
                                 return "-99";
@@ -2325,7 +1602,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             return result;
         }
 
-        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         protected void onPostExecute(String result) {
             if (result.equals("-999")) {
 
@@ -2340,12 +1616,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // :-|
                 // web based faq
 
-                // this will create a place holder file even tho we aren't using the fucking web archive which sux!
-                // webView.saveWebArchive(getFileStreamPath(Faqr.validFileName(currFaqURL)).getAbsolutePath());
-
-                // webview time!
-                webView.loadUrl(currFaqMeta[5].trim()); // + "?single=1");
-
+                webView.loadUrl(currFaqMeta.getUrl().trim()); // + "?single=1");
                 // this will create a place holder file even tho we aren't using the fucking web archive which sux!
                 try {
                     webView.saveWebArchive(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
@@ -2381,7 +1652,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // not a gamefaqs url we might do something different here
 
                 // webview time!
-                webView.loadUrl(currFaqMeta[5].trim());
+                webView.loadUrl(currFaqMeta.getUrl().trim());
 
                 // this will create a place holder file even tho we aren't using the fucking web archive which sux!
                 webView.saveWebArchive(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
@@ -2433,37 +1704,10 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 } else {
 
                 }
-                // if (result == "4")
-                // Toast.makeText(getApplicationContext(), "Opening saved image in WebView.", Toast.LENGTH_LONG).show();
-
                 webViewActive = true;
 
-                String title = "";
-                String subtitle = "";
-                if (currFaqMeta.length > 6) {
-                    // setTitle(currFaqMeta[6]);
-
-                    String[] titleParts = currFaqMeta[6].split("\\(");
-
-                    title = titleParts[0].trim();
-                    if (titleParts.length > 1) {
-                        subtitle = currFaqMeta[6].split("\\)")[1].trim();
-                        if (title.indexOf(currFaqMeta[0].split("\\(|<")[0].trim()) != -1) {
-                            title = title.substring(0, title.indexOf(currFaqMeta[0].split("\\(|<")[0].trim())).trim();
-                        }
-                        if (subtitle.startsWith("Final Fantasy IV ")) {
-                            subtitle = subtitle.replaceAll("Final Fantasy IV ", "");
-                        }
-
-                        // 5/2015 new Gamefaqs title style???
-                        if (subtitle.isEmpty()) {
-                            subtitle = currFaqMeta[0];
-                        }
-
-                        getSupportActionBar().setSubtitle(subtitle);
-                    }
-                    getSupportActionBar().setTitle(title);
-                }
+                getSupportActionBar().setTitle(currFaqMeta.getGameTitle());
+                getSupportActionBar().setSubtitle(currFaqMeta.getTitle() + " by " + currFaqMeta.getAuthor());
                 getSupportActionBar().setIcon(android.R.color.transparent);
 
                 // theme stuff
@@ -2500,15 +1744,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
                 }
 
-                // webview time!
-
-                String url = currFaqMeta[5].trim();
-                if (!prefs.getString(currFaqMeta[5].trim() + "curr_url", "").equals("")) {
-                    url = prefs.getString(currFaqMeta[5].trim() + "curr_url", "");
+                String url = currFaqMeta.getUrl().trim();
+                if (!prefs.getString(currFaqMeta.getUrl().trim() + "curr_url", "").equals("")) {
+                    url = prefs.getString(currFaqMeta.getUrl().trim() + "curr_url", "");
 //                    Toast.makeText(getApplicationContext(), "Load URL -- " + url, Toast.LENGTH_LONG).show();
                 }
 
-                webView.loadUrl(url); // + "?single=1");
+                webView.loadUrl(url);
 
             } else {
 
@@ -2521,26 +1763,8 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                 // :-)
                 // we got a faq to show and we are very happy!
-                if (currFaqMeta.length > 6) {
-                    // setTitle(currFaqMeta[6]);
-
-                    String[] titleParts = currFaqMeta[6].split("\\(");
-
-                    String title = titleParts[0].trim();
-                    if (titleParts.length > 1) {
-                        String subtitle = currFaqMeta[6].split("\\)")[1].trim();
-                        if (title.indexOf(currFaqMeta[0].split("\\(|<")[0].trim()) != -1) {
-                            title = title.substring(0, title.indexOf(currFaqMeta[0].split("\\(|<")[0].trim())).trim();
-                        }
-                        if (subtitle.startsWith("Final Fantasy IV ")) {
-                            subtitle = subtitle.replaceAll("Final Fantasy IV ", "");
-                        }
-
-                        getSupportActionBar().setSubtitle(subtitle);
-                    }
-                    getSupportActionBar().setTitle(title);
-                }
-
+                getSupportActionBar().setTitle(currFaqMeta.getGameTitle());
+                getSupportActionBar().setSubtitle(currFaqMeta.getTitle() + " by " + currFaqMeta.getAuthor());
                 getSupportActionBar().setIcon(android.R.color.transparent);
 
                 // set the listview position
@@ -2548,11 +1772,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     // if there is a faqmark we are returning to
                     if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
                         listView.setSelectionFromTop(faqmarkPos, getActionBarHeight() + getStatusBarHeight());
-                    }
-                    // else if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default))) {
-                    // listView.setSelectionFromTop(faqmarkPos, getActionBarHeight());
-                    // }
-                    else {
+                    } else {
                         listView.setSelection(faqmarkPos);
                     }
 
@@ -2564,24 +1784,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 } else {
                     // otherwise use the curr_pos
                     if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                        listView.setSelectionFromTop(prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0), getActionBarHeight() + getStatusBarHeight());
-                    }
-                    // else if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default))) {
-                    // listView.setSelectionFromTop(prefs.getInt(Faqr.validFileName(currFaqMeta[5]) + "curr_pos", 0), getActionBarHeight());
-                    // }
-                    else {
-                        listView.setSelection(prefs.getInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", 0));
+                        listView.setSelectionFromTop(prefs.getInt(FaqrApp.validFileName(currFaqMeta.getUrl()) + "curr_pos", 0), getActionBarHeight() + getStatusBarHeight());
+                    } else {
+                        listView.setSelection(prefs.getInt(FaqrApp.validFileName(currFaqMeta.getUrl()) + "curr_pos", 0));
                     }
                 }
 
                 ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
-
-                // lights out!
-                // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                // if (prefs.getBoolean("use_lights_out", getResources().getBoolean(R.bool.use_lights_out_default))) {
-                // listView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-                // }
-                // }
                 listView.setVisibility(View.VISIBLE);
 
                 // fancy animations
@@ -2605,9 +1814,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 });
                 // Now Set your animation
                 listView.startAnimation(fadeInAnimation);
-
                 loading.startAnimation(fadeOutAnimation);
-
                 error.setVisibility(View.GONE);
             }
 
@@ -2624,7 +1831,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         @Override
         protected String doInBackground(String... strings) {
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt(FaqrApp.validFileName(currFaqMeta[5]) + "curr_pos", Integer.valueOf(strings[0]).intValue());
+            editor.putInt(FaqrApp.validFileName(currFaqMeta.getUrl()) + "curr_pos", Integer.valueOf(strings[0]).intValue());
             editor.commit();
             return "";
         }
@@ -2646,8 +1853,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             String result = "0";
             if (prefs.getBoolean("multi_saved_pos_new", getResources().getBoolean(R.bool.multi_saved_position_default))) {
 
-                String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
-                // Log.w(TAG, "BEFORE " + savedPosMulti);
+                String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta.getUrl()) + "multi_saved_pos", "");
 
                 savedPos = strings[0];
 
@@ -2668,14 +1874,12 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 } else {
                     savedPosMulti = savedPosMulti + strings[0] + ",";
                 }
-                // editor.putString(Faqr.validFileName(currFaqMeta[5]) + "multi_saved_pos", savedPosMulti + "," + strings[0]);
-                editor.putString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", savedPosMulti);
+
+                editor.putString(FaqrApp.validFileName(currFaqMeta.getUrl()) + "multi_saved_pos", savedPosMulti);
                 editor.commit();
 
-                // Log.w(TAG, "AFTER " + savedPosMulti);
-
             } else {
-                editor.putInt(FaqrApp.validFileName(currFaqMeta[5]) + "saved_pos", Integer.valueOf(strings[0]).intValue());
+                editor.putInt(FaqrApp.validFileName(currFaqMeta.getUrl()) + "saved_pos", Integer.valueOf(strings[0]).intValue());
                 editor.commit();
             }
             return result;
@@ -2692,7 +1896,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             String savedPosPlusOne = new Integer(Integer.valueOf(savedPos) + 1).toString();
 
             // if faqmarks
-            if (!TextUtils.isEmpty(prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", ""))) {
+            if (!TextUtils.isEmpty(prefs.getString(FaqrApp.validFileName(currFaqMeta.getUrl()) + "multi_saved_pos", ""))) {
                 faqmarksItem.setEnabled(true);
             } else {
                 faqmarksItem.setEnabled(false);
@@ -2708,74 +1912,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         }
     };
 
-    /**
-     * Find onTextChanged Task
-     *
-     * @author eneve
-     */
-    private class FindTextChangedTask extends AsyncTask<String, Void, String> {
-
-        protected void onPreExecute() {
-            ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            findString = strings[0];
-
-            // ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
-            if (!TextUtils.isEmpty(findString)) {
-                int count = 0;
-                int position = -1;
-                for (String line : lines) {
-                    int startIndex = line.toLowerCase().indexOf(findString.toLowerCase());
-                    if (startIndex != -1 && count > prefs.getInt("curr_pos", 0)) {
-                        position = count;
-                        break;
-                    }
-                    count++;
-                }
-                if (position > -1) {
-                    // listView.setSelection(position);
-                    currFindPos = position;
-
-                    return Integer.valueOf(position).toString();
-                } else {
-                    if (!TextUtils.isEmpty(findString)) {
-                        count = lines.length - 1;
-                        position = -1;
-                        for (int i = lines.length - 1; i > 0; i--) {
-                            String line = lines[i];
-                            int startIndex = line.toLowerCase().indexOf(findString.toLowerCase());
-                            if (startIndex != -1 && count < currFindPos) {
-                                position = count;
-                                break;
-                            }
-                            count--;
-                        }
-                        if (position > -1) {
-                            // listView.setSelection(position);
-                            currFindPos = position;
-                            return Integer.valueOf(position).toString();
-                        }
-                    }
-                }
-            }
-            return "-1";
-        }
-
-        protected void onPostExecute(String result) {
-            ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
-
-//            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-//            listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight() + getStatusBarHeight());
-//            } else if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default)) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-//            listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight());
-//            } else {
-//            listView.setSelection(Integer.valueOf(result).intValue());
-//            }
-        }
-    };
 
     /**
      * Find Prev Task
@@ -2792,8 +1928,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         @Override
         protected String doInBackground(String... strings) {
-
-            int currentPosition = listView.getFirstVisiblePosition() + 1;
 
             if (!TextUtils.isEmpty(findString)) {
                 int count = lines.length - 1;
@@ -2839,11 +1973,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
                 listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight() + getStatusBarHeight());
-            }
-            // else if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default)) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight());
-            // }
-            else {
+            } else {
                 listView.setSelection(Integer.valueOf(result).intValue());
             }
         }
@@ -2857,22 +1987,21 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     private class FindNextTask extends AsyncTask<String, Void, String> {
 
         private boolean showToast = false;
+        private int mCurrentPosition = 0;
 
         protected void onPreExecute() {
             ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+            mCurrentPosition = listView.getFirstVisiblePosition() + 1;
         }
 
         @Override
         protected String doInBackground(String... strings) {
-
-            int currentPosition = listView.getFirstVisiblePosition() + 1;
-
             if (!TextUtils.isEmpty(findString)) {
                 int count = 0;
                 int position = -1;
                 for (String line : lines) {
                     int startIndex = line.toLowerCase().indexOf(findString.toLowerCase());
-                    if (startIndex != -1 && count != currFindPos && count > currentPosition) {
+                    if (startIndex != -1 && count != currFindPos && count > mCurrentPosition) {
                         position = count;
                         break;
                     }
@@ -2905,15 +2034,12 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         protected void onPostExecute(String result) {
             if (showToast)
                 Toast.makeText(getApplicationContext(), "Wrapped Search.", Toast.LENGTH_SHORT).show();
+
             ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
                 listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight() + getStatusBarHeight());
-            }
-            // else if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default)) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight());
-            // }
-            else {
+            } else {
                 listView.setSelection(Integer.valueOf(result).intValue());
             }
         }
@@ -2928,16 +2054,19 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         private boolean showToast = false;
 
+        private int position = 0;
+
         protected void onPreExecute() {
             ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+
+            position = listView.getFirstVisiblePosition() + 1;
         }
 
         @Override
         protected String doInBackground(String... strings) {
 
-            int position = listView.getFirstVisiblePosition() + 1;
 
-            String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
+            String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta.getUrl()) + "multi_saved_pos", "");
 
             if (!savedPosMulti.equals("")) {
                 String[] savedPosMultiList = savedPosMulti.split(",");
@@ -2974,20 +2103,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             else if (showToast)
                 Toast.makeText(getApplicationContext(), "Wrapped Search.", Toast.LENGTH_SHORT).show();
 
-            // String plusOne = new Integer(Integer.valueOf(result) + 1).toString();
-            // double percentage = (new Double(plusOne) / new Double(lines.length)) * 100.0;
-            // DecimalFormat df = new DecimalFormat("#");
-            // Toast.makeText(getApplicationContext(), "Location " + plusOne + "/" + lines.length + " - " + df.format(percentage) + "%", Toast.LENGTH_SHORT).show();
-
             ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
                 listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight() + getStatusBarHeight());
-            }
-            // else if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default)) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight());
-            // }
-            else {
+            } else {
                 listView.setSelection(Integer.valueOf(result).intValue());
             }
         }
@@ -3002,16 +2122,17 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         private boolean showToast = false;
 
+        private int position = 0;
+
         protected void onPreExecute() {
             ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+
+            position = listView.getFirstVisiblePosition() + 1;
         }
 
         @Override
         protected String doInBackground(String... strings) {
-
-            int position = listView.getFirstVisiblePosition() + 1;
-
-            String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
+            String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta.getUrl()) + "multi_saved_pos", "");
 
             if (!savedPosMulti.equals("")) {
                 String[] savedPosMultiList = savedPosMulti.split(",");
@@ -3024,7 +2145,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 Arrays.sort(ints);
 
                 for (int i = 0; i < ints.length; i++) {
-
                     if (Integer.valueOf(ints[i]) > position && Integer.valueOf(ints[i]) > currGotoPos) {
                         currGotoPos = Integer.valueOf(ints[i]);
                         return new Integer(ints[i]).toString();
@@ -3034,7 +2154,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // if we didn't return then we wrap and start from beginning
                 showToast = true;
                 for (int i = 0; i < ints.length; i++) {
-                    // lastGotoPos = 0;
                     currGotoPos = Integer.valueOf(ints[i]);
                     return new Integer(ints[i]).toString();
                 }
@@ -3049,20 +2168,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             else if (showToast)
                 Toast.makeText(getApplicationContext(), "Wrapped Search.", Toast.LENGTH_SHORT).show();
 
-            // String plusOne = new Integer(Integer.valueOf(result) + 1).toString();
-            // double percentage = (new Double(plusOne) / new Double(lines.length)) * 100.0;
-            // DecimalFormat df = new DecimalFormat("#");
-            // Toast.makeText(getApplicationContext(), "Location " + plusOne + "/" + lines.length + " - " + df.format(percentage) + "%", Toast.LENGTH_SHORT).show();
-
             ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
 
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
                 listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight() + getStatusBarHeight());
-            }
-            // else if (prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default)) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // listView.setSelectionFromTop(Integer.valueOf(result).intValue(), getActionBarHeight());
-            // }
-            else {
+            } else {
                 listView.setSelection(Integer.valueOf(result).intValue());
             }
         }
@@ -3104,7 +2214,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     private void hideSystemUI() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE | View.SYSTEM_UI_FLAG_IMMERSIVE);
-//            getSupportActionBar().hide();
 
             Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_anim);
             if (!toolbarAnim)
@@ -3127,8 +2236,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         } else {
             if (!webViewActive) {
                 mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-                // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
-                // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
                 Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_anim);
                 if (!toolbarAnim)
                     toolbar.startAnimation(slide);
@@ -3147,10 +2254,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                         toolbarAnim = false;
                         getSupportActionBar().hide();
                     }
-                });                // ActionBar actionBar = getSupportActionBar();
-                // actionBar.hide();
+                });
+
             } else if (webViewActive) {
-//                mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LOW_PROFILE);
                 mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 
                 Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_anim);
@@ -3172,7 +2278,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                         getSupportActionBar().hide();
                     }
                 });
-//                getSupportActionBar().hide();
             }
         }
     }
@@ -3202,7 +2307,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             });
 
         } else  {
-            // mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             mDecorView.setSystemUiVisibility(0);
 
             Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down_anim);
@@ -3224,10 +2328,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     getSupportActionBar().show();
                 }
             });
-
-
-            // ActionBar actionBar = getSupportActionBar();
-            // actionBar.show();
         }
     }
 
@@ -3271,7 +2371,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     public void setupPortrait() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-//                setTheme(R.style.AppDarkOverlayTheme);
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
                 params.setMargins(0, getStatusBarHeight(), 0, 0);
                 toolbar.setLayoutParams(params);
@@ -3283,10 +2382,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             }
         } else {
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-//                setTheme(R.style.AppDarkOverlayTheme);
-//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-//                params.setMargins(0, getStatusBarHeight(), 0, 0);
-//                toolbar.setLayoutParams(params);
+                // nothing
             } else {
                 RelativeLayout background = (RelativeLayout) findViewById(R.id.bg);
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) background.getLayoutParams();
@@ -3321,9 +2417,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             }
         } else {
             if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) toolbar.getLayoutParams();
-//                params.setMargins(0, getStatusBarHeight(), getNavigationBarHeight(), 0);
-//                toolbar.setLayoutParams(params);
+                // nothing
             } else {
                 RelativeLayout background = (RelativeLayout) findViewById(R.id.bg);
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) background.getLayoutParams();
@@ -3333,14 +2427,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         }
     }
 
-
     public boolean getFind() {
-//        Toast.makeText(getApplicationContext(), "getFind + " + find, Toast.LENGTH_SHORT).show();
         return find;
     }
 
     public void setFind(boolean status) {
-//        Toast.makeText(getApplicationContext(), "setFind + " + status, Toast.LENGTH_SHORT).show();
         find = status;
     }
 

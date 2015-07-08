@@ -16,7 +16,7 @@ import com.google.android.gms.analytics.Tracker;
 
 /**
  * This Activity provides a help screen for the app
- * 
+ *
  * @author eneve
  */
 public class HelpActivity extends BaseActivity {
@@ -31,17 +31,13 @@ public class HelpActivity extends BaseActivity {
             setSupportActionBar(toolbar);
         }
 
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        // }
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        // EasyTracker.getInstance(this).activityStart(this); // Add this method.
 
         // Get tracker.
         Tracker t = ((FaqrApp) getApplication()).getTracker();
@@ -54,7 +50,6 @@ public class HelpActivity extends BaseActivity {
     @Override
     public void onStop() {
         super.onStop();
-//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override

@@ -5,7 +5,6 @@
 package com.faqr.activity;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,13 +12,11 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +39,7 @@ import android.widget.Toast;
 
 import com.faqr.FaqrApp;
 import com.faqr.R;
+import com.faqr.model.FaqMeta;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -56,7 +54,7 @@ import java.util.List;
 
 /**
  * This Activity provides a help screen for the app
- * 
+ *
  * @author eneve
  */
 public class FaqmarksActivity extends BaseActivity implements OnClickListener {
@@ -88,7 +86,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
     // current faq info
     private String currFaq = "";
-    private String[] currFaqMeta = new String[] {};
+    private FaqMeta currFaqMeta = new FaqMeta();
 
     /** Called when the activity is first created. */
     @SuppressLint("NewApi")
@@ -105,45 +103,13 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
         // theme goodness
         toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
-        if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
 
-            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                // setTheme(R.style.AppBlackOverlayTheme);
-            }
-        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
-
-            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-//                setTheme(R.style.AppBlackOverlayTheme);
-            }
-        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
-            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-//                setTheme(R.style.AppDarkOverlayTheme);
-            }
-        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
-            RelativeLayout bg = (RelativeLayout) findViewById(R.id.bg);
-            bg.setBackgroundColor(0xFFECE1CA);
-//            themeColor = getResources().getColor(R.color.sepia_theme_color);
-            // themeColor = getResources().getColor(R.color.sepia_theme_color);
-            themeBackgroundColor = getResources().getColor(R.color.sepia_theme_color);
-
-        }
-
-        // show back if we came from search
-        // if (extras != null && extras.getBoolean("from_search") == true) {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        // }
 
-        // set the list adapter
         adapter = new FaqAdapter();
-        // setListAdapter(adapter);
-        // ListView listView = listView;
-
         listView = (ListView) findViewById(R.id.list);
-        // listView.setOnItemClickListener(adapter.itemClickListener);
         listView.setAdapter(adapter);
-
-        // listView.setTextFilterEnabled(true);
 
         // loading indicator
         loading = (LinearLayout) findViewById(R.id.loading);
@@ -168,7 +134,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             }
         });
 
-        // /** called when a list item is long clicked */
+        /** called when a list item is long clicked */
         listView.setLongClickable(true);
         listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
@@ -183,8 +149,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                 dialogBuilder.setMessage("Are you sure you want to delete Location " + plusOne + "/" + lines.length + " - FAQmark?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
-                        // Log.w(TAG, "BEFORE " + savedPosMulti);
+                        String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta.getUrl()) + "multi_saved_pos", "");
 
                         boolean found = false;
                         String[] savedPosMultiList = savedPosMulti.split(",");
@@ -202,7 +167,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                         }
 
                         SharedPreferences.Editor editor = prefs.edit();
-                        editor.putString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", savedPosMulti);
+                        editor.putString(FaqrApp.validFileName(currFaqMeta.getUrl()) + "multi_saved_pos", savedPosMulti);
                         editor.commit();
 
                         editor.putInt("my_faqmarks_pos", listView.getFirstVisiblePosition());
@@ -255,26 +220,20 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
         // get the current FAQ
         if (!TextUtils.isEmpty(prefs.getString("curr_faq", ""))) {
             currFaq = prefs.getString("curr_faq", "");
-            // currFaq example
-            // http___m_gamefaqs_com_psp_615911-final-fantasy-iv-the-complete-collection_faqs_62211
-            String faqMeta = prefs.getString(prefs.getString("curr_faq", ""), "");
+            currFaqMeta = new FaqMeta(prefs.getString(prefs.getString("curr_faq", ""), ""));
 
             // set last read date
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString(prefs.getString("curr_faq", "") + "___last_read", sdf.format(new Date()));
 
-            // faqMeta example
-            // Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- Johnathan 'Zy' Sawyer --- 1.02 --- 1267K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211
             Log.w(TAG, "-----------------------------");
-            Log.w(TAG, currFaq);
-            Log.w(TAG, faqMeta);
+            Log.i(TAG, "currFaq " + currFaq);
+            Log.i(TAG, "faqMeta " + currFaqMeta);
             Log.w(TAG, "-----------------------------");
-            currFaqMeta = faqMeta.split(" --- ");
 
             int curr_pos = prefs.getInt(prefs.getString("curr_faq", "") + "curr_pos", -1);
             int saved_pos = prefs.getInt(prefs.getString("curr_faq", "") + "saved_pos", -1);
-            // Toast.makeText(getApplicationContext(), faqMeta + " " + curr_pos + " " + saved_pos, Toast.LENGTH_LONG).show();
             new GetFaqTask().execute(new String[] {});
         } else {
             Intent intent = new Intent(this, SearchActivity.class);
@@ -285,19 +244,14 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
     }
 
     /** Called when the activity will start interacting with the user. */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onResume() {
         super.onResume();
 
         // low profile
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-
-            if (prefs.getBoolean("use_lights_out", getResources().getBoolean(R.bool.use_lights_out_default))) {
-                listView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-            }
+        if (prefs.getBoolean("use_lights_out", getResources().getBoolean(R.bool.use_lights_out_default))) {
+            listView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
         }
-
     }
 
     /** Called when phone hard keys are pressed */
@@ -321,7 +275,6 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        // EasyTracker.getInstance(this).activityStart(this); // Add this method.
 
         // Get tracker.
         Tracker t = ((FaqrApp) getApplication()).getTracker();
@@ -334,7 +287,6 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onStop() {
         super.onStop();
-//        EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override
@@ -429,7 +381,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
     /**
      * The Faqr list adapter thats smart about displaying ASCII
-     * 
+     *
      * @author eneve
      */
     public class FaqAdapter extends BaseAdapter {
@@ -479,8 +431,6 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                 // //////////
                 // MONO FONT
 
-                // nameView.setTextScaleX(1.3f);
-                // nameView.setTypeface(tf);
                 nameView.setTextAppearance(getApplicationContext(), R.style.MonoText);
 
                 String monoFontSize = prefs.getString("mono_font_size", getResources().getString(R.string.mono_font_size_default));
@@ -493,21 +443,9 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                     int measuredHeight = 0;
                     Point size = new Point();
                     WindowManager w = getWindowManager();
-
-                    // account for padding on both sides
-                    // Resources r = getResources();
-                    // float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, r.getDisplayMetrics());
-                    // px = px * 2;
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                        w.getDefaultDisplay().getSize(size);
-                        measuredWidth = Math.round(size.x);
-                        measuredHeight = size.y;
-                    } else {
-                        Display d = w.getDefaultDisplay();
-                        measuredWidth = Math.round(d.getWidth());
-                        measuredHeight = d.getHeight();
-                    }
+                    w.getDefaultDisplay().getSize(size);
+                    measuredWidth = Math.round(size.x);
+                    measuredHeight = size.y;
 
                     int totalCharstoFit = nameView.getPaint().breakText(getResources().getString(R.string.standard_width), true, measuredWidth, null);
                     int count = 0;
@@ -548,7 +486,6 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                 lp.addRule(RelativeLayout.CENTER_VERTICAL);
                 nameView.setLayoutParams(lp);
 
-                // nameView.setGravity( Gravity.CENTER | Gravity.CENTER);
                 view.setPadding(0, 10, 0, 10);
 
             } else {
@@ -622,20 +559,14 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                     linescount++;
                 }
             }
-
             nameView.setText(previewText);
-            // nameView.setText(line);
 
             // handle some padding at the top for when action bar is hidden
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
-                    // nameView.setPadding(view.getPaddingLeft(), getActionBarHeight(), view.getPaddingRight(), view.getPaddingBottom());
-                } else if (position == 0 && prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default))) {
-                    nameView.setPadding(view.getPaddingLeft(), getActionBarHeight(), view.getPaddingRight(), view.getPaddingBottom());
-                }
+            if (prefs.getBoolean("use_immersive_mode", getResources().getBoolean(R.bool.use_immersive_mode_default))) {
+                // do nothing
+            } else if (position == 0 && prefs.getBoolean("hide_action_bar", getResources().getBoolean(R.bool.hide_action_bar_default))) {
+                nameView.setPadding(view.getPaddingLeft(), getActionBarHeight(), view.getPaddingRight(), view.getPaddingBottom());
             }
-
 
             // theme goodness
             locationView.setTextColor(themeColor);
@@ -648,7 +579,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
     /**
      * Main Async task that loads the FAQS - trys to read from disk then web then then save the file if necessary
-     * 
+     *
      * @author eneve
      */
     private class GetFaqTask extends AsyncTask<String, Void, String> {
@@ -673,7 +604,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             // THIS IS WHERE WE CRASH IF THE METADATA IS CORRUPTED??
             // HOW AND WHY THE METADATA IS CORRUPTED IS CURRENTLY UNKNOWN
             try {
-                currFaqURL = currFaqMeta[5];
+                currFaqURL = currFaqMeta.getUrl();
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
                 return "-999";
@@ -683,12 +614,12 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                 Log.w(TAG, "===============================================");
                 Log.w(TAG, "READING FROM FILE " + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
 
-                if (currFaqMeta.length == 8 && currFaqMeta[7].trim().equals("TYPE=IMAGE")) {
+                if (currFaqMeta.getType().equals("TYPE=IMAGE")) {
 
                     // IMAGE FAQ
                     return "4";
 
-                } else if (currFaqMeta.length == 8 && currFaqMeta[7].trim().equals("TYPE=HTML")) {
+                } else if (currFaqMeta.getType().equals("TYPE=HTML")) {
 
                     // HTML FAQ
                     return "5";
@@ -703,9 +634,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                         origLines = new String[lines.length];
                         System.arraycopy(lines, 0, origLines, 0, lines.length);
 
-                        // int position = listView.getFirstVisiblePosition() + 1;
-
-                        String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
+                        String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta.getUrl()) + "multi_saved_pos", "");
 
                         savedLines = new ArrayList<String>();
                         if (!savedPosMulti.equals("")) {
@@ -719,12 +648,6 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                             Arrays.sort(ints);
 
                             for (int i = 0; i < ints.length; i++) {
-
-                                // if (Integer.valueOf(ints[i]) > position && Integer.valueOf(ints[i]) > lastGotoPos) {
-                                // lastGotoPos = Integer.valueOf(ints[i]);
-                                // return new Integer(ints[i]).toString();
-                                // }
-
                                 // plus one so first position is not position 0 :-)
                                 int plusOne = ints[i] + 1;
                                 savedLineNumbers.add(new Integer(ints[i]).toString());
@@ -732,17 +655,9 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                                 double percentage = (new Double(plusOne) / new Double(lines.length)) * 100.0;
                                 DecimalFormat df = new DecimalFormat("#");
                                 savedLinePercentages.add(df.format(percentage) + "%");
-
                                 savedLines.add(lines[ints[i]]);
-
                             }
 
-                            // if we didn't return then we wrap and start from beginning
-                            // showToast = true;
-                            // for (int i = 0; i < ints.length; i++) {
-                            // lastGotoPos = 0;
-                            // return new Integer(ints[i]).toString();
-                            // }
                         }
 
                         success = true;
@@ -757,27 +672,10 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             return result;
         }
 
-        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         protected void onPostExecute(String result) {
 
             int my_faqmarks_pos = prefs.getInt("my_faqmarks_pos", 0);
             listView.setSelection(my_faqmarks_pos);
-            
-
-//            String title = currFaqMeta[6].split("\\(")[0].trim();
-//            String subtitle = currFaqMeta[6].split("\\)")[1].trim();
-//            if (title.indexOf(currFaqMeta[0].split("\\(|<")[0].trim()) != -1) {
-//                title = title.substring(0, title.indexOf(currFaqMeta[0].split("\\(|<")[0].trim())).trim();
-//            }
-//            if (subtitle.startsWith("Final Fantasy IV ")) {
-//                subtitle = subtitle.replaceAll("Final Fantasy IV ", "");
-//            }
-
-//            getSupportActionBar().setTitle("My FAQmarks");
-//            getSupportActionBar().setSubtitle(currFaqMeta[6]);
-            
-//            getSupportActionBar().setTitle("My FAQmarks");
-//            getSupportActionBar().setSubtitle(currFaqMeta[6]);
 
             ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
 
@@ -788,7 +686,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             fadeInAnimation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
-
+                    // do nothing
                 }
 
                 @Override
@@ -798,23 +696,19 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
                 @Override
                 public void onAnimationRepeat(Animation animation) {
-
+                    // do nothing
                 }
             });
             // Now Set your animation
             listView.startAnimation(fadeInAnimation);
-
             loading.startAnimation(fadeOutAnimation);
-
-            // listView.setVisibility(View.VISIBLE);
-            // loading.setVisibility(View.GONE);
         }
 
     };
 
     /**
      * Delete all FAQs
-     * 
+     *
      * @author eneve
      */
     private class DeleteAllTask extends AsyncTask<String, Void, String> {
@@ -834,7 +728,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             Toast.makeText(getApplicationContext(), "Deleted all saved FAQmarks.", Toast.LENGTH_SHORT).show();
 
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putString(FaqrApp.validFileName(currFaqMeta[5]) + "multi_saved_pos", "");
+            editor.putString(FaqrApp.validFileName(currFaqMeta.getUrl()) + "multi_saved_pos", "");
             editor.commit();
 
             editor.putInt("my_faqmarks_pos", 0);

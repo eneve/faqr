@@ -19,7 +19,7 @@ import com.google.android.gms.analytics.Tracker;
 
 /**
  * This Activity provides an about screen for the app
- * 
+ *
  * @author eneve
  */
 public class AboutActivity extends BaseActivity {
@@ -34,12 +34,10 @@ public class AboutActivity extends BaseActivity {
             setSupportActionBar(toolbar);
         }
 
-//        toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
-//
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        // }
 
         // donate
         TextView donate = (TextView) findViewById(R.id.donate_link);
@@ -48,11 +46,15 @@ public class AboutActivity extends BaseActivity {
         // contact
         TextView contact = (TextView) findViewById(R.id.contact_link);
         Linkify.addLinks(contact, Linkify.ALL);
+        donate.setTextColor(themeTextColor);
         donate.setLinkTextColor(primaryColor);
+        contact.setTextColor(themeTextColor);
         contact.setLinkTextColor(primaryColor);
 
         // version
         TextView version = (TextView) findViewById(R.id.version);
+        TextView versionTitle = (TextView) findViewById(R.id.version_title);
+
         String versionName = "";
         try {
             versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
@@ -60,6 +62,8 @@ public class AboutActivity extends BaseActivity {
             // do nothing
         }
         version.setText(versionName);
+        version.setTextColor(themeTextColor);
+        versionTitle.setTextColor(themeTextColor);
 
         // theme goodness
         ((TextView) findViewById(R.id.section_1_title)).setTextColor(primaryColor);
@@ -69,12 +73,15 @@ public class AboutActivity extends BaseActivity {
         ((TextView) findViewById(R.id.section_5_title)).setTextColor(primaryColor);
         ((TextView) findViewById(R.id.section_6_title)).setTextColor(primaryColor);
         ((TextView) findViewById(R.id.section_7_title)).setTextColor(primaryColor);
+        ((TextView) findViewById(R.id.section_1_text)).setTextColor(themeTextColor);
+        ((TextView) findViewById(R.id.section_2_text)).setTextColor(themeTextColor);
+        ((TextView) findViewById(R.id.section_3_text)).setTextColor(themeTextColor);
+        ((TextView) findViewById(R.id.section_4_text)).setTextColor(themeTextColor);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        // EasyTracker.getInstance(this).activityStart(this); // Add this method.
 
         // Get tracker.
         Tracker t = ((FaqrApp) getApplication()).getTracker();
@@ -87,7 +94,6 @@ public class AboutActivity extends BaseActivity {
     @Override
     public void onStop() {
         super.onStop();
-        // EasyTracker.getInstance(this).activityStop(this); // Add this method.
     }
 
     @Override
