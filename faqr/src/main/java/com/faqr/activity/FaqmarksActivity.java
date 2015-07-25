@@ -541,7 +541,10 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             int nextpos = realPos;
             while (linescount < savedPosPreview) {
                 nextpos = nextpos + 1;
-                String nextlines = lines[nextpos];
+
+                String nextlines = "";
+                if (lines.length > nextpos)
+                    nextlines = lines[nextpos];
 
                 previewText += System.getProperty("line.separator");
                 linescount++;
