@@ -261,7 +261,7 @@ public class SearchResultsActivity extends BaseActivity {
         pT = searchTextFrame.getPaddingTop();
         pR = searchTextFrame.getPaddingRight();
         pB = searchTextFrame.getPaddingBottom();
-        searchTextFrame.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
+//        searchTextFrame.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
         searchTextFrame.setPadding(pL, pT, pR, pB);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

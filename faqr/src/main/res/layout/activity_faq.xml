@@ -48,8 +48,6 @@
             android:dividerHeight="0dp"
             android:fadingEdge="none"
             android:listSelector="@android:color/transparent"
-            android:overScrollFooter="@drawable/overscroll_glow"
-            android:overScrollHeader="@drawable/overscroll_glow"
             android:overScrollMode="never" >
         </ListView>
 

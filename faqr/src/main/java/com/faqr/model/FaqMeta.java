@@ -206,7 +206,7 @@ public class FaqMeta {
         try {
             type = faqMetaSplit[7].trim();
         } catch (Exception e) {
-            Log.w("FAQr", e.getMessage(), e);
+            Log.w("FAQr", e.getMessage());
         }
 
         return type;

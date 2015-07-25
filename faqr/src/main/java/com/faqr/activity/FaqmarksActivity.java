@@ -236,7 +236,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             int saved_pos = prefs.getInt(prefs.getString("curr_faq", "") + "saved_pos", -1);
             new GetFaqTask().execute(new String[] {});
         } else {
-            Intent intent = new Intent(this, SearchActivity.class);
+            Intent intent = new Intent(this, MyFaqsActivity.class);
             startActivity(intent);
             finish();
         }

@@ -617,7 +617,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         int pT = searchText.getPaddingTop();
         int pR = searchText.getPaddingRight();
         int pB = searchText.getPaddingBottom();
-        searchText.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
+//        searchText.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
         searchText.setPadding(pL, pT, pR, pB);
 
         searchView.setOnSearchClickListener(new View.OnClickListener() {

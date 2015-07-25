@@ -44,8 +44,6 @@
             android:fadingEdge="none"
             android:fastScrollEnabled="true"
             android:listSelector="@drawable/list_selector"
-            android:overScrollFooter="@drawable/overscroll_glow"
-            android:overScrollHeader="@drawable/overscroll_glow"
             android:overScrollMode="never" >
         </ListView>
 

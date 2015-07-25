@@ -7,7 +7,6 @@ package com.faqr.activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -209,13 +208,6 @@ public class BaseActivity extends ActionBarActivity {
     /** Called when phone hard keys are pressed */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_SEARCH)) {
-            Intent searchIntent = new Intent(this, SearchActivity.class);
-            searchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(searchIntent);
-            finish();
-            return true;
-        }
         return super.onKeyDown(keyCode, event);
     }
 
