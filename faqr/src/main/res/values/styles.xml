@@ -8,7 +8,7 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
-        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>
 
@@ -16,9 +16,9 @@
 
     <!--
     ===============================================================
-    
-     COMMON TO ALL API LEVELS 
-     
+
+     COMMON TO ALL API LEVELS
+
      ==============================================================
     -->
 
@@ -58,7 +58,7 @@
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">2</item>
     </style>
-    
+
     <style name="DisplayOptionsTitle" parent="@android:style/Widget.TextView">
         <item name="android:textColor">#FFB5B5B5</item>
         <item name="android:textStyle">bold</item>
@@ -69,7 +69,7 @@
         <item name="android:windowEnterAnimation">@anim/fade_in_anim</item>
         <item name="android:windowExitAnimation">@anim/fade_out_anim</item>
     </style>
-    
+
     <style name="OptionsAnimationPopup">
         <item name="android:windowEnterAnimation">@anim/options_fade_in_anim</item>
         <item name="android:windowExitAnimation">@anim/options_fade_out_anim</item>

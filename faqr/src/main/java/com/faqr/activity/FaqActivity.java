@@ -397,8 +397,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                 if (view != null && view.getTitle() != null) {
                     String title = view.getTitle().trim();
-                    getSupportActionBar().setTitle(title);
-                    getSupportActionBar().setSubtitle(currFaqURL.replaceAll("http://", "").replaceAll("https://", ""));
+                    // downloaded images in webview with have about:blank title
+                    if (!title.equals("about:blank")) {
+                        getSupportActionBar().setTitle(title);
+                        getSupportActionBar().setSubtitle(currFaqURL.replaceAll("http://", "").replaceAll("https://", ""));
+                    }
                 }
 
                 // set last read date
@@ -1507,9 +1510,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                             // checking for ASCII FAQ determined by amount of stuff in <pre> tags
                             if (content.length() < 10000) {
 
-                                Elements imgresize = doc.select(".ffaq img.imgresize");
+                                Elements imgresize = doc.select(".imgmain img.imgresize");
 
-                                if (imgresize != null) {
+                                if (imgresize.size() > 0) {
                                     String imagePath = imgresize.get(0).attr("src");
                                     String[] imagePathSplit = imagePath.split("/");
                                     String imageName = imagePathSplit[imagePathSplit.length - 1];
@@ -1564,13 +1567,13 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                     } catch (Exception e) {
                         // error reading from web
-                        if (e.getMessage() != null)
-                            Log.e(TAG, e.getMessage());
+//                        if (e.getMessage() != null)
+                        Log.e(TAG, e.getMessage(), e);
                         result = "-1";
                     } catch (OutOfMemoryError e) {
                         // memory exception on device
-                        if (e.getMessage() != null)
-                            Log.e(TAG, e.getMessage());
+//                        if (e.getMessage() != null)
+                        Log.e(TAG, e.getMessage(), e);
                         result = "-2";
                     }
 
@@ -1659,6 +1662,10 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                 webViewActive = true;
 
+                getSupportActionBar().setTitle(currFaqMeta.getGameTitle());
+                getSupportActionBar().setSubtitle(currFaqMeta.getTitle() + " by " + currFaqMeta.getAuthor());
+                getSupportActionBar().setIcon(android.R.color.transparent);
+
                 Log.w(TAG, "===============================================");
                 Log.w(TAG, "WRITING FILE " + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
                 Log.w(TAG, "===============================================");
@@ -1675,6 +1682,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // :-(
                 // no connectivity
                 // connectionDialog.show();
+                Log.e(TAG, "Result -3: No connectivity");
                 Toast.makeText(getApplicationContext(), "There is no internet connection available, Please connect to wifi or data plan and try again.", Toast.LENGTH_LONG).show();
                 loading.setVisibility(View.GONE);
                 error.setVisibility(View.VISIBLE);
@@ -1683,6 +1691,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                 // :'-(
                 // error in the web access
+                Log.e(TAG, "Result -2: Error in the web access");
                 Toast.makeText(getApplicationContext(), "Sorry an out of memory exception occured. ", Toast.LENGTH_LONG).show();
                 loading.setVisibility(View.GONE);
                 error.setVisibility(View.VISIBLE);
@@ -1691,6 +1700,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
                 // :'-(
                 // error in the web access
+                Log.e(TAG, "Result -1: Error in the web access");
                 Toast.makeText(getApplicationContext(), "Sorry an error occured. Please try again.", Toast.LENGTH_LONG).show();
                 loading.setVisibility(View.GONE);
                 error.setVisibility(View.VISIBLE);
@@ -1701,6 +1711,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 // we got an image downloaded to show and we are very happy
                 if (result == "3") {
                     Toast.makeText(getApplicationContext(), "Successfully saved image to device.", Toast.LENGTH_LONG).show();
+                    Log.i(TAG, "Successfully saved image to device.");
                 } else {
 
                 }
