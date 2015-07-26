@@ -91,4 +91,11 @@
         android:summary="@string/use_fast_scroll_summary"
         android:title="@string/use_fast_scroll_title" />
 
+    <!--  -->
+    <CheckBoxPreference
+        android:defaultValue="@bool/fast_scroll_left_default"
+        android:key="fast_scroll_left"
+        android:summary="@string/fast_scroll_left_summary"
+        android:title="@string/fast_scroll_left_title" />
+
 </PreferenceScreen>

@@ -20,11 +20,11 @@
 
     <!-- saved position -->
     <string name="pref_header_saved_pos">FAQmarks</string>
-    
-    
+
+
     <string name="highlight_faqmark_title">Highlight FAQmark</string>
     <string name="highlight_faqmark_summary">Highlight text</string>
-    
+
     <string-array name="highlight_faqmark_list_titles">
         <item>Highlight text</item>
         <item>Highlight corner fold</item>
@@ -37,7 +37,7 @@
         <item>3</item>
         <item>4</item>
     </string-array>
-    
+
     <string name="highlight_saved_pos_title">Highlight FAQmark</string>
     <string name="highlight_saved_pos_summary">Highlight the saved position with a different color</string>
     <string name="saved_pos_background_title">FAQmark Background</string>
@@ -96,7 +96,7 @@
 
     <!-- screen -->
     <string name="pref_header_screen">Display</string>
-    
+
     <string name="use_dark_theme_title">Use Dark Theme</string>
     <string name="use_dark_theme_summary">Use dark background with light text</string>
     <string name="use_true_black_title">Use True Black</string>
@@ -113,13 +113,13 @@
     <string name="hide_action_bar_summary">Hide the action bar on scroll</string>
     <string name="keep_screen_on_title">Keep Screen On</string>
     <string name="keep_screen_on_summary">Prevent device from sleeping</string>
-    
-    
-    
-    
+
+
+
+
     <string name="theme_title">Theme</string>
     <string name="theme_summary">Day</string>
-    
+
     <string-array name="theme_titles">
         <item>Day</item>
         <item>Night</item>
@@ -132,10 +132,10 @@
         <item>3</item>
         <item>4</item>
     </string-array>
-    
+
     <string name="hide_notification_bar_title">Hide Notification Bar</string>
     <string name="hide_notification_bar_summary">Always show</string>
-    
+
     <string-array name="hide_notification_bar_titles">
         <item>Always show</item>
         <item>Always hide</item>
@@ -146,11 +146,11 @@
         <item>2</item>
         <item>3</item>
     </string-array>
-    
-    
+
+
     <string name="auto_rotate_screen_title">Auto-rotate screen</string>
     <string name="auto_rotate_screen_summary">Use system setting</string>
-    
+
     <string-array name="auto_rotate_screen_titles">
         <item>Use system setting</item>
         <item>Lock in portrait</item>
@@ -166,11 +166,16 @@
     <string name="use_fast_scroll_title">Fast Scroll</string>
     <string name="use_fast_scroll_summary">Use fast scrollbar</string>
 
+
+
+    <string name="fast_scroll_left_title">Fast Scroll Position</string>
+    <string name="fast_scroll_left_summary">Put fast scrollbar on left</string>
+
     <!-- fonts -->
-    
+
      <string name="typeface_title">Typeface</string>
     <string name="typeface_summary">Mono</string>
-    
+
     <string-array name="typeface_list_titles">
         <item>Mono</item>
         <item>Variable Sans</item>
@@ -181,9 +186,7 @@
         <item>2</item>
         <item>3</item>
     </string-array>
-    
-    
-    
+
     <string name="pref_header_fonts">Fonts</string>
     <string name="mono_font_size_title">Mono Spaced Font Size</string>
     <string name="mono_font_size_summary">The font size for the mono spaced font</string>

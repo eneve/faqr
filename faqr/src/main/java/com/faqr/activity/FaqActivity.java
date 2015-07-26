@@ -217,6 +217,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         if (prefs.getBoolean("use_fast_scroll", getResources().getBoolean(R.bool.use_fast_scroll_default))) {
             listView.setFastScrollEnabled(true);
+            if (prefs.getBoolean("fast_scroll_left", getResources().getBoolean(R.bool.fast_scroll_left_default))) {
+                listView.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+            }
         } else {
             listView.setFastScrollEnabled(false);
         }
