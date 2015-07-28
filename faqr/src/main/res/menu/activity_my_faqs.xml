@@ -10,25 +10,21 @@
 
     <item
         android:id="@+id/menu_clear"
-        android:icon="@drawable/ic_menu_close_clear_cancel"
         app:showAsAction="never"
         android:title="@string/menu_clear_history"/>
 
     <item
         android:id="@+id/menu_delete"
-        android:icon="@drawable/ic_menu_delete"
         app:showAsAction="never"
         android:title="@string/menu_delete"/>
 
     <item
         android:id="@+id/menu_settings"
-        android:icon="@drawable/ic_menu_preferences"
         app:showAsAction="never"
         android:title="@string/menu_settings"/>
 
     <item
         android:id="@+id/menu_about"
-        android:icon="@drawable/ic_menu_info_details"
         app:showAsAction="never"
         android:title="@string/menu_about"/>
 

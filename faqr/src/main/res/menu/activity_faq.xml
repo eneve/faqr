@@ -14,18 +14,6 @@
         android:title="@string/menu_next"/>
 
     <item
-        android:id="@+id/menu_display_options"
-        android:icon="@drawable/ic_menu_settings_dark"
-        app:showAsAction="never"
-        android:title="Display Options"/>
-
-    <item
-        android:id="@+id/menu_faqmarks"
-        android:icon="@drawable/ic_menu_star"
-        app:showAsAction="never"
-        android:title="@string/menu_faqmarks"/>
-
-    <item
         android:id="@+id/action_search"
         android:title="@string/action_search"
         android:icon="@drawable/ic_search_white_24dp"
@@ -33,20 +21,27 @@
         app:showAsAction="ifRoom|collapseActionView" />
 
     <item
+        android:id="@+id/menu_display_options"
+        app:showAsAction="never"
+        android:title="Display Options"/>
+
+    <item
+        android:id="@+id/menu_faqmarks"
+        app:showAsAction="never"
+        android:title="@string/menu_faqmarks"/>
+
+    <item
         android:id="@+id/menu_browser"
-        android:icon="@drawable/ic_menu_view"
         app:showAsAction="never"
         android:title="@string/menu_browser"/>
 
     <item
         android:id="@+id/menu_settings"
-        android:icon="@drawable/ic_menu_preferences"
         app:showAsAction="never"
         android:title="@string/menu_settings"/>
 
     <item
         android:id="@+id/menu_about"
-        android:icon="@drawable/ic_menu_info_details"
         app:showAsAction="never"
         android:title="@string/menu_about"/>
 
