@@ -111,6 +111,16 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
         listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
 
+        // fast scroll
+        if (prefs.getBoolean("use_fast_scroll", getResources().getBoolean(R.bool.use_fast_scroll_default))) {
+            listView.setFastScrollEnabled(true);
+            if (prefs.getBoolean("fast_scroll_left", getResources().getBoolean(R.bool.fast_scroll_left_default))) {
+                listView.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+            }
+        } else {
+            listView.setFastScrollEnabled(false);
+        }
+
         // loading indicator
         loading = (LinearLayout) findViewById(R.id.loading);
         error = (LinearLayout) findViewById(R.id.error);
@@ -146,7 +156,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
                 // delete dialog
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(FaqmarksActivity.this, R.style.AppCompatAlertDialogStyle);
-                dialogBuilder.setMessage("Are you sure you want to delete Location " + plusOne + "/" + lines.length + " - FAQmark?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                dialogBuilder.setMessage("Are you sure you want to delete FAQMark " + plusOne + "/" + lines.length + "?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         String savedPosMulti = prefs.getString(FaqrApp.validFileName(currFaqMeta.getUrl()) + "multi_saved_pos", "");
@@ -409,7 +419,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
             Integer realPos = Integer.valueOf(savedLineNumbers.get(position));
             Integer plusOne = Integer.valueOf(savedLineNumbers.get(position)) + 1;
-            locationView.setText("Location " + plusOne.toString() + "/" + lines.length);
+            locationView.setText("FAQMark " + plusOne.toString() + "/" + lines.length);
 
             // percentage
             TextView percentageView = (TextView) view.findViewById(R.id.percentage);

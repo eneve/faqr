@@ -110,6 +110,16 @@ public class SearchResultsActivity extends BaseActivity {
         listView = (StickyListHeadersListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
 
+        // fast scroll
+        if (prefs.getBoolean("use_fast_scroll", getResources().getBoolean(R.bool.use_fast_scroll_default))) {
+            listView.setFastScrollEnabled(true);
+            if (prefs.getBoolean("fast_scroll_left", getResources().getBoolean(R.bool.fast_scroll_left_default))) {
+                listView.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+            }
+        } else {
+            listView.setFastScrollEnabled(false);
+        }
+
         listView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 

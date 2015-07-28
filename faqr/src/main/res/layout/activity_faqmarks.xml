@@ -42,7 +42,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fadingEdge="none"
-            android:fastScrollEnabled="true"
             android:listSelector="@drawable/list_selector"
             android:overScrollMode="never" >
         </ListView>

@@ -97,6 +97,16 @@ public class MyFaqsActivity extends BaseActivity {
         listView = (StickyListHeadersListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
 
+        // fast scroll
+        if (prefs.getBoolean("use_fast_scroll", getResources().getBoolean(R.bool.use_fast_scroll_default))) {
+            listView.setFastScrollEnabled(true);
+            if (prefs.getBoolean("fast_scroll_left", getResources().getBoolean(R.bool.fast_scroll_left_default))) {
+                listView.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+            }
+        } else {
+            listView.setFastScrollEnabled(false);
+        }
+
         // loading indicator
         loading = (LinearLayout) findViewById(R.id.loading);
 

@@ -85,7 +85,7 @@
 
 
     <PreferenceCategory
-        android:title="@string/preference_display_category_title">
+        android:title="@string/preference_fonts_category_title">
 
         <ListPreference
             android:defaultValue="@string/typeface_default"

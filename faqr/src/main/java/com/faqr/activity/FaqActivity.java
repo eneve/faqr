@@ -824,84 +824,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 }
             });
 
-//            Spinner fontSize = (Spinner) pw.getContentView().findViewById(R.id.font_size_spinner);
-//            fontSize.setVisibility(View.GONE);
-//
-//            ArrayAdapter<CharSequence> fontSizeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.font_size_list_titles, android.R.layout.simple_spinner_item);
-//            fontSizeAdapter.setDropDownViewResource(R.layout.simple_dropdown_item_1line_faqr);
-//            fontSize.setAdapter(fontSizeAdapter);
-//
-//            String fontSizeSetting = prefs.getString("mono_font_size", "Auto");
-//            String[] mono = getResources().getStringArray(R.array.font_size_list_values);
-//            int pos = 0;
-//            for (int i = 0; i < mono.length; i++) {
-//                if (mono[i].equals(fontSizeSetting)) {
-//                    pos = i;
-//                    break;
-//                }
-//            }
-//            fontSize.setSelection(pos);
-//            fontSize.setOnItemSelectedListener(new OnItemSelectedListener() {
-//                int spinnerCount = 0;
-//
-//                @Override
-//                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//                    if (spinnerCount > 0) {
-//                        SharedPreferences.Editor editor = prefs.edit();
-//                        String[] mono = getResources().getStringArray(R.array.font_size_list_values);
-//                        editor.putString("mono_font_size", mono[position]);
-//                        editor.commit();
-//                        ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
-//                    }
-//                    spinnerCount++;
-//                }
-//
-//                @Override
-//                public void onNothingSelected(AdapterView<?> parentView) {
-//                    // your code here
-//                }
-//            });
-
-//            Spinner varfontSize = (Spinner) pw.getContentView().findViewById(R.id.var_font_size_spinner);
-//            varfontSize.setVisibility(View.GONE);
-//
-//            ArrayAdapter<CharSequence> varfontSizeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.font_size_list_titles, android.R.layout.simple_spinner_item);
-//            varfontSizeAdapter.setDropDownViewResource(R.layout.simple_dropdown_item_1line_faqr);
-//            varfontSize.setAdapter(fontSizeAdapter);
-//
-//            String varfontSizeSetting = prefs.getString("variable_font_size", "Auto");
-//            String[] var = getResources().getStringArray(R.array.font_size_list_values);
-//            int varpos = 0;
-//            for (int i = 0; i < var.length; i++) {
-//                if (var[i].equals(varfontSizeSetting)) {
-//                    varpos = i;
-//                }
-//            }
-
-//            varfontSize.setSelection(varpos);
-//            varfontSize.setOnItemSelectedListener(new OnItemSelectedListener() {
-//                int spinnerCount = 0;
-//
-//                @Override
-//                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//
-//                    if (spinnerCount > 0) {
-//                        SharedPreferences.Editor editor = prefs.edit();
-//                        String[] var = getResources().getStringArray(R.array.font_size_list_values);
-//                        editor.putString("variable_font_size", var[position]);
-//                        editor.commit();
-//                        ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
-//                    }
-//                    spinnerCount++;
-//                }
-//
-//                @Override
-//                public void onNothingSelected(AdapterView<?> parentView) {
-//                    // your code here
-//                }
-//
-//            });
-
             TextView fontSizeMinus = (TextView) pw.getContentView().findViewById(R.id.text_smaller);
             fontSizeMinus.setOnClickListener(new OnClickListener() {
                 @Override
@@ -1793,7 +1715,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     String plusOne = new Integer(faqmarkPos + 1).toString();
                     // double percentage = (new Double(plusOne) / new Double(lines.length)) * 100.0;
                     // DecimalFormat df = new DecimalFormat("#");
-                    Toast.makeText(getApplicationContext(), "Location " + plusOne + "/" + lines.length, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "FAQMark " + plusOne + "/" + lines.length, Toast.LENGTH_SHORT).show();
 
                 } else {
                     // otherwise use the curr_pos
@@ -1919,9 +1841,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
 
             if (result.equals("0")) {
-                Toast.makeText(getApplicationContext(), "Saved Location " + savedPosPlusOne + "/" + lines.length, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Saved FAQMark " + savedPosPlusOne + "/" + lines.length, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getApplicationContext(), "Removed Location " + savedPosPlusOne + "/" + lines.length, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Removed FAQMark " + savedPosPlusOne + "/" + lines.length, Toast.LENGTH_SHORT).show();
             }
         }
     };

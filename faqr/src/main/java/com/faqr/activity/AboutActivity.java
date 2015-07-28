@@ -47,8 +47,6 @@ public class AboutActivity extends BaseActivity {
 
         // version
         TextView version = (TextView) findViewById(R.id.version);
-        TextView versionTitle = (TextView) findViewById(R.id.version_title);
-
         String versionName = "";
         try {
             versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
