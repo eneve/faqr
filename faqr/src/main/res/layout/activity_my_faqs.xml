@@ -61,6 +61,7 @@
             android:listSelector="@drawable/list_selector"
             android:overScrollMode="never" >
         </se.emilsjolander.stickylistheaders.StickyListHeadersListView>
+
         <!--
         <com.google.ads.AdView
             android:id="@+id/adView"
