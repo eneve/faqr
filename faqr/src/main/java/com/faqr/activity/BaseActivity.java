@@ -4,7 +4,6 @@
 
 package com.faqr.activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -15,7 +14,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -30,7 +30,7 @@ import com.faqr.R;
  *
  * @author eneve
  */
-public class BaseActivity extends ActionBarActivity {
+public class BaseActivity extends AppCompatActivity {
 
     protected String TAG;
 
@@ -78,44 +78,6 @@ public class BaseActivity extends ActionBarActivity {
 
         setThemeColors();
 
-//        if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
-////            setTheme(R.style.Appnewlighttheme);
-//
-//            themeColor = getResources().getColor(R.color.gamefaqs_dark_color);
-////            themeColor = getResources().getColor(R.color.primary);
-//            themeTextColor = getResources().getColor(R.color.faqr_dark_Background);
-//            themeBackgroundColor = getResources().getColor(R.color.faqr_light_Background);
-//            themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_light_corner);
-//            themeCssColor = "default";
-//        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
-////            setTheme(R.style.AppBlackTheme);
-//            themeColor = getResources().getColor(R.color.gamefaqs_light_color);
-////            themeColor = getResources().getColor(R.color.primary);
-//            themeTextColor = getResources().getColor(R.color.faqr_light_Background);
-//            themeBackgroundColor = getResources().getColor(R.color.black);
-//            themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_dark_corner);
-//            themeCssColor = "dark-blue";
-//        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
-////            setTheme(R.style.AppDarkTheme);
-//            themeColor = getResources().getColor(R.color.gamefaqs_light_color);
-////            themeColor = getResources().getColor(R.color.primary);
-//            themeTextColor = getResources().getColor(R.color.faqr_light_Background);
-//            themeBackgroundColor = getResources().getColor(R.color.faqr_dark_Background);
-//            themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_dark_corner);
-//            themeCssColor = "dark-blue";
-//            // themeCssColor = "cloudy";
-//        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
-////            setTheme(R.style.Appnewlighttheme);
-//
-//            themeColor = getResources().getColor(R.color.primary);
-//            themeTextColor = getResources().getColor(R.color.faqr_dark_Background);
-//            themeBackgroundColor = getResources().getColor(R.color.faqr_light_Background);
-//            // themeColor = getResources().getColor(R.color.sepia_theme_color);
-//            // themeBackgroundColor = getResources().getColor(R.color.sepia_theme_color);
-//            themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_sepia_corner);
-//            themeCssColor = "sepia";
-//        }
-
         // keep screen on
         if (prefs.getBoolean("keep_screen_on", getResources().getBoolean(R.bool.keep_screen_on_default))) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -131,17 +93,13 @@ public class BaseActivity extends ActionBarActivity {
         }
 
         // connection dialog
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
         dialogBuilder.setMessage("There is no internet connection available. Please connect to wifi or your data plan and try again.").setCancelable(true).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // do nothing
             }
         });
         connectionDialog = dialogBuilder.create();
-        // connectionDialog.setTitle("Warning!");
-        // connectionDialog.setIcon(R.drawable.ic_dialog_alert);
-
-        // connectionDialog.setIcon(R.drawable.ic_dialog_alert);
     }
 
     /** The final call you receive before your activity is destroyed. */
@@ -154,49 +112,17 @@ public class BaseActivity extends ActionBarActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
-        // mShaker.pause();
     }
 
     /** Called when the activity will start interacting with the user. */
     @Override
     protected void onResume() {
         super.onResume();
-
-        // hide notification bar
-        // if (prefs.getString("hide_notification_bar", getResources().getString(R.string.hide_notification_bar_default)).equals("1")) {
-        // showStatusBar();
-        // } else if (prefs.getString("hide_notification_bar", getResources().getString(R.string.hide_notification_bar_default)).equals("2")) {
-        // hideStatusBar();
-        // } else if (prefs.getString("hide_notification_bar", getResources().getString(R.string.hide_notification_bar_default)).equals("3")) {
-        // int orientation = getScreenOrientation();
-        // if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE || orientation == ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE) {
-        // hideStatusBar();
-        // } else {
-        // showStatusBar();
-        // }
-        // }
-
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
-        // hide notification bar
-        // if (prefs.getString("hide_notification_bar", getResources().getString(R.string.hide_notification_bar_default)).equals("1")) {
-        // showStatusBar();
-        // } else if (prefs.getString("hide_notification_bar", getResources().getString(R.string.hide_notification_bar_default)).equals("2")) {
-        // hideStatusBar();
-        // } else if (prefs.getString("hide_notification_bar", getResources().getString(R.string.hide_notification_bar_default)).equals("3")) {
-        // int orientation = getScreenOrientation();
-        // if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE || orientation == ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE) {
-        // hideStatusBar();
-        // } else {
-        // showStatusBar();
-        // }
-        // }
-
     }
 
     /** Called when activity start-up is complete (after onStart() and onRestoreInstanceState(Bundle) have been called). */
@@ -315,7 +241,7 @@ public class BaseActivity extends ActionBarActivity {
         return result;
     }
 
-    // navigation bar (at the bottom of the screen on a Nexus device)
+    /** navigation bar (at the bottom of the screen on a Nexus device) **/
     public int getNavigationBarHeight() {
         int result = 0;
         int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
@@ -327,42 +253,34 @@ public class BaseActivity extends ActionBarActivity {
 
     /**
      * THEME!!!
-     *
-     *
      */
     public void setThemeColors() {
         if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
+            // Day
             themeColor = getResources().getColor(R.color.gamefaqs_dark_color);
-            //            themeColor = getResources().getColor(R.color.primary);
             themeTextColor = getResources().getColor(R.color.faqr_dark_Background);
             themeBackgroundColor = getResources().getColor(R.color.faqr_light_Background);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_light_corner);
             themeCssColor = "default";
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
-            //            setTheme(R.style.AppBlackTheme);
+            // Night
             themeColor = getResources().getColor(R.color.gamefaqs_light_color);
-            //            themeColor = getResources().getColor(R.color.primary);
             themeTextColor = getResources().getColor(R.color.faqr_light_Background);
             themeBackgroundColor = getResources().getColor(R.color.black);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_dark_corner);
             themeCssColor = "dark-blue";
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
-            //            setTheme(R.style.AppDarkTheme);
+            // Dark
             themeColor = getResources().getColor(R.color.gamefaqs_light_color);
-            //            themeColor = getResources().getColor(R.color.primary);
             themeTextColor = getResources().getColor(R.color.faqr_light_Background);
             themeBackgroundColor = getResources().getColor(R.color.faqr_dark_Background);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_dark_corner);
             themeCssColor = "dark-blue";
-            // themeCssColor = "cloudy";
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
-            //            setTheme(R.style.Appnewlighttheme);
-
+            // Sepia
             themeColor = getResources().getColor(R.color.sepia_theme_color);
             themeTextColor = getResources().getColor(R.color.sepia_text);
             themeBackgroundColor = getResources().getColor(R.color.sepia_Background);
-            // themeColor = getResources().getColor(R.color.sepia_theme_color);
-            // themeBackgroundColor = getResources().getColor(R.color.sepia_theme_color);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_sepia_corner);
             themeCssColor = "sepia";
         }

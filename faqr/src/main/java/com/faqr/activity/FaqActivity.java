@@ -6,7 +6,6 @@ package com.faqr.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,6 +24,7 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
@@ -295,7 +295,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
         });
 
         // quit dialog
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
         dialogBuilder.setMessage("This will quit the application.").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // do nothing
@@ -824,83 +824,83 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 }
             });
 
-            Spinner fontSize = (Spinner) pw.getContentView().findViewById(R.id.font_size_spinner);
-            fontSize.setVisibility(View.GONE);
+//            Spinner fontSize = (Spinner) pw.getContentView().findViewById(R.id.font_size_spinner);
+//            fontSize.setVisibility(View.GONE);
+//
+//            ArrayAdapter<CharSequence> fontSizeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.font_size_list_titles, android.R.layout.simple_spinner_item);
+//            fontSizeAdapter.setDropDownViewResource(R.layout.simple_dropdown_item_1line_faqr);
+//            fontSize.setAdapter(fontSizeAdapter);
+//
+//            String fontSizeSetting = prefs.getString("mono_font_size", "Auto");
+//            String[] mono = getResources().getStringArray(R.array.font_size_list_values);
+//            int pos = 0;
+//            for (int i = 0; i < mono.length; i++) {
+//                if (mono[i].equals(fontSizeSetting)) {
+//                    pos = i;
+//                    break;
+//                }
+//            }
+//            fontSize.setSelection(pos);
+//            fontSize.setOnItemSelectedListener(new OnItemSelectedListener() {
+//                int spinnerCount = 0;
+//
+//                @Override
+//                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//                    if (spinnerCount > 0) {
+//                        SharedPreferences.Editor editor = prefs.edit();
+//                        String[] mono = getResources().getStringArray(R.array.font_size_list_values);
+//                        editor.putString("mono_font_size", mono[position]);
+//                        editor.commit();
+//                        ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+//                    }
+//                    spinnerCount++;
+//                }
+//
+//                @Override
+//                public void onNothingSelected(AdapterView<?> parentView) {
+//                    // your code here
+//                }
+//            });
 
-            ArrayAdapter<CharSequence> fontSizeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.font_size_list_titles, android.R.layout.simple_spinner_item);
-            fontSizeAdapter.setDropDownViewResource(R.layout.simple_dropdown_item_1line_faqr);
-            fontSize.setAdapter(fontSizeAdapter);
+//            Spinner varfontSize = (Spinner) pw.getContentView().findViewById(R.id.var_font_size_spinner);
+//            varfontSize.setVisibility(View.GONE);
+//
+//            ArrayAdapter<CharSequence> varfontSizeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.font_size_list_titles, android.R.layout.simple_spinner_item);
+//            varfontSizeAdapter.setDropDownViewResource(R.layout.simple_dropdown_item_1line_faqr);
+//            varfontSize.setAdapter(fontSizeAdapter);
+//
+//            String varfontSizeSetting = prefs.getString("variable_font_size", "Auto");
+//            String[] var = getResources().getStringArray(R.array.font_size_list_values);
+//            int varpos = 0;
+//            for (int i = 0; i < var.length; i++) {
+//                if (var[i].equals(varfontSizeSetting)) {
+//                    varpos = i;
+//                }
+//            }
 
-            String fontSizeSetting = prefs.getString("mono_font_size", "Auto");
-            String[] mono = getResources().getStringArray(R.array.font_size_list_values);
-            int pos = 0;
-            for (int i = 0; i < mono.length; i++) {
-                if (mono[i].equals(fontSizeSetting)) {
-                    pos = i;
-                    break;
-                }
-            }
-            fontSize.setSelection(pos);
-            fontSize.setOnItemSelectedListener(new OnItemSelectedListener() {
-                int spinnerCount = 0;
-
-                @Override
-                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                    if (spinnerCount > 0) {
-                        SharedPreferences.Editor editor = prefs.edit();
-                        String[] mono = getResources().getStringArray(R.array.font_size_list_values);
-                        editor.putString("mono_font_size", mono[position]);
-                        editor.commit();
-                        ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
-                    }
-                    spinnerCount++;
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parentView) {
-                    // your code here
-                }
-            });
-
-            Spinner varfontSize = (Spinner) pw.getContentView().findViewById(R.id.var_font_size_spinner);
-            varfontSize.setVisibility(View.GONE);
-
-            ArrayAdapter<CharSequence> varfontSizeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.font_size_list_titles, android.R.layout.simple_spinner_item);
-            varfontSizeAdapter.setDropDownViewResource(R.layout.simple_dropdown_item_1line_faqr);
-            varfontSize.setAdapter(fontSizeAdapter);
-
-            String varfontSizeSetting = prefs.getString("variable_font_size", "Auto");
-            String[] var = getResources().getStringArray(R.array.font_size_list_values);
-            int varpos = 0;
-            for (int i = 0; i < var.length; i++) {
-                if (var[i].equals(varfontSizeSetting)) {
-                    varpos = i;
-                }
-            }
-
-            varfontSize.setSelection(varpos);
-            varfontSize.setOnItemSelectedListener(new OnItemSelectedListener() {
-                int spinnerCount = 0;
-
-                @Override
-                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
-                    if (spinnerCount > 0) {
-                        SharedPreferences.Editor editor = prefs.edit();
-                        String[] var = getResources().getStringArray(R.array.font_size_list_values);
-                        editor.putString("variable_font_size", var[position]);
-                        editor.commit();
-                        ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
-                    }
-                    spinnerCount++;
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parentView) {
-                    // your code here
-                }
-
-            });
+//            varfontSize.setSelection(varpos);
+//            varfontSize.setOnItemSelectedListener(new OnItemSelectedListener() {
+//                int spinnerCount = 0;
+//
+//                @Override
+//                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//
+//                    if (spinnerCount > 0) {
+//                        SharedPreferences.Editor editor = prefs.edit();
+//                        String[] var = getResources().getStringArray(R.array.font_size_list_values);
+//                        editor.putString("variable_font_size", var[position]);
+//                        editor.commit();
+//                        ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+//                    }
+//                    spinnerCount++;
+//                }
+//
+//                @Override
+//                public void onNothingSelected(AdapterView<?> parentView) {
+//                    // your code here
+//                }
+//
+//            });
 
             TextView fontSizeMinus = (TextView) pw.getContentView().findViewById(R.id.text_smaller);
             fontSizeMinus.setOnClickListener(new OnClickListener() {
@@ -1103,7 +1103,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             startActivity(i);
             return true;
         case R.id.menu_settings:
-            intent = new Intent(this, SettingsActivity.class);
+            intent = new Intent(this, PreferencesActivity.class);
             startActivity(intent);
             finish();
             return true;

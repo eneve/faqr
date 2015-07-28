@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/preference_faqmarks_category_title">
+
+        <ListPreference
+            android:defaultValue="@string/highlight_faqmark_default"
+            android:entries="@array/highlight_faqmark_list_titles"
+            android:entryValues="@array/highlight_faqmark_list_values"
+            android:key="highlight_faqmark"
+            android:negativeButtonText="@string/cancel"
+            android:positiveButtonText="@null"
+            android:summary="%s"
+            android:title="@string/highlight_faqmark_title" />
+
+        <ListPreference
+            android:defaultValue="@string/saved_pos_preview_default"
+            android:entries="@array/saved_pos_preview_list_titles"
+            android:entryValues="@array/saved_pos_preview_list_values"
+            android:key="saved_pos_preview"
+            android:negativeButtonText="@string/cancel"
+            android:positiveButtonText="@null"
+            android:summary="%s"
+            android:title="@string/saved_pos_preview_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/vibrate_default"
+            android:key="vibrate"
+            android:summary="@string/vibrate_summary"
+            android:title="@string/vibrate_title" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="@string/preference_display_category_title">
+
+        <ListPreference
+            android:defaultValue="@string/theme_default"
+            android:entries="@array/theme_titles"
+            android:entryValues="@array/theme_values"
+            android:key="theme"
+            android:negativeButtonText="@string/cancel"
+            android:positiveButtonText="@null"
+            android:summary="%s"
+            android:title="@string/theme_title" />
+
+        <ListPreference
+            android:defaultValue="@string/auto_rotate_screen_default"
+            android:entries="@array/auto_rotate_screen_titles"
+            android:entryValues="@array/auto_rotate_screen_values"
+            android:key="auto_rotate_screen"
+            android:negativeButtonText="@string/cancel"
+            android:positiveButtonText="@null"
+            android:summary="%s"
+            android:title="@string/auto_rotate_screen_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/use_immersive_mode_default"
+            android:key="use_immersive_mode"
+            android:summary="@string/use_immersive_mode_summary"
+            android:title="@string/use_immersive_mode_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/keep_screen_on_default"
+            android:key="keep_screen_on"
+            android:summary="@string/keep_screen_on_summary"
+            android:title="@string/keep_screen_on_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/use_fast_scroll_default"
+            android:key="use_fast_scroll"
+            android:summary="@string/use_fast_scroll_summary"
+            android:title="@string/use_fast_scroll_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/fast_scroll_left_default"
+            android:key="fast_scroll_left"
+            android:dependency="use_fast_scroll"
+            android:summary="@string/fast_scroll_left_summary"
+            android:title="@string/fast_scroll_left_title" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="@string/preference_display_category_title">
+
+        <ListPreference
+            android:defaultValue="@string/typeface_default"
+            android:entries="@array/typeface_list_titles"
+            android:entryValues="@array/typeface_list_values"
+            android:key="typeface"
+            android:negativeButtonText="@string/cancel"
+            android:positiveButtonText="@null"
+            android:summary="%s"
+            android:title="@string/typeface_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

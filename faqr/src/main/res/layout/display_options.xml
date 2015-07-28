@@ -44,39 +44,6 @@
             android:paddingBottom="8dp"
             android:spinnerMode="dialog" />
 
-        <!--<TextView-->
-            <!--android:id="@+id/font"-->
-            <!--style="@style/DisplayOptionsTitle"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="MONO FONT SIZE" >-->
-        <!--</TextView>-->
-
-        <Spinner
-            android:id="@+id/font_size_spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:spinnerMode="dialog" />
-
-        <!--<TextView-->
-            <!--android:id="@+id/varfont"-->
-            <!--style="@style/DisplayOptionsTitle"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="VARIABLE FONT SIZE" >-->
-        <!--</TextView>-->
-
-        <Spinner
-            android:id="@+id/var_font_size_spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:spinnerMode="dialog" />
-
-
         <LinearLayout
             android:id="@+id/do_text_size"
             android:layout_width="fill_parent"
@@ -168,7 +135,6 @@
             </TextView>
 
         </LinearLayout>
-
 
     </LinearLayout>
 

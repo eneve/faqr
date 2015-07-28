@@ -4,7 +4,6 @@
 
 package com.faqr.activity;
 
-import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +12,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -144,7 +144,7 @@ public class MyFaqsActivity extends BaseActivity {
                 FaqMeta faqMeta = new FaqMeta(prefs.getString(metaView.getText().toString(), ""));
 
                 // delete dialog
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyFaqsActivity.this);
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyFaqsActivity.this, R.style.AppCompatAlertDialogStyle);
                 dialogBuilder.setMessage("Are you sure you want to delete " + faqMeta.getTitle() + "?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         SharedPreferences.Editor editor = prefs.edit();
@@ -216,7 +216,7 @@ public class MyFaqsActivity extends BaseActivity {
         });
 
         // clear search history confirm dialog
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyFaqsActivity.this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyFaqsActivity.this, R.style.AppCompatAlertDialogStyle);
         dialogBuilder.setMessage("Are you sure you want to clear your search history?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
@@ -243,7 +243,7 @@ public class MyFaqsActivity extends BaseActivity {
         clearConfirmDialog = dialogBuilder.create();
 
         // delete all confirm dialog
-        dialogBuilder = new AlertDialog.Builder(MyFaqsActivity.this);
+        dialogBuilder = new AlertDialog.Builder(MyFaqsActivity.this, R.style.AppCompatAlertDialogStyle);
         dialogBuilder.setMessage("Are you sure you want to delete all of your saved FAQs?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // start the delete all task
@@ -440,7 +440,7 @@ public class MyFaqsActivity extends BaseActivity {
             deleteAllConfirmDialog.show();
             return true;
         case R.id.menu_settings:
-            intent = new Intent(this, SettingsActivity.class);
+            intent = new Intent(this, PreferencesActivity.class);
             intent.putExtra("fromActivity", "My FAQs");
 
             SharedPreferences.Editor editor = prefs.edit();

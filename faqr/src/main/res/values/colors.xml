@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
     <!-- Material -->
-
 
     <item name="primary" type="color">#FF6464ff</item>
     <item name="primary_dark" type="color">#FF5050cc</item>
     <item name="accent" type="color">#FF9696ff</item>
-
-    <!--<item name="primary" type="color">#FF888cfd</item>-->
-    <!--<item name="primary_dark" type="color">#FF6c71d1</item>-->
-    <!--<item name="accent" type="color">#FF6a75ef</item>-->
-
 
     <item name="light_bg" type="color">#FFf1f1f4</item>
     <item name="dark_bg" type="color">#FF262626</item>
@@ -25,22 +18,10 @@
     <item name="sepia_text" type="color">#FF645032</item>
     <item name="sepia_Background" type="color">#FFECE1CA</item>
 
-    <!--
-
-
-    4B4B7F
-
-    8787E5
-
-    -->
-
-
-    <!-- pre v2 -->
+    <!-- Theme -->
 
     <color name="faqr_dark_Background">#FF292929</color>
     <color name="faqr_light_Background">#FFEFEFEF</color>
-
-
 
     <color name="gamefaqs_color">#FF6464ff</color>
     <color name="gamefaqs_color_trans">#666464ff</color>
@@ -50,5 +31,5 @@
     <color name="gamefaqs_dark_color_trans">#662b2bff</color>
     <color name="faqr_donate_color">#FFFBEC5D</color>
     <color name="sepia_theme_color">#FFB7410E</color>
-    
+
 </resources>

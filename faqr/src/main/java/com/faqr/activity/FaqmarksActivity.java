@@ -5,7 +5,6 @@
 package com.faqr.activity;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +13,7 @@ import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -145,7 +145,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
                 final String plusOne = new Integer(Integer.valueOf(savedLineNumber) + 1).toString();
 
                 // delete dialog
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(FaqmarksActivity.this);
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(FaqmarksActivity.this, R.style.AppCompatAlertDialogStyle);
                 dialogBuilder.setMessage("Are you sure you want to delete Location " + plusOne + "/" + lines.length + " - FAQmark?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
@@ -200,7 +200,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
         });
 
         // delete all confirm dialog
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(FaqmarksActivity.this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(FaqmarksActivity.this, R.style.AppCompatAlertDialogStyle);
         dialogBuilder.setMessage("Are you sure you want to delete all of your saved FAQmarks.").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // start the delete all task
@@ -319,7 +319,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             deleteAllConfirmDialog.show();
             return true;
         case R.id.menu_settings:
-            intent = new Intent(this, SettingsActivity.class);
+            intent = new Intent(this, PreferencesActivity.class);
             intent.putExtra("fromActivity", "My FAQmarks");
 
             SharedPreferences.Editor editor = prefs.edit();

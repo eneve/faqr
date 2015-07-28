@@ -380,7 +380,7 @@ public class SearchResultsActivity extends BaseActivity {
         switch (item.getItemId()) {
         case R.id.menu_settings:
             Intent intent;
-            intent = new Intent(this, SettingsActivity.class);
+            intent = new Intent(this, PreferencesActivity.class);
             intent.putExtra("fromActivity", "SearchResults");
             intent.putExtra("fromActivityMeta", game);
             startActivity(intent);
