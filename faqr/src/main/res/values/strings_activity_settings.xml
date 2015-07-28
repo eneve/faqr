@@ -2,6 +2,8 @@
 
     <!-- Strings related to Settings -->
 
+    <!-- FAQMARKS -->
+
     <string name="preference_faqmarks_category_title">FAQmarks</string>
     <string name="preference_display_category_title">Display</string>
     <string name="preference_fonts_category_title">Fonts</string>
@@ -38,6 +40,8 @@
 
     <string name="vibrate_title">Vibrate</string>
     <string name="vibrate_summary">Vibrate when location is saved</string>
+
+    <!-- DISPLAY -->
 
     <string name="use_immersive_mode_title">Immersive Mode</string>
     <string name="use_immersive_mode_summary">Use full screen reading mode</string>
@@ -83,6 +87,8 @@
 
     <string name="typeface_title">Typeface</string>
     <string name="typeface_summary">Mono</string>
+
+    <!-- FONT -->
 
     <string-array name="typeface_list_titles">
         <item>Mono</item>

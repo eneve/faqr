@@ -28,8 +28,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // overridePendingTransition(R.anim.pull_in_from_left, R.anim.hold);
-//        setContentView(R.layout.activity_main);
 
         /////////////////////////////////////////////////////
         /// TODO SET SOME DEFAULTS FOR V2 - OVERRIDE EXISTING

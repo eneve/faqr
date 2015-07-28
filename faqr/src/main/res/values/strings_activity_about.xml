@@ -2,8 +2,6 @@
 
     <!-- Strings related to About -->
 
-
-    <!-- about -->
     <string name="about_general_title">GENERAL</string>
     <string name="about_general_summary">FAQr is the ultimate FAQs reader application for Android. You just search for a FAQ by game title, and the FAQ will be downloaded and available for you offline whenever you need it in an easy to use FAQr reader format.</string>
     <string name="about_features_title">FEATURES</string>

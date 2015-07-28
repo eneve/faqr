@@ -89,7 +89,6 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
     private FaqMeta currFaqMeta = new FaqMeta();
 
     /** Called when the activity is first created. */
-    @SuppressLint("NewApi")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -222,7 +221,6 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             }
         });
         deleteAllConfirmDialog = dialogBuilder.create();
-        // quitDialog.setTitle("Are you sure?");
 
         // auto font size reset
         autoMonoFontSize = -1.0f;
@@ -238,8 +236,8 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             editor.putString(prefs.getString("curr_faq", "") + "___last_read", sdf.format(new Date()));
 
             Log.w(TAG, "-----------------------------");
-            Log.i(TAG, "currFaq " + currFaq);
-            Log.i(TAG, "faqMeta " + currFaqMeta);
+            Log.i(TAG, "currFaq - " + currFaq);
+            Log.i(TAG, "faqMeta - " + currFaqMeta);
             Log.w(TAG, "-----------------------------");
 
             int curr_pos = prefs.getInt(prefs.getString("curr_faq", "") + "curr_pos", -1);

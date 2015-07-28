@@ -8,44 +8,27 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
 
-   <!--  <item
-        android:id="@+id/menu_sort"
-        android:icon="@drawable/ic_menu_sort_by_size"
-        android:orderInCategory="100"
-        android:showAsAction="never"s
-        android:title="@string/menu_sort"/> -->
-    <!--
-    <item
-        android:id="@+id/menu_sort_alpha"
-        android:title="@string/menu_sort_alpha"/>
-    <item
-        android:id="@+id/menu_sort_date"
-        android:title="@string/menu_sort_date"/>
-    <item
-        android:id="@+id/menu_sort_size"
-        android:title="@string/menu_sort_size"/>
-    -->
-
     <item
         android:id="@+id/menu_clear"
         android:icon="@drawable/ic_menu_close_clear_cancel"
         app:showAsAction="never"
         android:title="@string/menu_clear_history"/>
+
     <item
         android:id="@+id/menu_delete"
         android:icon="@drawable/ic_menu_delete"
         app:showAsAction="never"
         android:title="@string/menu_delete"/>
+
     <item
         android:id="@+id/menu_settings"
         android:icon="@drawable/ic_menu_preferences"
-        android:orderInCategory="100"
         app:showAsAction="never"
         android:title="@string/menu_settings"/>
+
     <item
         android:id="@+id/menu_about"
         android:icon="@drawable/ic_menu_info_details"
-        android:orderInCategory="100"
         app:showAsAction="never"
         android:title="@string/menu_about"/>
 
