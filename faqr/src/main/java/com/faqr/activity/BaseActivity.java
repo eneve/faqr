@@ -258,29 +258,29 @@ public class BaseActivity extends AppCompatActivity {
         if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
             // Day
             themeColor = getResources().getColor(R.color.gamefaqs_dark_color);
-            themeTextColor = getResources().getColor(R.color.faqr_dark_Background);
-            themeBackgroundColor = getResources().getColor(R.color.faqr_light_Background);
+            themeTextColor = getResources().getColor(R.color.faqr_dark_background);
+            themeBackgroundColor = getResources().getColor(R.color.faqr_light_background);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_light_corner);
             themeCssColor = "default";
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
             // Night
             themeColor = getResources().getColor(R.color.gamefaqs_light_color);
-            themeTextColor = getResources().getColor(R.color.faqr_light_Background);
+            themeTextColor = getResources().getColor(R.color.faqr_light_background);
             themeBackgroundColor = getResources().getColor(R.color.black);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_dark_corner);
             themeCssColor = "dark-blue";
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
             // Dark
             themeColor = getResources().getColor(R.color.gamefaqs_light_color);
-            themeTextColor = getResources().getColor(R.color.faqr_light_Background);
-            themeBackgroundColor = getResources().getColor(R.color.faqr_dark_Background);
+            themeTextColor = getResources().getColor(R.color.faqr_light_background);
+            themeBackgroundColor = getResources().getColor(R.color.faqr_dark_background);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_dark_corner);
             themeCssColor = "dark-blue";
         } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
             // Sepia
             themeColor = getResources().getColor(R.color.sepia_theme_color);
             themeTextColor = getResources().getColor(R.color.sepia_text);
-            themeBackgroundColor = getResources().getColor(R.color.sepia_Background);
+            themeBackgroundColor = getResources().getColor(R.color.sepia_background);
             themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small_sepia_corner);
             themeCssColor = "sepia";
         }

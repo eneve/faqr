@@ -893,9 +893,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     editor.putInt("justify_v2", 0);
                     editor.commit();
 
-                    leftJustify.setTextColor(getResources().getColor(R.color.faqr_light_Background));
-                    centerJustify.setTextColor(getResources().getColor(R.color.faqr_dark_Background));
-                    rightJustify.setTextColor(getResources().getColor(R.color.faqr_dark_Background));
+                    leftJustify.setTextColor(getResources().getColor(R.color.faqr_light_background));
+                    centerJustify.setTextColor(getResources().getColor(R.color.faqr_dark_background));
+                    rightJustify.setTextColor(getResources().getColor(R.color.faqr_dark_background));
 
                     adapter.notifyDataSetChanged();
                 }
@@ -911,9 +911,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     editor.putInt("justify_v2", 1);
                     editor.commit();
 
-                    leftJustify.setTextColor(getResources().getColor(R.color.faqr_dark_Background));
-                    centerJustify.setTextColor(getResources().getColor(R.color.faqr_light_Background));
-                    rightJustify.setTextColor(getResources().getColor(R.color.faqr_dark_Background));
+                    leftJustify.setTextColor(getResources().getColor(R.color.faqr_dark_background));
+                    centerJustify.setTextColor(getResources().getColor(R.color.faqr_light_background));
+                    rightJustify.setTextColor(getResources().getColor(R.color.faqr_dark_background));
 
                     adapter.notifyDataSetChanged();
                 }
@@ -929,9 +929,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     editor.putInt("justify_v2", 2);
                     editor.commit();
 
-                    leftJustify.setTextColor(getResources().getColor(R.color.faqr_dark_Background));
-                    centerJustify.setTextColor(getResources().getColor(R.color.faqr_dark_Background));
-                    rightJustify.setTextColor(getResources().getColor(R.color.faqr_light_Background));
+                    leftJustify.setTextColor(getResources().getColor(R.color.faqr_dark_background));
+                    centerJustify.setTextColor(getResources().getColor(R.color.faqr_dark_background));
+                    rightJustify.setTextColor(getResources().getColor(R.color.faqr_light_background));
 
                     adapter.notifyDataSetChanged();
                 }
@@ -939,11 +939,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             Integer justify = prefs.getInt("justify_v2", getResources().getInteger(R.integer.justify_default));
             if (justify == 0) {
-                leftJustify.setTextColor(getResources().getColor(R.color.faqr_light_Background));
+                leftJustify.setTextColor(getResources().getColor(R.color.faqr_light_background));
             } else if (justify == 1) {
-                centerJustify.setTextColor(getResources().getColor(R.color.faqr_light_Background));
+                centerJustify.setTextColor(getResources().getColor(R.color.faqr_light_background));
             } else {
-                rightJustify.setTextColor(getResources().getColor(R.color.faqr_light_Background));
+                rightJustify.setTextColor(getResources().getColor(R.color.faqr_light_background));
             }
 
             leftJustify.setTypeface(tf);

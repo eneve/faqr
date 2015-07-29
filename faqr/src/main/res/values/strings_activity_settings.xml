@@ -91,7 +91,7 @@
     <!-- FONT -->
 
     <string-array name="typeface_list_titles">
-        <item>Mono</item>
+        <item>Fixed Mono</item>
         <item>Variable Sans</item>
         <item>Variable Serif</item>
     </string-array>

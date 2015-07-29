@@ -11,17 +11,20 @@
     <item name="dark_bg" type="color">#FF262626</item>
 
 
-    <item name="white" type="color">#FFFFFFFF</item>
+    <item name="white" type="color">#FFffffff</item>
     <item name="black" type="color">#FF000000</item>
+    <item name="transparent" type="color">#00000000</item>
 
+    <item name="subtitle_text" type="color">#FFd1d1ff</item>
+    <item name="popup_bg" type="color">#FFeeeeee</item>
 
     <item name="sepia_text" type="color">#FF645032</item>
-    <item name="sepia_Background" type="color">#FFECE1CA</item>
+    <item name="sepia_background" type="color">#FFece1ca</item>
 
     <!-- Theme -->
 
-    <color name="faqr_dark_Background">#FF292929</color>
-    <color name="faqr_light_Background">#FFEFEFEF</color>
+    <color name="faqr_dark_background">#FF292929</color>
+    <color name="faqr_light_background">#FFefefef</color>
 
     <color name="gamefaqs_color">#FF6464ff</color>
     <color name="gamefaqs_color_trans">#666464ff</color>

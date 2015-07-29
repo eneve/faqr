@@ -11,12 +11,18 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
+        <item name="android:dropDownListViewStyle">@style/CustomSpinnerStyle</item>
     </style>
 
     <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/primary</item>
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="CustomSpinnerStyle" parent="android:Widget.ListView.DropDown">
+        <item name="android:divider">#dddddd</item>
+        <item name="android:dividerHeight">1dp</item>
     </style>
 
     <!--
@@ -57,17 +63,21 @@
     <style name="SearchResultsHeaderText" parent="@android:style/Widget.TextView">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">#FFEEEEEE</item>
-        <item name="android:shadowColor">#222</item>
+        <item name="android:textColor">@color/subtitle_text</item>
+        <item name="android:shadowColor">@color/faqr_dark_background</item>
         <item name="android:shadowDx">1</item>
         <item name="android:shadowDy">1</item>
-        <item name="android:shadowRadius">2</item>
+        <item name="android:shadowRadius">1</item>
     </style>
 
     <style name="DisplayOptionsTitle" parent="@android:style/Widget.TextView">
-        <item name="android:textColor">#FFB5B5B5</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/subtitle_text</item>
+        <item name="android:shadowColor">@color/faqr_dark_background</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
     </style>
 
     <style name="AnimationPopup">
