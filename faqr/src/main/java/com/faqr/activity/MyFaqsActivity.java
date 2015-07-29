@@ -241,7 +241,7 @@ public class MyFaqsActivity extends BaseActivity {
                 list.remove("");
 
                 final SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete) searchView.findViewById(R.id.search_src_text);
-                searchViewAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.simple_dropdown_item_1line_faqr, list);
+                searchViewAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.simple_spinner_dropdown_item, list);
                 searchAutoComplete.setAdapter(searchViewAdapter);
 
             }
@@ -372,7 +372,7 @@ public class MyFaqsActivity extends BaseActivity {
         Collections.addAll(list, split);
         list.remove("");
 
-        searchViewAdapter = new ArrayAdapter<String>(this, R.layout.simple_dropdown_item_1line_faqr, list);
+        searchViewAdapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_dropdown_item, list);
         searchAutoComplete.setAdapter(searchViewAdapter);
         searchAutoComplete.setOnItemClickListener(new OnItemClickListener() {
 

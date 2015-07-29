@@ -758,7 +758,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             Spinner theme = (Spinner) pw.getContentView().findViewById(R.id.theme_spinner);
             ArrayAdapter<CharSequence> themeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.theme_titles, android.R.layout.simple_spinner_item);
-            themeAdapter.setDropDownViewResource(R.layout.simple_dropdown_item_1line_faqr);
+            themeAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
             theme.setAdapter(themeAdapter);
 
             Integer themeSetting = Integer.valueOf(prefs.getString("theme", "1"));
@@ -797,7 +797,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             // Create an ArrayAdapter using the string array and a default spinner layout
             ArrayAdapter<CharSequence> typefaceAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.typeface_list_titles, android.R.layout.simple_spinner_item);
             // Specify the layout to use when the list of choices appears
-            typefaceAdapter.setDropDownViewResource(R.layout.simple_dropdown_item_1line_faqr);
+            typefaceAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
             // Apply the adapter to the spinner
             // spinner.MODE_DIALOG
             typeface.setAdapter(typefaceAdapter);

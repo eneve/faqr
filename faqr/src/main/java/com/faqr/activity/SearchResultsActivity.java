@@ -326,7 +326,7 @@ public class SearchResultsActivity extends BaseActivity {
         Collections.addAll(list, split);
         list.remove("");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_dropdown_item_1line_faqr, list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_dropdown_item, list);
         searchAutoComplete.setAdapter(adapter);
 
         searchAutoComplete.setText(game);
