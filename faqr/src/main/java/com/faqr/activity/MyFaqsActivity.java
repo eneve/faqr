@@ -504,7 +504,7 @@ public class MyFaqsActivity extends BaseActivity {
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = inflater.inflate(R.layout.list_item_search_result_2, parent, false);
+            View view = inflater.inflate(R.layout.list_item_my_faqs, parent, false);
 
             // theme
             if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
@@ -565,7 +565,7 @@ public class MyFaqsActivity extends BaseActivity {
 
         @Override
         public View getHeaderView(int position, View convertView, ViewGroup parent) {
-            View view = inflater.inflate(R.layout.list_item_search_result_header, null);
+            View view = inflater.inflate(R.layout.list_item_search_header, null);
             TextView textView = (TextView) view.findViewById(R.id.name);
 
             int count = 0;

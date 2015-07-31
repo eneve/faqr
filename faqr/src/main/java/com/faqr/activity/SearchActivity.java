@@ -437,9 +437,9 @@ public class SearchActivity extends BaseActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             View view;
             if (extras != null && extras.getString("url") != null && !TextUtils.isEmpty(extras.getString("url"))) {
-                view = inflater.inflate(R.layout.list_item_search_result_2, parent, false);
+                view = inflater.inflate(R.layout.list_item_search_2, parent, false);
             } else {
-                view = inflater.inflate(R.layout.list_item_search_result, parent, false);
+                view = inflater.inflate(R.layout.list_item_search, parent, false);
             }
 
             // theme
@@ -542,7 +542,7 @@ public class SearchActivity extends BaseActivity {
 
         @Override
         public View getHeaderView(int position, View convertView, ViewGroup parent) {
-            View view = inflater.inflate(R.layout.list_item_search_result_header, null);
+            View view = inflater.inflate(R.layout.list_item_search_header, null);
             TextView textView = (TextView) view.findViewById(R.id.name);
 
             int count = 0;
