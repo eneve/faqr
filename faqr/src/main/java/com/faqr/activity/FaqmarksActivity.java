@@ -32,7 +32,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +49,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 //import com.google.analytics.tracking.android.EasyTracker;
 
 /**
@@ -70,8 +72,8 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
     private String origLines[] = new String[] {};
 
     // list view
-    private ListView listView;
-    private FaqAdapter adapter;
+    private StickyListHeadersListView listView;
+    private MyFaqmarksAdapter adapter;
 
     private Menu menu;
     // private Boolean hideWebViewMenuOptions = false;
@@ -106,8 +108,8 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        adapter = new FaqAdapter();
-        listView = (ListView) findViewById(R.id.list);
+        adapter = new MyFaqmarksAdapter();
+        listView = (StickyListHeadersListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
 
         // fast scroll
@@ -387,11 +389,11 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
      *
      * @author eneve
      */
-    public class FaqAdapter extends BaseAdapter {
+    public class MyFaqmarksAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
         private final Object mLock = new Object();
 
-        public FaqAdapter() {
+        public MyFaqmarksAdapter() {
         }
 
         public int getCount() {
@@ -426,20 +428,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
             String line = (String) savedLines.get(position);
 
-            // location
-            TextView locationView = (TextView) view.findViewById(R.id.location);
-
             Integer realPos = Integer.valueOf(savedLineNumbers.get(position));
-            Integer plusOne = Integer.valueOf(savedLineNumbers.get(position)) + 1;
-            locationView.setText("FAQMark " + plusOne.toString() + "/" + lines.length);
-
-            // percentage
-            TextView percentageView = (TextView) view.findViewById(R.id.percentage);
-            percentageView.setText(savedLinePercentages.get(position));
-
-            // theme goodness
-            // view.setBackgroundColor(themeAccentColor);
-//            locationView.setTextColor(themeAccentColor);
 
             // name
             TextView nameView = (TextView) view.findViewById(R.id.name);
@@ -589,11 +578,38 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             }
 
             // theme goodness
-//            locationView.setTextColor(themeAccentColor);
-//            percentageView.setTextColor(themeTextColor);
             nameView.setTextColor(themeTextColor);
 
             return view;
+        }
+
+        @Override
+        public View getHeaderView(int position, View convertView, ViewGroup parent) {
+            View view = inflater.inflate(R.layout.list_item_faqmark_header, null);
+
+            String line = (String) savedLines.get(position);
+
+            // location
+            TextView locationView = (TextView) view.findViewById(R.id.location);
+
+            Integer realPos = Integer.valueOf(savedLineNumbers.get(position));
+            Integer plusOne = Integer.valueOf(savedLineNumbers.get(position)) + 1;
+            locationView.setText("FAQMark " + plusOne.toString() + "/" + lines.length);
+
+            // percentage
+            TextView percentageView = (TextView) view.findViewById(R.id.percentage);
+            percentageView.setText(savedLinePercentages.get(position));
+
+            // theme goodness
+            view.setBackgroundColor(primaryColor);
+
+            return view;
+        }
+
+        @Override
+        public long getHeaderId(int position) {
+            // one header per section
+            return position;
         }
     }
 
@@ -754,10 +770,10 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             editor.putInt("my_faqmarks_pos", 0);
             editor.commit();
 
-            editor.putString("curr_faq", "");
-            editor.commit();
+//            editor.putString("curr_faq", "");
+//            editor.commit();
 
-            Intent intent = new Intent(getApplicationContext(), MyFaqsActivity.class);
+            Intent intent = new Intent(getApplicationContext(), FaqActivity.class);
             startActivity(intent);
             finish();
         }

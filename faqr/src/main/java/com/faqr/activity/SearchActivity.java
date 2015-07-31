@@ -270,13 +270,6 @@ public class SearchActivity extends BaseActivity {
         searchText.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         searchText.setPadding(pL, pT, pR, pB);
 
-//        pL = searchTextFrame.getPaddingLeft();
-//        pT = searchTextFrame.getPaddingTop();
-//        pR = searchTextFrame.getPaddingRight();
-//        pB = searchTextFrame.getPaddingBottom();
-//        searchTextFrame.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
-//        searchTextFrame.setPadding(pL, pT, pR, pB);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String s) {

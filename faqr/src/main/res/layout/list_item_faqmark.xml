@@ -3,43 +3,42 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
 
-    <RelativeLayout
-        android:id="@+id/location_wrap"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:paddingBottom="2dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="2dp"
-        android:background="@color/primary" >
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/location_wrap"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:paddingBottom="2dp"-->
+        <!--android:paddingLeft="15dp"-->
+        <!--android:paddingRight="15dp"-->
+        <!--android:paddingTop="2dp"-->
+        <!--android:background="@color/primary" >-->
 
-        <TextView
-            android:id="@+id/location"
-            style="@style/SearchResultsHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:ellipsize="marquee"
-            android:singleLine="true" >
-        </TextView>
+        <!--<TextView-->
+            <!--android:id="@+id/location"-->
+            <!--style="@style/SearchResultsHeaderText"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:ellipsize="marquee"-->
+            <!--android:singleLine="true" >-->
+        <!--</TextView>-->
 
-        <TextView
-            android:id="@+id/percentage"
-            style="@style/SearchResultsHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:ellipsize="marquee"
-            android:singleLine="true" >
-        </TextView>
+        <!--<TextView-->
+            <!--android:id="@+id/percentage"-->
+            <!--style="@style/SearchResultsHeaderText"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:ellipsize="marquee"-->
+            <!--android:singleLine="true" >-->
+        <!--</TextView>-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/location_wrap" >
+        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/name"
@@ -49,6 +48,7 @@
             android:lineSpacingExtra="2dp"
             android:textSize="15sp" >
         </TextView>
+
     </RelativeLayout>
 
 </RelativeLayout>

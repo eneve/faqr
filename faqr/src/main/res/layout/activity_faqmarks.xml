@@ -36,13 +36,14 @@
                 android:layout_gravity="center_vertical" />
         </LinearLayout>
 
-        <ListView
+        <se.emilsjolander.stickylistheaders.StickyListHeadersListView
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fadingEdge="none"
-            android:overScrollMode="never" >
-        </ListView>
+            android:overScrollMode="never"
+            android:listSelector="@drawable/list_selector"  >
+        </se.emilsjolander.stickylistheaders.StickyListHeadersListView>
 
     </RelativeLayout>
 
