@@ -503,6 +503,20 @@ public class MyFaqsActivity extends BaseActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = inflater.inflate(R.layout.search_result_item_2, parent, false);
 
+            // theme
+            if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
+                // Day
+                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_item_day));
+            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
+                // Night
+                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_item_night));
+            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
+                // Dark
+                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_item_dark));
+            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
+                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_item_sepia));
+            }
+
             File file = (File) allData.get(position);
 
             FaqMeta faqMeta = new FaqMeta(prefs.getString(file.getName(), ""));

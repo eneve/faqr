@@ -7,9 +7,9 @@
     <item name="primary_dark" type="color">#FF5050cc</item>
     <item name="accent" type="color">#FF9696ff</item>
 
+
     <item name="light_bg" type="color">#FFf1f1f4</item>
     <item name="dark_bg" type="color">#FF262626</item>
-
 
     <item name="white" type="color">#FFffffff</item>
     <item name="black" type="color">#FF000000</item>

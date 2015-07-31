@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/gamefaqs_color_trans">
+
+    <item android:state_pressed="true" >
+        <shape>
+            <solid
+                android:color="@color/light_bg" />
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <solid
+                android:color="@color/light_bg" />
+        </shape>
+    </item>
+
+</ripple>

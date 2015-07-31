@@ -267,12 +267,12 @@ public class SearchResultsActivity extends BaseActivity {
         searchText.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         searchText.setPadding(pL, pT, pR, pB);
 
-        pL = searchTextFrame.getPaddingLeft();
-        pT = searchTextFrame.getPaddingTop();
-        pR = searchTextFrame.getPaddingRight();
-        pB = searchTextFrame.getPaddingBottom();
+//        pL = searchTextFrame.getPaddingLeft();
+//        pT = searchTextFrame.getPaddingTop();
+//        pR = searchTextFrame.getPaddingRight();
+//        pB = searchTextFrame.getPaddingBottom();
 //        searchTextFrame.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_activated_holo_dark));
-        searchTextFrame.setPadding(pL, pT, pR, pB);
+//        searchTextFrame.setPadding(pL, pT, pR, pB);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -444,6 +444,20 @@ public class SearchResultsActivity extends BaseActivity {
                 view = inflater.inflate(R.layout.search_result_item_2, parent, false);
             } else {
                 view = inflater.inflate(R.layout.search_result_item, parent, false);
+            }
+
+            // theme
+            if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
+                // Day
+                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_item_day));
+            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
+                // Night
+                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_item_night));
+            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
+                // Dark
+                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_item_dark));
+            } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
+                view.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_item_sepia));
             }
 
             // String line = lines[position];
