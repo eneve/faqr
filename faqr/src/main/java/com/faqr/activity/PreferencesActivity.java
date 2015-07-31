@@ -59,7 +59,7 @@ public class PreferencesActivity extends BaseActivity {
                     intent = new Intent(this, FaqmarksActivity.class);
                 }
                 if (fromActivity.equalsIgnoreCase("SearchResults")) {
-                    intent = new Intent(this, SearchResultsActivity.class);
+                    intent = new Intent(this, SearchActivity.class);
                     intent.putExtra("game", fromActivityMeta);
                 }
 

@@ -5,14 +5,14 @@
     <item android:state_pressed="true" >
         <shape>
             <solid
-                android:color="@color/light_bg" />
+                android:color="@color/day_background" />
         </shape>
     </item>
 
     <item>
         <shape>
             <solid
-                android:color="@color/light_bg" />
+                android:color="@color/day_background" />
         </shape>
     </item>
 

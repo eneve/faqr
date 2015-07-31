@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">FAQr</string>
-
     <string name="TAG">FAQr</string>
 
     <!-- API  -->
@@ -34,8 +33,8 @@
     <string name="search_hint">Search by game title</string>
     <string name="recent_searches">Recent Searches</string>
     <string name="menu_faqmarks">My FAQmarks</string>
-    <string name="menu_find">Search in FAQ</string>
-    <string name="find_hint">Search in FAQ</string>
+    <string name="menu_find">Find in FAQ</string>
+    <string name="find_hint">Find in FAQ</string>
     <string name="menu_goto">Go to FAQmark</string>
 
     <string name="menu_browser">Open In Browser</string>

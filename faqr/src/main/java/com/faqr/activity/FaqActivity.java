@@ -15,6 +15,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -65,8 +66,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -108,7 +107,7 @@ import java.util.List;
  *
  * @author eneve
  */
-public class FaqActivity extends BaseActivity implements OnClickListener {
+public class FaqActivity extends BaseActivity {
 
     // immersive
     private static final int INITIAL_HIDE_DELAY = 2200;
@@ -117,13 +116,6 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     // loading
     private LinearLayout loading;
     private LinearLayout error;
-
-    // find bar
-    private LinearLayout find_bar;
-    private Button find_bar_prev;
-    private Button find_bar_next;
-    private Button find_bar_close;
-    private EditText find_bar_text;
 
     private String lines[] = new String[] {};
     private String origLines[] = new String[] {};
@@ -171,13 +163,10 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
     // current faq info
     private String currFaq = "";
-//    private String[] currFaqMeta = new String[] {};
-
     private FaqMeta currFaqMeta = new FaqMeta();
 
     // faqmark
     private Integer faqmarkPos = -1;
-
 
     private Toolbar toolbar;
     private Boolean toolbarAnim = false;
@@ -590,15 +579,15 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
     }
 
     /** Called when a button is clicked */
-    public void onClick(View view) {
-        if (view == find_bar_prev) {
-            // find_prev();
-            new FindPrevTask().execute(new String[] {});
-        } else if (view == find_bar_next) {
-            // find_next();
-            new FindNextTask().execute(new String[] {});
-        }
-    }
+//    public void onClick(View view) {
+//        if (view == find_bar_prev) {
+//            // find_prev();
+//            new FindPrevTask().execute(new String[] {});
+//        } else if (view == find_bar_next) {
+//            // find_next();
+//            new FindNextTask().execute(new String[] {});
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -749,14 +738,16 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             int width = Math.round(FaqrApp.convertDpToPixel(200, getApplicationContext()));
-            PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.display_options, null, false), width, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-            pw.setBackgroundDrawable(getResources().getDrawable(R.drawable.ab_bottom_solid_faqr_dark));
-            // The code below assumes that the root container has an id called 'main'
-            pw.setAnimationStyle(R.style.OptionsAnimationPopup);
+            PopupWindow popup = new PopupWindow(inflater.inflate(R.layout.view_display_options, null, false), width, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
-            pw.showAtLocation(menuItemView, Gravity.TOP | Gravity.RIGHT, 20, getStatusBarHeight() + getActionBarHeight());
+            // SETBACKGROUNDDRAWABLE IS VERY IMPORTANT FOR POPUP DISMISSAL //
+            popup.setBackgroundDrawable(new BitmapDrawable());
+            // SETBACKGROUNDDRAWABLE IS VERY IMPORTANT FOR POPUP DISMISSAL //
 
-            Spinner theme = (Spinner) pw.getContentView().findViewById(R.id.theme_spinner);
+            popup.setAnimationStyle(R.style.OptionsAnimationPopup);
+            popup.showAtLocation(menuItemView, Gravity.TOP | Gravity.RIGHT, 20, getStatusBarHeight() + getActionBarHeight());
+
+            Spinner theme = (Spinner) popup.getContentView().findViewById(R.id.theme_spinner);
             ArrayAdapter<CharSequence> themeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.theme_titles, android.R.layout.simple_spinner_item);
             themeAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
             theme.setAdapter(themeAdapter);
@@ -793,7 +784,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             });
 
-            Spinner typeface = (Spinner) pw.getContentView().findViewById(R.id.typeface_spinner);
+            Spinner typeface = (Spinner) popup.getContentView().findViewById(R.id.typeface_spinner);
             // Create an ArrayAdapter using the string array and a default spinner layout
             ArrayAdapter<CharSequence> typefaceAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.typeface_list_titles, android.R.layout.simple_spinner_item);
             // Specify the layout to use when the list of choices appears
@@ -824,7 +815,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 }
             });
 
-            TextView fontSizeMinus = (TextView) pw.getContentView().findViewById(R.id.text_smaller);
+            TextView fontSizeMinus = (TextView) popup.getContentView().findViewById(R.id.text_smaller);
             fontSizeMinus.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -849,7 +840,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                 }
             });
 
-            TextView fontSizePlus = (TextView) pw.getContentView().findViewById(R.id.text_larger);
+            TextView fontSizePlus = (TextView) popup.getContentView().findViewById(R.id.text_larger);
             fontSizePlus.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -879,9 +870,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             fontSizeMinus.setTypeface(tf);
             fontSizePlus.setTypeface(tf);
 
-            final TextView leftJustify = (TextView) pw.getContentView().findViewById(R.id.left_justify);
-            final TextView centerJustify = (TextView) pw.getContentView().findViewById(R.id.center_justify);
-            final TextView rightJustify = (TextView) pw.getContentView().findViewById(R.id.right_justify);
+            final TextView leftJustify = (TextView) popup.getContentView().findViewById(R.id.left_justify);
+            final TextView centerJustify = (TextView) popup.getContentView().findViewById(R.id.center_justify);
+            final TextView rightJustify = (TextView) popup.getContentView().findViewById(R.id.right_justify);
 
             leftJustify.setOnClickListener(new OnClickListener() {
                 @Override
@@ -893,9 +884,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     editor.putInt("justify_v2", 0);
                     editor.commit();
 
-                    leftJustify.setTextColor(getResources().getColor(R.color.faqr_light_background));
-                    centerJustify.setTextColor(getResources().getColor(R.color.faqr_dark_background));
-                    rightJustify.setTextColor(getResources().getColor(R.color.faqr_dark_background));
+                    leftJustify.setTextColor(getResources().getColor(R.color.day_background));
+                    centerJustify.setTextColor(getResources().getColor(R.color.dark_background));
+                    rightJustify.setTextColor(getResources().getColor(R.color.dark_background));
 
                     adapter.notifyDataSetChanged();
                 }
@@ -911,9 +902,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     editor.putInt("justify_v2", 1);
                     editor.commit();
 
-                    leftJustify.setTextColor(getResources().getColor(R.color.faqr_dark_background));
-                    centerJustify.setTextColor(getResources().getColor(R.color.faqr_light_background));
-                    rightJustify.setTextColor(getResources().getColor(R.color.faqr_dark_background));
+                    leftJustify.setTextColor(getResources().getColor(R.color.dark_background));
+                    centerJustify.setTextColor(getResources().getColor(R.color.day_background));
+                    rightJustify.setTextColor(getResources().getColor(R.color.dark_background));
 
                     adapter.notifyDataSetChanged();
                 }
@@ -929,9 +920,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     editor.putInt("justify_v2", 2);
                     editor.commit();
 
-                    leftJustify.setTextColor(getResources().getColor(R.color.faqr_dark_background));
-                    centerJustify.setTextColor(getResources().getColor(R.color.faqr_dark_background));
-                    rightJustify.setTextColor(getResources().getColor(R.color.faqr_light_background));
+                    leftJustify.setTextColor(getResources().getColor(R.color.dark_background));
+                    centerJustify.setTextColor(getResources().getColor(R.color.dark_background));
+                    rightJustify.setTextColor(getResources().getColor(R.color.day_background));
 
                     adapter.notifyDataSetChanged();
                 }
@@ -939,11 +930,11 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
             Integer justify = prefs.getInt("justify_v2", getResources().getInteger(R.integer.justify_default));
             if (justify == 0) {
-                leftJustify.setTextColor(getResources().getColor(R.color.faqr_light_background));
+                leftJustify.setTextColor(getResources().getColor(R.color.day_background));
             } else if (justify == 1) {
-                centerJustify.setTextColor(getResources().getColor(R.color.faqr_light_background));
+                centerJustify.setTextColor(getResources().getColor(R.color.day_background));
             } else {
-                rightJustify.setTextColor(getResources().getColor(R.color.faqr_light_background));
+                rightJustify.setTextColor(getResources().getColor(R.color.day_background));
             }
 
             leftJustify.setTypeface(tf);
@@ -952,10 +943,10 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
 
             if (webViewActive) {
-                TextView typefaceTextView = (TextView)  pw.getContentView().findViewById(R.id.typeface);
-                Spinner typefaceSpinner = (Spinner)  pw.getContentView().findViewById(R.id.typeface_spinner);
-                LinearLayout textSizeLayout = (LinearLayout)  pw.getContentView().findViewById(R.id.do_text_size);
-                LinearLayout justifyLayout = (LinearLayout)  pw.getContentView().findViewById(R.id.do_justify);
+                TextView typefaceTextView = (TextView)  popup.getContentView().findViewById(R.id.typeface);
+                Spinner typefaceSpinner = (Spinner)  popup.getContentView().findViewById(R.id.typeface_spinner);
+                LinearLayout textSizeLayout = (LinearLayout)  popup.getContentView().findViewById(R.id.do_text_size);
+                LinearLayout justifyLayout = (LinearLayout)  popup.getContentView().findViewById(R.id.do_justify);
                 typefaceTextView.setVisibility(View.GONE);
                 typefaceSpinner.setVisibility(View.GONE);
                 textSizeLayout.setVisibility(View.GONE);
@@ -1093,7 +1084,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
 
         @SuppressLint("NewApi")
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = inflater.inflate(R.layout.faq_item, parent, false);
+            View view = inflater.inflate(R.layout.list_item_faq, parent, false);
 
             // theme
             if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
@@ -1255,7 +1246,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
             String[] savedPosMultiArray = savedPosMulti.split(",");
             if (prefs.getString("highlight_faqmark", "1").equals("1")) {
                 if (Arrays.asList(savedPosMultiArray).contains(Integer.valueOf(position).toString())) {
-                    nameView.setTextColor(themeColor);
+                    nameView.setTextColor(themeAccentColor);
                 }
             } else if (prefs.getString("highlight_faqmark", "1").equals("2")) {
                 if (Arrays.asList(savedPosMultiArray).contains(Integer.valueOf(position).toString())) {
@@ -1274,7 +1265,7 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     int pB = view.getPaddingBottom();
                     view.setBackgroundDrawable(themeDrawable);
                     view.setPadding(pL, pT, pR, pB);
-                    nameView.setTextColor(themeColor);
+                    nameView.setTextColor(themeAccentColor);
                 }
             } else if (prefs.getString("highlight_faqmark", "1").equals("4")) {
                 // do nothing
@@ -1296,22 +1287,9 @@ public class FaqActivity extends BaseActivity implements OnClickListener {
                     int startIndex = index;
                     int endIndex = index + findString.length();
                     if (startIndex != -1) {
-                        // Get the EditText's internal text storage
 
                         str.setSpan(new BackgroundColorSpan(0xFFff9632), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                        // theme stuff
-                        if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
-                        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("2")) {
-                            str.setSpan(new ForegroundColorSpan(0xFF000000), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("3")) {
-                            str.setSpan(new ForegroundColorSpan(0xFF000000), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("4")) {
-                            themeColor = getResources().getColor(R.color.gamefaqs_light_color);
-                            themeDrawable = getResources().getDrawable(R.drawable.faqr_saved_light_bg_small);
-                        } else if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("5")) {
-                            str.setSpan(new ForegroundColorSpan(0xFF000000), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        }
+                        str.setSpan(new ForegroundColorSpan(0xFF000000), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
                 nameView.setText(str);

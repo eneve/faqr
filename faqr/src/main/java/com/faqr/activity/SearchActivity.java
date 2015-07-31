@@ -57,7 +57,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  *
  * @author eneve
  */
-public class SearchResultsActivity extends BaseActivity {
+public class SearchActivity extends BaseActivity {
 
     private StickyListHeadersListView listView;
     private SearchResultsListAdapter adapter;
@@ -68,6 +68,7 @@ public class SearchResultsActivity extends BaseActivity {
 
     private LinearLayout loading;
     private LinearLayout noResults;
+    private TextView noResultsText;
 
     private Bundle extras;
 
@@ -79,7 +80,7 @@ public class SearchResultsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_results);
+        setContentView(R.layout.activity_search);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -170,7 +171,7 @@ public class SearchResultsActivity extends BaseActivity {
                     startActivity(intent);
 
                 } else {
-                    Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                     intent.putExtra("from_search_results", true);
                     intent.putExtra("game", game);
                     intent.putExtra("url", url);
@@ -183,6 +184,8 @@ public class SearchResultsActivity extends BaseActivity {
         // loading indicator
         loading = (LinearLayout) findViewById(R.id.loading);
         noResults = (LinearLayout) findViewById(R.id.no_results);
+        noResultsText = (TextView) findViewById(R.id.no_results_text);
+        noResultsText.setTextColor(themeTextColor);
 
         // check connectivity
         if (!isNetworkAvailable()) {
@@ -247,7 +250,7 @@ public class SearchResultsActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_search_results, menu);
+        getMenuInflater().inflate(R.menu.activity_search, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -305,7 +308,7 @@ public class SearchResultsActivity extends BaseActivity {
                     editor.putString("recent_searches", newRecentSearches);
                     editor.commit();
 
-                    Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                     intent.putExtra("game", query.trim());
                     startActivity(intent);
                     finish();
@@ -359,7 +362,7 @@ public class SearchResultsActivity extends BaseActivity {
                 editor.putString("recent_searches", newRecentSearches);
                 editor.commit();
 
-                Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("game", textView.getText());
                 startActivity(intent);
@@ -441,9 +444,9 @@ public class SearchResultsActivity extends BaseActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             View view;
             if (extras != null && extras.getString("url") != null && !TextUtils.isEmpty(extras.getString("url"))) {
-                view = inflater.inflate(R.layout.search_result_item_2, parent, false);
+                view = inflater.inflate(R.layout.list_item_search_result_2, parent, false);
             } else {
-                view = inflater.inflate(R.layout.search_result_item, parent, false);
+                view = inflater.inflate(R.layout.list_item_search_result, parent, false);
             }
 
             // theme
@@ -477,7 +480,7 @@ public class SearchResultsActivity extends BaseActivity {
                 nameView.setText(item.split(" --- ")[1]);
 
                 // theme goodness
-                nameView.setTextColor(themeColor);
+                nameView.setTextColor(themeAccentColor);
                 platformView.setTextColor(themeTextColor);
 
             } else if (item.split(" --- ").length == 6) {
@@ -501,7 +504,7 @@ public class SearchResultsActivity extends BaseActivity {
                 sizeView.setText(versionAndSize);
 
                 // theme goodness
-                nameView.setTextColor(themeColor);
+                nameView.setTextColor(themeAccentColor);
                 authorView.setTextColor(themeTextColor);
                 versionView.setTextColor(themeTextColor);
                 sizeView.setTextColor(themeTextColor);
@@ -535,7 +538,7 @@ public class SearchResultsActivity extends BaseActivity {
                 sizeView.setText(item.split(" --- ")[4]);
 
                 // theme goodness
-                nameView.setTextColor(themeColor);
+                nameView.setTextColor(themeAccentColor);
                 authorView.setTextColor(themeTextColor);
                 versionView.setTextColor(themeTextColor);
                 sizeView.setTextColor(themeTextColor);
@@ -546,7 +549,7 @@ public class SearchResultsActivity extends BaseActivity {
 
         @Override
         public View getHeaderView(int position, View convertView, ViewGroup parent) {
-            View view = inflater.inflate(R.layout.search_result_header, null);
+            View view = inflater.inflate(R.layout.list_item_search_result_header, null);
             TextView textView = (TextView) view.findViewById(R.id.name);
 
             int count = 0;

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:id="@+id/bg"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -41,6 +40,7 @@
 
             <TextView
                 android:id="@+id/section_1_text"
+                style="@style/AboutSectionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
@@ -56,6 +56,7 @@
 
             <TextView
                 android:id="@+id/section_2_text"
+                style="@style/AboutSectionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
@@ -71,6 +72,7 @@
 
             <TextView
                 android:id="@+id/section_3_text"
+                style="@style/AboutSectionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
@@ -86,6 +88,7 @@
 
             <TextView
                 android:id="@+id/section_4_text"
+                style="@style/AboutSectionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
@@ -116,6 +119,7 @@
 
             <TextView
                 android:id="@+id/contact_link"
+                style="@style/AboutSectionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
@@ -138,6 +142,7 @@
 
             <TextView
                 android:id="@+id/version"
+                style="@style/AboutSectionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"

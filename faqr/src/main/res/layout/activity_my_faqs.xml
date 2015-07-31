@@ -43,7 +43,6 @@
             android:layout_centerVertical="true" >
 
             <TextView
-                style="@style/AboutTitleText"
                 android:id="@+id/no_results_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,8 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fadingEdge="none"
-            android:listSelector="@drawable/list_selector"
-            android:overScrollMode="never" >
+            android:overScrollMode="never"
+            android:listSelector="@drawable/list_selector" >
         </se.emilsjolander.stickylistheaders.StickyListHeadersListView>
 
         <!--

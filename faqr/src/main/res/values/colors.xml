@@ -7,32 +7,45 @@
     <item name="primary_dark" type="color">#FF5050cc</item>
     <item name="accent" type="color">#FF9696ff</item>
 
-
-    <item name="light_bg" type="color">#FFf1f1f4</item>
-    <item name="dark_bg" type="color">#FF262626</item>
+    <!-- Standard Colors -->
 
     <item name="white" type="color">#FFffffff</item>
     <item name="black" type="color">#FF000000</item>
     <item name="transparent" type="color">#00000000</item>
 
+    <!-- All Theme -->
+
     <item name="subtitle_text" type="color">#FFd1d1ff</item>
     <item name="popup_bg" type="color">#FFeeeeee</item>
 
+    <!-- Day Theme -->
+
+    <item name="day_accent" type="color">#FF2b2bff</item>
+    <item name="day_text" type="color">#FF292929</item>
+    <item name="day_background" type="color">#FFefefef</item>
+
+    <!-- Night Theme -->
+
+    <item name="night_accent" type="color">#FFb0b0ff</item>
+    <item name="night_text" type="color">#FFefefef</item>
+    <item name="night_background" type="color">#FF000000</item>
+
+    <!-- Dark Theme -->
+
+    <item name="dark_accent" type="color">#FFb0b0ff</item>
+    <item name="dark_text" type="color">#FFefefef</item>
+    <item name="dark_background" type="color">#FF292929</item>
+
+    <!-- Sepia Theme -->
+
+    <item name="sepia_accent" type="color">#FFB7410E</item>
     <item name="sepia_text" type="color">#FF645032</item>
     <item name="sepia_background" type="color">#FFece1ca</item>
 
-    <!-- Theme -->
+    <!-- GameFAQS -->
 
-    <color name="faqr_dark_background">#FF292929</color>
-    <color name="faqr_light_background">#FFefefef</color>
+    <item name="gamefaqs_color" type="color">#FF6464ff</item>
+    <item name="gamefaqs_color_trans" type="color">#666464ff</item>
 
-    <color name="gamefaqs_color">#FF6464ff</color>
-    <color name="gamefaqs_color_trans">#666464ff</color>
-    <color name="gamefaqs_light_color">#FFb0b0ff</color>
-    <color name="gamefaqs_light_color_trans">#66b0b0ff</color>
-    <color name="gamefaqs_dark_color">#FF2b2bff</color>
-    <color name="gamefaqs_dark_color_trans">#662b2bff</color>
-    <color name="faqr_donate_color">#FFFBEC5D</color>
-    <color name="sepia_theme_color">#FFB7410E</color>
 
 </resources>

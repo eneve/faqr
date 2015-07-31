@@ -37,7 +37,6 @@ public class MainActivity extends BaseActivity {
         editor.putString("variable_font_size", "Auto");
         editor.commit();
 
-
         // get the current FAQ
         if (!TextUtils.isEmpty(prefs.getString("curr_faq", ""))) {
 
@@ -59,7 +58,6 @@ public class MainActivity extends BaseActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
-
         }
     }
 

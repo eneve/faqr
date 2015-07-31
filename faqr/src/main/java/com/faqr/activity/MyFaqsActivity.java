@@ -68,6 +68,7 @@ public class MyFaqsActivity extends BaseActivity {
 
     private LinearLayout loading;
     private LinearLayout noResults;
+    private TextView noResultsText;
 
     private Menu menu;
 
@@ -113,6 +114,8 @@ public class MyFaqsActivity extends BaseActivity {
         // no results
         noResults = (LinearLayout) findViewById(R.id.no_results);
         noResults.setVisibility(View.GONE);
+        noResultsText = (TextView) findViewById(R.id.no_results_text);
+        noResultsText.setTextColor(themeTextColor);
 
         TextView noResultsText = (TextView) findViewById(R.id.no_results_text);
         noResultsText.setTextColor(themeTextColor);
@@ -346,7 +349,7 @@ public class MyFaqsActivity extends BaseActivity {
                     if (!isNetworkAvailable()) {
                         connectionDialog.show();
                     } else {
-                        Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                         intent.putExtra("game", query.trim());
 
                         editor.putInt("my_faqs_pos", listView.getFirstVisiblePosition());
@@ -412,7 +415,7 @@ public class MyFaqsActivity extends BaseActivity {
                         editor.commit();
                     }
 
-                    Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                     intent.putExtra("game", textView.getText());
                     editor.putInt("my_faqs_pos", listView.getFirstVisiblePosition());
                     editor.commit();
@@ -501,7 +504,7 @@ public class MyFaqsActivity extends BaseActivity {
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = inflater.inflate(R.layout.search_result_item_2, parent, false);
+            View view = inflater.inflate(R.layout.list_item_search_result_2, parent, false);
 
             // theme
             if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
@@ -552,7 +555,7 @@ public class MyFaqsActivity extends BaseActivity {
             sizeView.setText(versionAndSize);
 
             // theme goodness
-            nameView.setTextColor(themeColor);
+            nameView.setTextColor(themeAccentColor);
             authorView.setTextColor(themeTextColor);
             versionView.setTextColor(themeTextColor);
             sizeView.setTextColor(themeTextColor);
@@ -562,7 +565,7 @@ public class MyFaqsActivity extends BaseActivity {
 
         @Override
         public View getHeaderView(int position, View convertView, ViewGroup parent) {
-            View view = inflater.inflate(R.layout.search_result_header, null);
+            View view = inflater.inflate(R.layout.list_item_search_result_header, null);
             TextView textView = (TextView) view.findViewById(R.id.name);
 
             int count = 0;

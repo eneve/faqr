@@ -11,7 +11,7 @@
     <item>
         <shape>
             <solid
-                android:color="@color/light_bg" />
+                android:color="@color/day_background" />
         </shape>
     </item>
 

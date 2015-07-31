@@ -408,7 +408,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
 
         @SuppressLint("NewApi")
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = inflater.inflate(R.layout.faqmarks_item, parent, false);
+            View view = inflater.inflate(R.layout.list_item_faqmark, parent, false);
 
             // theme
             if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
@@ -438,8 +438,8 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             percentageView.setText(savedLinePercentages.get(position));
 
             // theme goodness
-            // view.setBackgroundColor(themeColor);
-            locationView.setTextColor(themeColor);
+            // view.setBackgroundColor(themeAccentColor);
+//            locationView.setTextColor(themeAccentColor);
 
             // name
             TextView nameView = (TextView) view.findViewById(R.id.name);
@@ -589,8 +589,8 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             }
 
             // theme goodness
-            locationView.setTextColor(themeColor);
-            percentageView.setTextColor(themeTextColor);
+//            locationView.setTextColor(themeAccentColor);
+//            percentageView.setTextColor(themeTextColor);
             nameView.setTextColor(themeTextColor);
 
             return view;
