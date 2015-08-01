@@ -1230,7 +1230,7 @@ public class FaqActivity extends BaseActivity {
                     nameView.setTextSize(Float.valueOf(variableFontSize));
                 }
 
-                view.setPadding(8, 8, 8, 8);
+                view.setPadding(16, 8, 16, 8);
             }
 
             // set the text
