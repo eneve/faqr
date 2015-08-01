@@ -629,12 +629,16 @@ public class FaqActivity extends BaseActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String query) {
-                if (webViewActive) {
-                    webView.findAll(query);
-                } else {
-                    findString = query;
-                    new FindNextTask().execute(new String[]{query});
+
+                if (query.length() == 0 || query.trim().length() > 2) {
+                    if (webViewActive) {
+                        webView.findAll(query);
+                    } else {
+                        findString = query;
+                        new FindNextTask().execute(new String[]{query});
+                    }
                 }
+
                 return true;
             }
 
