@@ -34,8 +34,8 @@
     </string-array>
     <string-array name="saved_pos_preview_list_values">
         <item>6</item>
-        <item>12</item>
         <item>24</item>
+        <item>48</item>
     </string-array>
 
     <string name="vibrate_title">Vibrate</string>

@@ -217,7 +217,7 @@ public class SearchActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             if (extras == null || (extras != null && extras.getBoolean("from_search_results") != true)) {
-                Intent intent = new Intent(this, MyFaqsActivity.class);
+                Intent intent = new Intent(this, FaqsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
@@ -399,7 +399,7 @@ public class SearchActivity extends BaseActivity {
             return true;
         case android.R.id.home:
             if (extras == null || (extras != null && extras.getBoolean("from_search_results") != true)) {
-                intent = new Intent(this, MyFaqsActivity.class);
+                intent = new Intent(this, FaqsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

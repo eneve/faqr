@@ -55,7 +55,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  *
  * @author eneve
  */
-public class MyFaqsActivity extends BaseActivity {
+public class FaqsActivity extends BaseActivity {
 
     // list view
     private MyFaqsListAdapter adapter;
@@ -84,7 +84,7 @@ public class MyFaqsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_faqs);
+        setContentView(R.layout.activity_faqs);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -157,7 +157,7 @@ public class MyFaqsActivity extends BaseActivity {
                 FaqMeta faqMeta = new FaqMeta(prefs.getString(metaView.getText().toString(), ""));
 
                 // delete dialog
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyFaqsActivity.this, R.style.AppCompatAlertDialogStyle);
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(FaqsActivity.this, R.style.AppCompatAlertDialogStyle);
                 dialogBuilder.setMessage("Are you sure you want to delete " + faqMeta.getTitle() + "?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         SharedPreferences.Editor editor = prefs.edit();
@@ -192,7 +192,7 @@ public class MyFaqsActivity extends BaseActivity {
                             editor.remove(file.getName() + "saved_pos");
                             editor.commit();
                             file.delete();
-                            Intent intent = new Intent(getApplicationContext(), MyFaqsActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), FaqsActivity.class);
 
                             editor = prefs.edit();
                             editor.putInt("my_faqs_pos", listView.getFirstVisiblePosition());
@@ -229,7 +229,7 @@ public class MyFaqsActivity extends BaseActivity {
         });
 
         // clear search history confirm dialog
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyFaqsActivity.this, R.style.AppCompatAlertDialogStyle);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(FaqsActivity.this, R.style.AppCompatAlertDialogStyle);
         dialogBuilder.setMessage("Are you sure you want to clear your search history?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
@@ -256,7 +256,7 @@ public class MyFaqsActivity extends BaseActivity {
         clearConfirmDialog = dialogBuilder.create();
 
         // delete all confirm dialog
-        dialogBuilder = new AlertDialog.Builder(MyFaqsActivity.this, R.style.AppCompatAlertDialogStyle);
+        dialogBuilder = new AlertDialog.Builder(FaqsActivity.this, R.style.AppCompatAlertDialogStyle);
         dialogBuilder.setMessage("Are you sure you want to delete all of your saved FAQs?").setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // start the delete all task
@@ -504,7 +504,7 @@ public class MyFaqsActivity extends BaseActivity {
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = inflater.inflate(R.layout.list_item_my_faqs, parent, false);
+            View view = inflater.inflate(R.layout.list_item_faqs, parent, false);
 
             // theme
             if (prefs.getString("theme", getResources().getString(R.string.theme_default)).equals("1")) {
@@ -731,7 +731,7 @@ public class MyFaqsActivity extends BaseActivity {
             editor.remove("curr_faq");
             editor.commit();
 
-            Intent intent = new Intent(getApplicationContext(), MyFaqsActivity.class);
+            Intent intent = new Intent(getApplicationContext(), FaqsActivity.class);
 
             editor = prefs.edit();
             editor.putInt("my_faqs_pos", 0);

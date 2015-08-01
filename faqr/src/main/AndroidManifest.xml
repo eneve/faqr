@@ -43,7 +43,7 @@
         </activity>
 
         <activity
-            android:name=".activity.MyFaqsActivity"
+            android:name=".activity.FaqsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/menu_saved" >
         </activity>

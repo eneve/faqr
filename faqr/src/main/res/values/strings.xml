@@ -19,11 +19,11 @@
     <string name="loading">Loading…</string>
     <string name="error">Error</string>
     <string name="cancel">Cancel</string>
-
     <string name="menu_prev">Prev</string>
     <string name="menu_next">Next</string>
     <string name="menu_close">Close</string>
-    <string name="menu_saved">My FAQs</string>
+
+    <string name="menu_saved">FAQs</string>
 
     <string name="display_options">Display Options</string>
     <string name="no_results">No Saved FAQs</string>
@@ -32,7 +32,8 @@
     <string name="action_search">Search for FAQs</string>
     <string name="search_hint">Search by game title</string>
     <string name="recent_searches">Recent Searches</string>
-    <string name="menu_faqmarks">My FAQmarks</string>
+
+    <string name="menu_faqmarks">FAQmarks</string>
     <string name="menu_find">Find in FAQ</string>
     <string name="find_hint">Find in FAQ</string>
     <string name="menu_goto">Go to FAQmark</string>

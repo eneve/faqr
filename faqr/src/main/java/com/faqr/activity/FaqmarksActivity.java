@@ -246,7 +246,7 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             int saved_pos = prefs.getInt(prefs.getString("curr_faq", "") + "saved_pos", -1);
             new GetFaqTask().execute(new String[] {});
         } else {
-            Intent intent = new Intent(this, MyFaqsActivity.class);
+            Intent intent = new Intent(this, FaqsActivity.class);
             startActivity(intent);
             finish();
         }
@@ -597,8 +597,8 @@ public class FaqmarksActivity extends BaseActivity implements OnClickListener {
             locationView.setText("FAQMark " + plusOne.toString() + "/" + lines.length);
 
             // percentage
-            TextView percentageView = (TextView) view.findViewById(R.id.percentage);
-            percentageView.setText(savedLinePercentages.get(position));
+//            TextView percentageView = (TextView) view.findViewById(R.id.percentage);
+//            percentageView.setText(savedLinePercentages.get(position));
 
             // theme goodness
             view.setBackgroundColor(primaryColor);

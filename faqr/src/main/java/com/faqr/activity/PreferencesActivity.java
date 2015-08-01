@@ -53,7 +53,7 @@ public class PreferencesActivity extends BaseActivity {
             case android.R.id.home:
                 Intent intent = new Intent(this, FaqActivity.class);
                 if (fromActivity.equalsIgnoreCase("My FAQs")) {
-                    intent = new Intent(this, MyFaqsActivity.class);
+                    intent = new Intent(this, FaqsActivity.class);
                 }
                 if (fromActivity.equalsIgnoreCase("My FAQmarks")) {
                     intent = new Intent(this, FaqmarksActivity.class);
