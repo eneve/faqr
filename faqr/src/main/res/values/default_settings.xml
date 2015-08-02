@@ -10,6 +10,11 @@
     -->
 
 
+    <!-- search defaults -->
+    <bool name="exclude_mobile_default">false</bool>
+    <bool name="exclude_dlc_default">false</bool>
+
+
     <!-- general defaults -->
     <bool name="auto_open_default">true</bool>
     <bool name="show_tips_default">true</bool>
@@ -43,13 +48,9 @@
 
     <!-- fonts defaults -->
     <string name="typeface_default">1</string>
-
     <string name="mono_font_size_default">Auto</string>
-
     <bool name="use_variable_font_default">false</bool>
-
     <string name="variable_font_size_default">Auto</string>
-
     <bool name="use_serif_font_default">false</bool>
 
     <!-- v2 defaults -->

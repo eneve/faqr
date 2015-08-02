@@ -7,13 +7,20 @@
     <!-- API  -->
 
     <string name="GAMEFAQS_URL">http://m.gamefaqs.com</string>
-    <string name="SEARCH_URL">/search/index.html?game=</string>
 
     <!-- Google Analytics  -->
 
     <string name="GA_TRACKING_ID">UA-37803338-1</string>
 
     <!-- APP -->
+
+    <!-- MENU -->
+
+    <!-- FAQS ACTIVITY -->
+
+    <!-- FAQ ACTIVITY -->
+
+    <!-- FAQMARKS ACTIVITY -->
 
     <string name="search">Search</string>
     <string name="loading">Loading…</string>

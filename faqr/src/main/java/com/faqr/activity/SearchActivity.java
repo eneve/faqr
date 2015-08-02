@@ -609,11 +609,35 @@ public class SearchActivity extends BaseActivity {
 
                 String gameParam = game.replace(" ", "\\+");
 
+                String mobileParam = "&mobile=0";
+                if (prefs.getBoolean("exclude_mobile", getResources().getBoolean(R.bool.exclude_mobile_default))) {
+                    mobileParam = "&mobile=1";
+                }
+
+                String dlcParam = "&dlc=0";
+                if (prefs.getBoolean("exclude_dlc", getResources().getBoolean(R.bool.exclude_dlc_default))) {
+                    dlcParam = "&dlc=1";
+                }
+
                 Document doc;
                 if (extras != null && extras.getString("url") != null && !TextUtils.isEmpty(extras.getString("url"))) {
-                    doc = Jsoup.connect(url).timeout(20000).get();
+                    doc = Jsoup.connect(url).timeout(30000).get();
                 } else {
-                    doc = Jsoup.connect(getResources().getString(R.string.GAMEFAQS_URL) + getResources().getString(R.string.SEARCH_URL) + gameParam).timeout(20000).get();
+                    // EX - http://www.gamefaqs.com/search/index.html?platform=0&game=final+fantasy+xiii&mobile=1&dlc=1
+                    doc = Jsoup
+                            .connect(getResources().getString(R.string.GAMEFAQS_URL)
+                                    + "/search/index.html?game="
+                                    + gameParam
+                                    + mobileParam
+                                    + dlcParam)
+                            .timeout(30000).get();
+
+                    Log.i(TAG, "SEARCH QUERY - "
+                            + getResources().getString(R.string.GAMEFAQS_URL)
+                            + "/search/index.html?game="
+                            + gameParam
+                            + mobileParam
+                            + dlcParam);
                 }
 
                 String[] split = url.split("/");

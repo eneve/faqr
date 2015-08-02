@@ -2,11 +2,21 @@
 
     <!-- Strings related to Settings -->
 
-    <!-- FAQMARKS -->
-
+    <string name="preference_search_category_title">Search</string>
     <string name="preference_faqmarks_category_title">FAQmarks</string>
     <string name="preference_display_category_title">Display</string>
     <string name="preference_fonts_category_title">Fonts</string>
+
+    <!-- SEARCH -->
+
+    <string name="exclude_mobile_title">Exclude Mobile</string>
+    <string name="exclude_mobile_summary">Exclude mobile from search results</string>
+
+    <string name="exclude_dlc_title">Exclude DLC</string>
+    <string name="exclude_dlc_summary">Exclude dlc from search results</string>
+
+    <!-- FAQMARKS -->
+
 
     <string name="highlight_faqmark_title">Highlight FAQmark</string>
     <string name="highlight_faqmark_summary">Highlight text</string>
