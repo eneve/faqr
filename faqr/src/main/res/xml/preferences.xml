@@ -3,24 +3,6 @@
 
 
     <PreferenceCategory
-        android:title="@string/preference_search_category_title">
-
-        <CheckBoxPreference
-            android:defaultValue="@bool/exclude_mobile_default"
-            android:key="exclude_mobile"
-            android:summary="@string/exclude_mobile_summary"
-            android:title="@string/exclude_mobile_title" />
-
-        <CheckBoxPreference
-            android:defaultValue="@bool/exclude_dlc_default"
-            android:key="exclude_dlc"
-            android:summary="@string/exclude_dlc_summary"
-            android:title="@string/exclude_dlc_title" />
-
-    </PreferenceCategory>
-
-
-    <PreferenceCategory
         android:title="@string/preference_faqmarks_category_title">
 
         <ListPreference
@@ -118,4 +100,23 @@
 
     </PreferenceCategory>
 
+
+    <PreferenceCategory
+        android:title="@string/preference_search_category_title">
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/exclude_mobile_default"
+            android:key="exclude_mobile"
+            android:summary="@string/exclude_mobile_summary"
+            android:title="@string/exclude_mobile_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/exclude_dlc_default"
+            android:key="exclude_dlc"
+            android:summary="@string/exclude_dlc_summary"
+            android:title="@string/exclude_dlc_title" />
+
+    </PreferenceCategory>
+
+    
 </PreferenceScreen>
