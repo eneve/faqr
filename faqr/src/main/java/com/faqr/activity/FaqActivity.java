@@ -1418,7 +1418,12 @@ public class FaqActivity extends BaseActivity {
                             // update our copy of faqr metadata
                             currFaqMeta = new FaqMeta(prefs.getString(FaqrApp.validFileName(currFaqURL), ""));
 
-                            // parse the content
+                            // Parse the content - UPDATED HTML FORMAT 08162015
+                            //
+                            // <pre class="faqtext" id="faqtext">
+                            //   <span id="faqspan-1">BLAH</span>
+                            //   <span id="faqspan-2">BLAH</span>
+                            // </pre>
                             Elements pre = doc.select("pre > span");
                             for (Element elem : pre) {
                                 // text node prevents the removal of leading and trailing whitespace
