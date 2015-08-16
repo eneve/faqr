@@ -2,10 +2,9 @@
 
     <!-- Strings related to Settings -->
 
-    <string name="preference_search_category_title">Search</string>
-    <string name="preference_faqmarks_category_title">FAQmarks</string>
     <string name="preference_display_category_title">Display</string>
-    <string name="preference_fonts_category_title">Fonts</string>
+    <string name="preference_faqmarks_category_title">FAQmarks</string>
+    <string name="preference_search_category_title">Search</string>
 
     <!-- SEARCH -->
 

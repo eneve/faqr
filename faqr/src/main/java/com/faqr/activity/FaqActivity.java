@@ -1419,7 +1419,7 @@ public class FaqActivity extends BaseActivity {
                             currFaqMeta = new FaqMeta(prefs.getString(FaqrApp.validFileName(currFaqURL), ""));
 
                             // parse the content
-                            Elements pre = doc.select("pre");
+                            Elements pre = doc.select("pre > span");
                             for (Element elem : pre) {
                                 // text node prevents the removal of leading and trailing whitespace
                                 List<TextNode> nodes = elem.textNodes();
