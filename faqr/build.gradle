@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.0"
 
     defaultConfig {
         applicationId "com.faqr"
         minSdkVersion 15
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 82
         versionName "2.2.1"
     }
@@ -25,8 +25,9 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:design:22.2.0'
-    compile 'com.google.android.gms:play-services:6.5.+'
+    compile 'com.android.support:design:23.0.0'
+    compile 'com.android.support:preference-v7:23.0.0'
+    compile 'com.google.android.gms:play-services-analytics:7.8.0'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile 'org.jsoup:jsoup:1.8.2'
     compile fileTree(dir: 'libs', include: ['*.jar'])

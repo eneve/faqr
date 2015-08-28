@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.faqr.R;
@@ -41,7 +42,7 @@ public class PreferencesActivity extends BaseActivity {
         }
 
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PreferencesFragment())
                     .commit();
         }
@@ -69,5 +70,28 @@ public class PreferencesActivity extends BaseActivity {
             default:
                 return false;
         }
+    }
+
+    /** Called when phone hard keys are pressed */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Intent intent = new Intent(this, FaqActivity.class);
+            if (fromActivity.equalsIgnoreCase("My FAQs")) {
+                intent = new Intent(this, FaqsActivity.class);
+            }
+            if (fromActivity.equalsIgnoreCase("My FAQmarks")) {
+                intent = new Intent(this, FaqmarksActivity.class);
+            }
+            if (fromActivity.equalsIgnoreCase("SearchResults")) {
+                intent = new Intent(this, SearchActivity.class);
+                intent.putExtra("game", fromActivityMeta);
+            }
+
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

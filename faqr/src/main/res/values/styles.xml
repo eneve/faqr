@@ -10,6 +10,7 @@
         <item name="colorAccent">@color/accent</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
         <item name="android:dropDownListViewStyle">@style/CustomSpinnerStyle</item>
     </style>
