@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -302,6 +303,11 @@ public class FaqActivity extends BaseActivity {
         autoMonoFontSize = -1.0f;
 
         // webview
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (0 != (getApplicationInfo().flags &= ApplicationInfo.FLAG_DEBUGGABLE))
+            { WebView.setWebContentsDebuggingEnabled(true); }
+        }
+
         webView = (ObservableWebView) findViewById(R.id.webview);
         webView.setOnScrollChangedCallback(new ObservableWebView.OnScrollChangedCallback(){
             public void onScroll(int l, int t, int oldl, int oldt){
@@ -330,6 +336,7 @@ public class FaqActivity extends BaseActivity {
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
+        webView.getSettings().setDomStorageEnabled(true);
 
         CookieSyncManager.createInstance(this);
         cookieManager = CookieManager.getInstance();
@@ -1666,7 +1673,7 @@ public class FaqActivity extends BaseActivity {
                 }
 
                 html = ("<html><title>" + title + "</title><body style=\"background-color:" + bgColor + ";\"><div style=\"width:100%\"><img style=\"display:block;margin:0 auto;padding-top:" + paddingTop + ";\" src=\"file://" + getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath() + "\"></body></html>");
-                webView.loadDataWithBaseURL(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath(), html, "text/html", "utf-8", "");
+                webView.loadDataWithBaseURL("", html, "text/html", "utf-8", "");
 
                 hideWebViewMenuOptions = true;
                 loading.setVisibility(View.GONE);
