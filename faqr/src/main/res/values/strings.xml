@@ -20,6 +20,24 @@
 
     <!-- FAQ ACTIVITY -->
 
+    <string name="UNKNOWN_ERROR_RESULT_CODE">-999</string>
+
+    <string name="GAMEFAQS_HTML_FAQ_SAVE_RESULT_CODE">-99</string>
+    <string name="NON_GAMEFAQS_URL_RESULT_CODE">-98</string>
+
+    <string name="NO_CONNECTIVITY_ERROR_RESULT_CODE">-3</string>
+    <string name="WEB_ACCESS_OOM_ERROR_RESULT_CODE">-2</string>
+    <string name="WEB_ACCESS_ERROR_RESULT_CODE">-1</string>
+
+    <string name="ASCII_FAQ_SAVE_SUCCESS_RESULT_CODE">1</string>
+    <string name="ASCII_FAQ_ERROR_RESULT_CODE">2</string>
+
+    <string name="IMAGE_FAQ_SAVE_SUCCESS_RESULT_CODE">3</string>
+    <string name="IMAGE_FAQ_RESULT_CODE">4</string>
+
+    <string name="HTML_FAQ_RESULT_CODE">5</string>
+
+
     <!-- FAQMARKS ACTIVITY -->
 
     <string name="search">Search</string>

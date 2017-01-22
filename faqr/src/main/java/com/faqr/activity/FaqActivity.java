@@ -24,6 +24,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -171,6 +173,24 @@ public class FaqActivity extends BaseActivity {
 
     private Toolbar toolbar;
     private Boolean toolbarAnim = false;
+
+    // result codes
+    private String UNKNOWN_ERROR_RESULT_CODE = "-999";
+
+    private String GAMEFAQS_HTML_FAQ_SAVE_RESULT_CODE = "-99";
+    private String NON_GAMEFAQS_URL_RESULT_CODE = "-98";
+
+    private String NO_CONNECTIVITY_ERROR_RESULT_CODE = "-3";
+    private String WEB_ACCESS_OOM_ERROR_RESULT_CODE = "-2";
+    private String WEB_ACCESS_ERROR_RESULT_CODE = "-1";
+
+    private String ASCII_FAQ_SAVE_SUCCESS_RESULT_CODE = "1";
+    private String ASCII_FAQ_SAVE_ERROR_RESULT_CODE = "2";
+
+    private String IMAGE_FAQ_SAVE_SUCCESS_RESULT_CODE = "3";
+    private String IMAGE_FAQ_RESULT_CODE = "4";
+
+    private String HTML_FAQ_RESULT_CODE = "5";
 
     /** Called when the activity is first created. */
     @SuppressLint("NewApi")
@@ -1021,10 +1041,23 @@ public class FaqActivity extends BaseActivity {
             return true;
 
         case R.id.menu_browser:
+
+            // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
+            // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
+            // and launch the desired Url with CustomTabsIntent.launchUrl()
             String url = currFaqMeta.getUrl();
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            builder.setToolbarColor(ContextCompat.getColor(this, R.color.primary));
+            builder.setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.primary_dark));
+//            builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
+//            builder.setExitAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            CustomTabsIntent customTabsIntent = builder.build();
+            customTabsIntent.launchUrl(this, Uri.parse(url));
+
+//            String url = currFaqMeta.getUrl();
+//            Intent i = new Intent(Intent.ACTION_VIEW);
+//            i.setData(Uri.parse(url));
+//            startActivity(i);
             return true;
         case R.id.menu_settings:
             intent = new Intent(this, PreferencesActivity.class);
@@ -1347,7 +1380,7 @@ public class FaqActivity extends BaseActivity {
                 currFaqURL = currFaqMeta.getUrl();
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
-                return "-999";
+                return UNKNOWN_ERROR_RESULT_CODE;
             }
 
             try {
@@ -1357,12 +1390,12 @@ public class FaqActivity extends BaseActivity {
                 if (currFaqMeta.getType().equals("TYPE=IMAGE")) {
 
                     // IMAGE FAQ
-                    return "4";
+                    return IMAGE_FAQ_RESULT_CODE;
 
                 } else if (currFaqMeta.getType().equals("TYPE=HTML")) {
 
                     // HTML FAQ
-                    return "5";
+                    return HTML_FAQ_RESULT_CODE;
 
                 } else {
 
@@ -1376,8 +1409,12 @@ public class FaqActivity extends BaseActivity {
                         success = true;
                     }
                     Log.w(TAG, "FILE LINES.SIZE " + lines.length);
+                    Log.w(TAG, "===============================================");
+
+                    // save result code as the save
+//                    return ASCII_FAQ_SAVE_ERROR_RESULT_CODE;
                 }
-                Log.w(TAG, "===============================================");
+
             } catch (IOException ioe) {
                 Log.e(TAG, ioe.getMessage());
             }
@@ -1450,7 +1487,13 @@ public class FaqActivity extends BaseActivity {
                                     String[] imagePathSplit = imagePath.split("/");
                                     String imageName = imagePathSplit[imagePathSplit.length - 1];
 
-                                    InputStream in = new URL(imagePath).openConnection().getInputStream();
+                                    InputStream in;
+                                    try {
+                                        in = new URL(imagePath).openConnection().getInputStream();
+                                    } catch (java.net.MalformedURLException e) {
+                                        Log.w(TAG, "MalformedURLException: " + imagePath + " attempting to auto-correct the URL");
+                                        in = new URL(currFaqURL + imagePath).openConnection().getInputStream();
+                                    }
 
                                     File fileUri = new File(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
                                     FileOutputStream outStream = null;
@@ -1475,12 +1518,12 @@ public class FaqActivity extends BaseActivity {
                                     editor.commit();
 
                                     // return a new status code
-                                    return "3";
+                                    return IMAGE_FAQ_SAVE_SUCCESS_RESULT_CODE;
                                 }
 
 
                                 // we didn't get an image apparently
-                                return "-99";
+                                return GAMEFAQS_HTML_FAQ_SAVE_RESULT_CODE;
                             }
 
                             lines = FaqrApp.getLines(content);
@@ -1495,19 +1538,19 @@ public class FaqActivity extends BaseActivity {
                         } else {
 
                             // not a gamefaqs url
-                            return "-98";
+                            return NON_GAMEFAQS_URL_RESULT_CODE;
                         }
 
                     } catch (Exception e) {
                         // error reading from web
 //                        if (e.getMessage() != null)
                         Log.e(TAG, e.getMessage(), e);
-                        result = "-1";
+                        result = WEB_ACCESS_ERROR_RESULT_CODE;
                     } catch (OutOfMemoryError e) {
                         // memory exception on device
 //                        if (e.getMessage() != null)
                         Log.e(TAG, e.getMessage(), e);
-                        result = "-2";
+                        result = WEB_ACCESS_OOM_ERROR_RESULT_CODE;
                     }
 
                     // only try to write if we got a file
@@ -1521,17 +1564,17 @@ public class FaqActivity extends BaseActivity {
                             // getFileStreamPath(validFileName(prefs.getString("faq_title", ""))).delete();
                             FaqrApp.writeData(openFileOutput(FaqrApp.validFileName(currFaqURL), Context.MODE_PRIVATE), content);
 
-                            result = "1";
+                            result = ASCII_FAQ_SAVE_SUCCESS_RESULT_CODE;
 
                         } catch (Exception e) {
                             // error writing the file
                             Log.e(TAG, e.getMessage());
-                            result = "2";
+                            result = ASCII_FAQ_SAVE_ERROR_RESULT_CODE;
                         }
                     }
                 } else {
                     // no network available
-                    result = "-3";
+                    result = NO_CONNECTIVITY_ERROR_RESULT_CODE;
                 }
             }
 
@@ -1539,7 +1582,7 @@ public class FaqActivity extends BaseActivity {
         }
 
         protected void onPostExecute(String result) {
-            if (result.equals("-999")) {
+            if (result.equals(UNKNOWN_ERROR_RESULT_CODE)) {
 
                 // :'-(
                 // we have a big problem because it seems the faq meta data is corrupted somehow
@@ -1547,7 +1590,7 @@ public class FaqActivity extends BaseActivity {
                 loading.setVisibility(View.GONE);
                 error.setVisibility(View.VISIBLE);
 
-            } else if (result.equals("-99")) {
+            } else if (result.equals(GAMEFAQS_HTML_FAQ_SAVE_RESULT_CODE)) {
 
                 // :-|
                 // web based faq
@@ -1582,7 +1625,7 @@ public class FaqActivity extends BaseActivity {
                 editor.putString(FaqrApp.validFileName(currFaqURL), faqMeta);
                 editor.commit();
 
-            } else if (result.equals("-98")) {
+            } else if (result.equals(NON_GAMEFAQS_URL_RESULT_CODE)) {
 
                 // :-\
                 // not a gamefaqs url we might do something different here
@@ -1610,7 +1653,7 @@ public class FaqActivity extends BaseActivity {
                 editor.putString(FaqrApp.validFileName(currFaqURL), faqMeta);
                 editor.commit();
 
-            } else if (result.equals("-3")) {
+            } else if (result.equals(NO_CONNECTIVITY_ERROR_RESULT_CODE)) {
 
                 // :-(
                 // no connectivity
@@ -1620,7 +1663,7 @@ public class FaqActivity extends BaseActivity {
                 loading.setVisibility(View.GONE);
                 error.setVisibility(View.VISIBLE);
 
-            } else if (result.equals("-2")) {
+            } else if (result.equals(WEB_ACCESS_OOM_ERROR_RESULT_CODE)) {
 
                 // :'-(
                 // error in the web access
@@ -1629,7 +1672,7 @@ public class FaqActivity extends BaseActivity {
                 loading.setVisibility(View.GONE);
                 error.setVisibility(View.VISIBLE);
 
-            } else if (result.equals("-1")) {
+            } else if (result.equals(WEB_ACCESS_ERROR_RESULT_CODE)) {
 
                 // :'-(
                 // error in the web access
@@ -1638,11 +1681,11 @@ public class FaqActivity extends BaseActivity {
                 loading.setVisibility(View.GONE);
                 error.setVisibility(View.VISIBLE);
 
-            } else if (result.equals("3") || result.equals("4")) {
+            } else if (result.equals(IMAGE_FAQ_SAVE_SUCCESS_RESULT_CODE) || result.equals(IMAGE_FAQ_RESULT_CODE)) {
 
                 // :-)
                 // we got an image downloaded to show and we are very happy
-                if (result == "3") {
+                if (result == IMAGE_FAQ_SAVE_SUCCESS_RESULT_CODE) {
                     Toast.makeText(getApplicationContext(), "Successfully saved image to device.", Toast.LENGTH_LONG).show();
                     Log.i(TAG, "Successfully saved image to device.");
                 } else {
@@ -1679,7 +1722,7 @@ public class FaqActivity extends BaseActivity {
                 loading.setVisibility(View.GONE);
                 error.setVisibility(View.GONE);
 
-            } else if (result == "5") {
+            } else if (result == HTML_FAQ_RESULT_CODE) {
 
                 webViewActive = true;
 
@@ -1699,9 +1742,9 @@ public class FaqActivity extends BaseActivity {
             } else {
 
                 // write to device status (not a fatal error)
-                if (result == "1") {
+                if (result == ASCII_FAQ_SAVE_SUCCESS_RESULT_CODE) {
                     Toast.makeText(getApplicationContext(), "Successfully saved FAQ to device.", Toast.LENGTH_LONG).show();
-                } else if (result == "2") {
+                } else if (result == ASCII_FAQ_SAVE_ERROR_RESULT_CODE) {
                     Toast.makeText(getApplicationContext(), "Error saving FAQ to device.", Toast.LENGTH_LONG).show();
                 }
 
