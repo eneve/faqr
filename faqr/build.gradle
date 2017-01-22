@@ -8,8 +8,8 @@ android {
         applicationId "com.faqr"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 84
-        versionName "2.2.3"
+        versionCode 86
+        versionName "2.2.5"
     }
 
     buildTypes {

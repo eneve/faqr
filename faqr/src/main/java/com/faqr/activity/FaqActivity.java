@@ -1047,6 +1047,7 @@ public class FaqActivity extends BaseActivity {
             // and launch the desired Url with CustomTabsIntent.launchUrl()
             String url = currFaqMeta.getUrl();
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            builder.setShowTitle(true);
             builder.setToolbarColor(ContextCompat.getColor(this, R.color.primary));
             builder.setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.primary_dark));
 //            builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
