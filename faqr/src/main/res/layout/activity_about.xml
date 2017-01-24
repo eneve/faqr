@@ -100,14 +100,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/about_donate_title" />
+                android:text="@string/about_website_title" />
 
             <TextView
-                android:id="@+id/donate_link"
+                android:id="@+id/website_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/about_donate_summary" />
+                android:text="@string/about_website_summary" />
 
             <TextView
                 android:id="@+id/section_6_title"

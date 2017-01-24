@@ -37,9 +37,9 @@ public class AboutActivity extends BaseActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        // donate
-        TextView donate = (TextView) findViewById(R.id.donate_link);
-        Linkify.addLinks(donate, Linkify.ALL);
+        // website
+        TextView website = (TextView) findViewById(R.id.website_link);
+        Linkify.addLinks(website, Linkify.ALL);
 
         // contact
         TextView contact = (TextView) findViewById(R.id.contact_link);

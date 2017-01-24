@@ -23,8 +23,8 @@
         \u2605 Featuring the Final Fantasy IV FAQ by Johnathan \'Zy\' Sawyer\n\n
         \u2605 Using StickyListHeaders developed by Emil Sjölander\n\n
         \u2605 Uses Jsoup HTML Parser by Jonathan Hedley</string>
-    <string name="about_donate_title">DONATE</string>
-    <string name="about_donate_summary">http://www.faqrapp.com</string>
+    <string name="about_website_title">WEBSITE</string>
+    <string name="about_website_summary">http://www.faqrapp.com</string>
     <string name="about_contact_title">CONTACT</string>
     <string name="about_contact_summary">Have questions or want to suggest new app features? Please contact faqr.app@gmail.com</string>
     <string name="about_app_title">APP INFO</string>
