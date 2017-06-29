@@ -731,26 +731,22 @@ public class SearchActivity extends BaseActivity {
                 } else {
                     // //////////////////////////
                     // FIRST SEARCH RESULTS PAGE
-                    Elements podElems = doc.select(".pod");
+                    Elements podElems = doc.select(".search_result");
                     for (Element podElem : podElems) {
-                        String sectionTitle = podElem.select(".title").text();
+                        String sectionTitle = podElem.select(".sr_name").text();
                         ArrayList sectionData = new ArrayList();
-                        Elements rowElems = podElem.select("tr");
+                        Elements rowElems = podElem.select(".sr_product");
                         for (Element rowElem : rowElems) {
-                            int count = 0;
                             String platform = "";
                             String title = "";
                             String href = "";
-                            Elements tdElems = rowElem.select("td");
+                            title = sectionTitle;
+                            platform = rowElem.select(".sr_product_name").select("a").text();
+                            Elements tdElems = rowElem.select(".sr_links");
                             for (Element tdElem : tdElems) {
-                                if (count == 0) {
-                                    platform = tdElem.text();
-                                } else if (count == 1) {
-                                    title = tdElem.select("a").get(0).text();
-                                } else if (count == 2) {
-                                    href = getResources().getString(R.string.GAMEFAQS_URL) + tdElem.select("a").attr("href");
+                                if (tdElem.select("a").get(0).text().equals("FAQs")) {
+                                    href = getResources().getString(R.string.GAMEFAQS_URL) + tdElem.select("a").get(0).attr("href");
                                 }
-                                count++;
                             }
                             if (!TextUtils.isEmpty(href)) {
                                 sectionData.add(FaqrApp.getConsoleFullName(platform) + " --- " + title + " --- " + href);
@@ -762,6 +758,7 @@ public class SearchActivity extends BaseActivity {
                             allData.addAll(sectionData);
                         }
                     }
+
                 }
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
