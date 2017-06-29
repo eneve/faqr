@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/menu/activity_search.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/menu/activity_search.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/menu/activity_faqmarks.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/menu/activity_faqmarks.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/menu/activity_my_faqs.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/menu/activity_my_faqs.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/menu/activity_faq.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/menu/activity_faq.xml"
+    }
+]

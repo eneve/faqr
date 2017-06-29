@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.faqr"
+    android:versionCode="87"
+    android:versionName="2.3.0" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="25" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:name="com.faqr.FaqrApp"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.faqr.activity.MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.faqr.activity.FaqActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.faqr.activity.FaqmarksActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/menu_faqmarks" >
+        </activity>
+        <activity
+            android:name="com.faqr.activity.SearchActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/menu_search" >
+        </activity>
+        <activity
+            android:name="com.faqr.activity.FaqsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/menu_saved" >
+        </activity>
+        <activity
+            android:name="com.faqr.activity.PreferencesActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/menu_settings" >
+        </activity>
+        <activity
+            android:name="com.faqr.activity.AboutActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/menu_about" >
+        </activity>
+
+        <!-- <activity -->
+        <!-- android:name="com.google.ads.AdActivity" -->
+        <!-- android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" /> -->
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
+
+</manifest>

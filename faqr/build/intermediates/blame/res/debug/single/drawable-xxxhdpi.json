@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_launcher.png",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/drawable-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_launcher_old.png",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/drawable-xxxhdpi/ic_launcher_old.png"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_search_white_24dp.png",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/drawable-xxxhdpi/ic_search_white_24dp.png"
+    }
+]

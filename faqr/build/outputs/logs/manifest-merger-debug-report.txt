@@ -1,0 +1,155 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:2:1-69:12
+	package
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:3:5-23
+		INJECTED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml
+		INJECTED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml
+		INJECTED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml
+		INJECTED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:5:5-79
+MERGED from [com.google.android.gms:play-services-analytics:7.8.0] /Users/stephen/.android/build-cache/4ef808a427319cf062d30b0893b679eb7dbb3840/output/AndroidManifest.xml:22:5-79
+	android:name
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:5:22-76
+uses-permission#android.permission.INTERNET
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:6:5-67
+MERGED from [com.google.android.gms:play-services-analytics:7.8.0] /Users/stephen/.android/build-cache/4ef808a427319cf062d30b0893b679eb7dbb3840/output/AndroidManifest.xml:21:5-67
+	android:name
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:6:22-64
+uses-permission#android.permission.VIBRATE
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:7:5-65
+	android:name
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:7:22-63
+application
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:9:5-67:19
+MERGED from [com.android.support:design:25.1.0] /Users/stephen/.android/build-cache/e8992b05f5aa41c11c42601d1cbc08631626e621/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:transition:25.1.0] /Users/stephen/.android/build-cache/0e363276db1bcf9da4cd580fbc64db12cf887921/output/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:preference-v7:25.1.0] /Users/stephen/.android/build-cache/d6dfba22deee0a6a6d3703d2450b3d6c3da9ce02/output/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:appcompat-v7:25.1.0] /Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.1.0] /Users/stephen/.android/build-cache/a78a18f4b2a4fa5b812b60b92cdb2011940071aa/output/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:25.1.0] /Users/stephen/.android/build-cache/211423d912bdb1a6ff7a4d3d534ba4f29d462c83/output/AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:customtabs:25.1.0] /Users/stephen/.android/build-cache/db7151f1e98ad7d5b5268c6c685de6c36f6247a2/output/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-analytics:7.8.0] /Users/stephen/.android/build-cache/4ef808a427319cf062d30b0893b679eb7dbb3840/output/AndroidManifest.xml:24:5-20
+MERGED from [com.google.android.gms:play-services-base:7.8.0] /Users/stephen/.android/build-cache/f30fc916c156e81055e8e48f91e3b78bbb0cc75c/output/AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:support-v4:25.1.0] /Users/stephen/.android/build-cache/b267ab16d56ebb43332bbd216a7a28eb09c8e71c/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-fragment:25.1.0] /Users/stephen/.android/build-cache/3dbca9a848dc9aa02ed385c288c696081b8d3db3/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-media-compat:25.1.0] /Users/stephen/.android/build-cache/4fb500392392df94263e4c5cb4474369841571c2/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-ui:25.1.0] /Users/stephen/.android/build-cache/56ddd7acf5c320fed9fd84a1ff601576e923b42a/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-utils:25.1.0] /Users/stephen/.android/build-cache/4fedb0eb2bb7b0aaa4ee4bccb8c65e528a678d12/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-compat:25.1.0] /Users/stephen/.android/build-cache/a253093ca7575f3e76e1e38bede73afd24dad0e3/output/AndroidManifest.xml:25:5-20
+	android:label
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:13:9-41
+	android:allowBackup
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:11:9-35
+	android:icon
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:12:9-45
+	android:theme
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:14:9-40
+	android:name
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:10:9-32
+activity#com.faqr.activity.MainActivity
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:16:9-25:20
+	android:label
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:19:13-45
+	android:configChanges
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:18:13-74
+	android:name
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:17:13-50
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:20:13-24:29
+action#android.intent.action.MAIN
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:21:17-69
+	android:name
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:21:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:23:17-77
+	android:name
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:23:27-74
+activity#com.faqr.activity.FaqActivity
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:27:9-31:20
+	android:label
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:30:13-45
+	android:configChanges
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:29:13-74
+	android:name
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:28:13-49
+activity#com.faqr.activity.FaqmarksActivity
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:33:9-37:20
+	android:label
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:36:13-50
+	android:configChanges
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:35:13-74
+	android:name
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:34:13-54
+activity#com.faqr.activity.SearchActivity
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:39:9-43:20
+	android:label
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:42:13-48
+	android:configChanges
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:41:13-74
+	android:name
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:40:13-52
+activity#com.faqr.activity.FaqsActivity
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:45:9-49:20
+	android:label
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:48:13-47
+	android:configChanges
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:47:13-74
+	android:name
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:46:13-50
+activity#com.faqr.activity.PreferencesActivity
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:51:9-55:20
+	android:label
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:54:13-50
+	android:configChanges
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:53:13-74
+	android:name
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:52:13-57
+activity#com.faqr.activity.AboutActivity
+ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:57:9-61:20
+	android:label
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:60:13-47
+	android:configChanges
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:59:13-74
+	android:name
+		ADDED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml:58:13-51
+uses-sdk
+INJECTED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:design:25.1.0] /Users/stephen/.android/build-cache/e8992b05f5aa41c11c42601d1cbc08631626e621/output/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:transition:25.1.0] /Users/stephen/.android/build-cache/0e363276db1bcf9da4cd580fbc64db12cf887921/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:preference-v7:25.1.0] /Users/stephen/.android/build-cache/d6dfba22deee0a6a6d3703d2450b3d6c3da9ce02/output/AndroidManifest.xml:7:5-43
+MERGED from [com.android.support:appcompat-v7:25.1.0] /Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:25.1.0] /Users/stephen/.android/build-cache/a78a18f4b2a4fa5b812b60b92cdb2011940071aa/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.1.0] /Users/stephen/.android/build-cache/211423d912bdb1a6ff7a4d3d534ba4f29d462c83/output/AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:recyclerview-v7:25.1.0] /Users/stephen/.android/build-cache/c723c4b8338506362fa824d2e327232964d745e5/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:customtabs:25.1.0] /Users/stephen/.android/build-cache/db7151f1e98ad7d5b5268c6c685de6c36f6247a2/output/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-analytics:7.8.0] /Users/stephen/.android/build-cache/4ef808a427319cf062d30b0893b679eb7dbb3840/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-base:7.8.0] /Users/stephen/.android/build-cache/f30fc916c156e81055e8e48f91e3b78bbb0cc75c/output/AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:support-v4:25.1.0] /Users/stephen/.android/build-cache/b267ab16d56ebb43332bbd216a7a28eb09c8e71c/output/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.1.0] /Users/stephen/.android/build-cache/3dbca9a848dc9aa02ed385c288c696081b8d3db3/output/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.1.0] /Users/stephen/.android/build-cache/4fb500392392df94263e4c5cb4474369841571c2/output/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:25.1.0] /Users/stephen/.android/build-cache/56ddd7acf5c320fed9fd84a1ff601576e923b42a/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:25.1.0] /Users/stephen/.android/build-cache/4fedb0eb2bb7b0aaa4ee4bccb8c65e528a678d12/output/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:25.1.0] /Users/stephen/.android/build-cache/a253093ca7575f3e76e1e38bede73afd24dad0e3/output/AndroidManifest.xml:21:5-23:58
+MERGED from [se.emilsjolander:stickylistheaders:2.7.0] /Users/stephen/.android/build-cache/cef0bb2d859601608110b4ddd48630575a42b82e/output/AndroidManifest.xml:7:5-9:41
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:25.1.0] /Users/stephen/.android/build-cache/e8992b05f5aa41c11c42601d1cbc08631626e621/output/AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml
+		INJECTED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml
+		INJECTED from /Users/stephen/dev/faqr/faqr/src/main/AndroidManifest.xml
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-base:7.8.0] /Users/stephen/.android/build-cache/f30fc916c156e81055e8e48f91e3b78bbb0cc75c/output/AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-base:7.8.0] /Users/stephen/.android/build-cache/f30fc916c156e81055e8e48f91e3b78bbb0cc75c/output/AndroidManifest.xml:23:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:7.8.0] /Users/stephen/.android/build-cache/f30fc916c156e81055e8e48f91e3b78bbb0cc75c/output/AndroidManifest.xml:22:13-58

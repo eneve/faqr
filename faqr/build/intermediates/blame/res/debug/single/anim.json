@@ -1,0 +1,90 @@
+[
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/abc_shrink_fade_out_from_bottom.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/anim/abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/design_bottom_sheet_slide_out.xml",
+        "source": "/Users/stephen/.android/build-cache/e8992b05f5aa41c11c42601d1cbc08631626e621/output/res/anim/design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/slide_up_anim.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/anim/slide_up_anim.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/abc_fade_in.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/anim/abc_fade_in.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/abc_fade_out.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/anim/abc_fade_out.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/slide_down_anim.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/anim/slide_down_anim.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/fade_in_anim.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/anim/fade_in_anim.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/abc_slide_out_top.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/anim/abc_slide_out_top.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/abc_popup_enter.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/anim/abc_popup_enter.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/abc_slide_out_bottom.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/anim/abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/options_fade_in_anim.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/anim/options_fade_in_anim.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/abc_popup_exit.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/anim/abc_popup_exit.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/abc_slide_in_bottom.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/anim/abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/abc_slide_in_top.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/anim/abc_slide_in_top.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/design_fab_out.xml",
+        "source": "/Users/stephen/.android/build-cache/e8992b05f5aa41c11c42601d1cbc08631626e621/output/res/anim/design_fab_out.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/design_snackbar_in.xml",
+        "source": "/Users/stephen/.android/build-cache/e8992b05f5aa41c11c42601d1cbc08631626e621/output/res/anim/design_snackbar_in.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/fade_out_anim.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/anim/fade_out_anim.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/design_bottom_sheet_slide_in.xml",
+        "source": "/Users/stephen/.android/build-cache/e8992b05f5aa41c11c42601d1cbc08631626e621/output/res/anim/design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/design_snackbar_out.xml",
+        "source": "/Users/stephen/.android/build-cache/e8992b05f5aa41c11c42601d1cbc08631626e621/output/res/anim/design_snackbar_out.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/options_fade_out_anim.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/anim/options_fade_out_anim.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/abc_grow_fade_in_from_bottom.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/anim/abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/anim/design_fab_in.xml",
+        "source": "/Users/stephen/.android/build-cache/e8992b05f5aa41c11c42601d1cbc08631626e621/output/res/anim/design_fab_in.xml"
+    }
+]

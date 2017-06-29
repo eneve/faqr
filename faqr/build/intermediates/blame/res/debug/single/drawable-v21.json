@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-v21/abc_action_bar_item_background_material.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/drawable-v21/abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-v21/design_password_eye.xml",
+        "source": "/Users/stephen/.android/build-cache/e8992b05f5aa41c11c42601d1cbc08631626e621/output/res/drawable-v21/design_password_eye.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-v21/abc_edit_text_material.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/drawable-v21/abc_edit_text_material.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-v21/list_item_sepia.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/drawable-v21/list_item_sepia.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-v21/design_bottom_navigation_item_background.xml",
+        "source": "/Users/stephen/.android/build-cache/e8992b05f5aa41c11c42601d1cbc08631626e621/output/res/drawable-v21/design_bottom_navigation_item_background.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-v21/abc_btn_colored_material.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/drawable-v21/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-v21/notification_action_background.xml",
+        "source": "/Users/stephen/.android/build-cache/22d2c26a5802204738b6da35fbb9e2323d2e9fcf/output/res/drawable-v21/notification_action_background.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-v21/list_item_dark.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/drawable-v21/list_item_dark.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-v21/avd_hide_password.xml",
+        "source": "/Users/stephen/.android/build-cache/e8992b05f5aa41c11c42601d1cbc08631626e621/output/res/drawable-v21/avd_hide_password.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-v21/avd_show_password.xml",
+        "source": "/Users/stephen/.android/build-cache/e8992b05f5aa41c11c42601d1cbc08631626e621/output/res/drawable-v21/avd_show_password.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-v21/list_item_night.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/drawable-v21/list_item_night.xml"
+    },
+    {
+        "merged": "/Users/stephen/dev/faqr/faqr/build/intermediates/res/merged/debug/drawable-v21/list_item_day.xml",
+        "source": "/Users/stephen/dev/faqr/faqr/src/main/res/drawable-v21/list_item_day.xml"
+    }
+]
