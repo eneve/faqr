@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -38,7 +39,10 @@ import com.faqr.model.FaqMeta;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -608,6 +612,17 @@ public class FaqsActivity extends BaseActivity {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // TASKS
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
+            Log.v(TAG,"Permission: "+permissions[0]+ "was "+grantResults[0]);
+            //resume tasks needing this permission
+            new InitTask().execute(new String[] {});
+        }
+    }
+
     /**
      * Save the current position
      *
@@ -623,7 +638,29 @@ public class FaqsActivity extends BaseActivity {
         @Override
         protected String doInBackground(String... strings) {
             String result = "";
+            // PRIVATE
             File[] files = FaqrApp.getFaqrFiles(getFilesDir().listFiles());
+            // PUBLIC
+//            if (isStoragePermissionGranted()) {
+//                File[] ofiles = FaqrApp.getFaqrFiles(getFilesDir().listFiles());
+//                if (ofiles.length > 0) {
+//                    // !!! ONE TIME JOB !!!
+//                    // one time move all files from old PRIVATE path to new PUBLIC path
+//                    File source = getFilesDir();
+//                    File dest = FaqrApp.getFaqrFilesDir();
+//                    try {
+//                        FileUtils.copyDirectory(source, dest);
+//                        FileUtils.deleteDirectory(source);
+//                    } catch (IOException e) {
+//                        Log.e(TAG, e.getMessage(), e);
+//                    }
+//                }
+//
+//                File directory = FaqrApp.getFaqrFilesDir();
+//                File[] dirFiles = directory.listFiles();
+//                File[] files = FaqrApp.getFaqrFiles(FaqrApp.getFaqrFilesDir().listFiles());
+//            }
+
             allData = Arrays.asList(files);
 
             // current sorting
@@ -656,6 +693,7 @@ public class FaqsActivity extends BaseActivity {
                 }
                 data.add(sectionFiles);
             }
+
 
             return result;
         }

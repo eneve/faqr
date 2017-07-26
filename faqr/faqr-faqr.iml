@@ -105,6 +105,7 @@
     <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="support-annotations-25.1.0" level="project" />
+    <orderEntry type="library" exported="" name="commons-io-2.5" level="project" />
     <orderEntry type="library" exported="" name="jsoup-1.8.2" level="project" />
     <orderEntry type="library" exported="" name="design-25.1.0" level="project" />
     <orderEntry type="library" exported="" name="preference-v7-25.1.0" level="project" />

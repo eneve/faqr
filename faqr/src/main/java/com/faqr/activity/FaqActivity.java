@@ -851,23 +851,34 @@ public class FaqActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
 
-                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                        Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
-                        fontSize = fontSize > -6 ? fontSize - 1 : fontSize;
-
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putInt("font_size_v2", fontSize);
-                        editor.commit();
+                    if (webViewActive) {
+                        webView.loadUrl("javascript:(function() {" +
+                                "var el = document.getElementsByTagName('p');" +
+                                "var style = window.getComputedStyle(el[0], null).getPropertyValue('font-size');" +
+                                "var fontSize = parseFloat(style);" +
+                                "for (i = 0; i < el.length; i++) {" +
+                                "el[i].style.fontSize = (fontSize - 1) + 'px';" +
+                                "}" +
+                                "})()");
                     } else {
-                        Integer fontSize = prefs.getInt("font_size_v2_land", getResources().getInteger(R.integer.font_size_default));
-                        fontSize = fontSize > -6 ? fontSize - 1 : fontSize;
+                        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                            Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
+                            fontSize = fontSize > -6 ? fontSize - 1 : fontSize;
 
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putInt("font_size_v2_land", fontSize);
-                        editor.commit();
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putInt("font_size_v2", fontSize);
+                            editor.commit();
+                        } else {
+                            Integer fontSize = prefs.getInt("font_size_v2_land", getResources().getInteger(R.integer.font_size_default));
+                            fontSize = fontSize > -6 ? fontSize - 1 : fontSize;
+
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putInt("font_size_v2_land", fontSize);
+                            editor.commit();
+                        }
+
+                        adapter.notifyDataSetChanged();
                     }
-
-                    adapter.notifyDataSetChanged();
                 }
             });
 
@@ -876,24 +887,35 @@ public class FaqActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
 
-                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                        Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
-                        fontSize = fontSize < 8 ? fontSize + 1 : fontSize;
-
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putInt("font_size_v2", fontSize);
-                        editor.commit();
-
+                    if (webViewActive) {
+                        webView.loadUrl("javascript:(function() {" +
+                                "var el = document.getElementsByTagName('p');" +
+                                "var style = window.getComputedStyle(el[0], null).getPropertyValue('font-size');" +
+                                "var fontSize = parseFloat(style);" +
+                                "for (i = 0; i < el.length; i++) {" +
+                                "el[i].style.fontSize = (fontSize + 1) + 'px';" +
+                                "}" +
+                                "})()");
                     } else {
-                        Integer fontSize = prefs.getInt("font_size_v2_land", getResources().getInteger(R.integer.font_size_default));
-                        fontSize = fontSize < 8 ? fontSize + 1 : fontSize;
+                        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                            Integer fontSize = prefs.getInt("font_size_v2", getResources().getInteger(R.integer.font_size_default));
+                            fontSize = fontSize < 8 ? fontSize + 1 : fontSize;
 
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putInt("font_size_v2_land", fontSize);
-                        editor.commit();
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putInt("font_size_v2", fontSize);
+                            editor.commit();
+
+                        } else {
+                            Integer fontSize = prefs.getInt("font_size_v2_land", getResources().getInteger(R.integer.font_size_default));
+                            fontSize = fontSize < 8 ? fontSize + 1 : fontSize;
+
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putInt("font_size_v2_land", fontSize);
+                            editor.commit();
+                        }
+
+                        adapter.notifyDataSetChanged();
                     }
-
-                    adapter.notifyDataSetChanged();
                 }
             });
 
@@ -980,7 +1002,7 @@ public class FaqActivity extends BaseActivity {
                 LinearLayout justifyLayout = (LinearLayout)  popup.getContentView().findViewById(R.id.do_justify);
                 typefaceTextView.setVisibility(View.GONE);
                 typefaceSpinner.setVisibility(View.GONE);
-                textSizeLayout.setVisibility(View.GONE);
+//                textSizeLayout.setVisibility(View.GONE);
                 justifyLayout.setVisibility(View.GONE);
             }
 
@@ -1493,7 +1515,8 @@ public class FaqActivity extends BaseActivity {
                                         in = new URL(imagePath).openConnection().getInputStream();
                                     } catch (java.net.MalformedURLException e) {
                                         Log.w(TAG, "MalformedURLException: " + imagePath + " attempting to auto-correct the URL");
-                                        in = new URL(currFaqURL + imagePath).openConnection().getInputStream();
+                                        imagePath = currFaqURL.replaceAll("http://m", "https://www") + imagePath;
+                                        in = new URL(imagePath).openConnection().getInputStream();
                                     }
 
                                     File fileUri = new File(getFileStreamPath(FaqrApp.validFileName(currFaqURL)).getAbsolutePath());
@@ -1563,7 +1586,11 @@ public class FaqActivity extends BaseActivity {
 
                             // delete and refresh
                             // getFileStreamPath(validFileName(prefs.getString("faq_title", ""))).delete();
+
+                            // PRIVATE ???
                             FaqrApp.writeData(openFileOutput(FaqrApp.validFileName(currFaqURL), Context.MODE_PRIVATE), content);
+                            // PUBLIC ???
+//                            FaqrApp.writeData(FaqrApp.getFaqrFileOutput(FaqrApp.validFileName(currFaqURL)), content);
 
                             result = ASCII_FAQ_SAVE_SUCCESS_RESULT_CODE;
 

@@ -7,8 +7,10 @@ package com.faqr;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -16,6 +18,7 @@ import com.google.android.gms.analytics.Tracker;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -32,6 +35,8 @@ import java.util.List;
  */
 public class FaqrApp extends Application {
 
+    protected String TAG = "FAQr";
+
     /**
      * Google Analytics
      *
@@ -45,6 +50,16 @@ public class FaqrApp extends Application {
         return mTracker;
     }
 
+
+    public static File getFaqrFilesDir() {
+        String folder = "faqr";
+        File f = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOCUMENTS), folder);
+        if (!f.exists()) {
+            f.mkdirs();
+        }
+        return f;
+    }
 
     /**
      * Sort the FAQr data files from other meta data in the files dir
@@ -61,15 +76,26 @@ public class FaqrApp extends Application {
         return faqrFiles.toArray(new File[] {});
     }
 
+
+    public static FileOutputStream getFaqrFileOutput(String fileName) {
+        FileOutputStream output = null;
+        try {
+            output = new FileOutputStream(getFaqrFilesDir() + "/" + fileName);
+        } catch (FileNotFoundException e) {
+            Log.e("FAQr", e.getMessage(), e);
+        }
+
+        return output;
+    }
+
+
     /*
      * Helper for saving files to internal storage
      */
     public static void writeData(FileOutputStream fOut, String data) throws IOException {
-        // FileOutputStream fOut = openFileOutput(filename, Context.MODE_PRIVATE);
         OutputStreamWriter osw = new OutputStreamWriter(fOut);
         osw.write(data);
         osw.flush();
-        // /getting fuktup
         osw.close();
     }
 
