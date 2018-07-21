@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.faqr"
         minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 90
-        versionName "2.3.3"
+        targetSdkVersion 27
+        versionCode 91
+        versionName "2.3.4"
     }
 
     buildTypes {
@@ -25,9 +25,9 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:design:25.1.0'
-    compile 'com.android.support:preference-v7:25.1.0'
-    compile 'com.android.support:customtabs:25.1.0'
+    compile 'com.android.support:design:27.1.1'
+    compile 'com.android.support:preference-v7:27.1.1'
+    compile 'com.android.support:customtabs:27.1.1'
     compile 'com.google.android.gms:play-services-analytics:7.8.0'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile "commons-io:commons-io:+"

@@ -360,7 +360,7 @@ public class FaqActivity extends BaseActivity {
 
         CookieSyncManager.createInstance(this);
         cookieManager = CookieManager.getInstance();
-        cookieManager.setCookie(".gamefaqs.com", "css_color=" + themeCssColor + "; Domain=.gamefaqs.com");
+        cookieManager.setCookie("gamefaqs.gamespot.com", "gf_css=" + themeCssColor + "; Domain=gamefaqs.gamespot.com");
         CookieSyncManager.getInstance().sync();
 
         webView.setInitialScale(1);
@@ -800,7 +800,7 @@ public class FaqActivity extends BaseActivity {
                         adapter.notifyDataSetChanged();
 
                         // set webView css
-                        cookieManager.setCookie(".gamefaqs.com", "css_color=" + themeCssColor + "; Domain=.gamefaqs.com");
+                        cookieManager.setCookie("gamefaqs.gamespot.com", "gf_css=" + themeCssColor + "; Domain=gamefaqs.gamespot.com");
                         if (webViewActive) {
                             webView.reload();
                         }
