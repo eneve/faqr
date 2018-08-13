@@ -1448,7 +1448,7 @@ public class FaqActivity extends BaseActivity {
                     try {
 
                         // valid gamefaqs url
-                        if (currFaqMeta.getUrl().contains("m.gamefaqs.com")) {
+                        if (currFaqMeta.getUrl().contains("m.gamefaqs.com") || currFaqMeta.getUrl().contains("gamefaqs.gamespot.com")) {
 
                             Log.w(TAG, "===============================================");
                             Log.w(TAG, "FETCHING FROM WEB " + currFaqURL);

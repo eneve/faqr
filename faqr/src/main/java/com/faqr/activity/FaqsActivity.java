@@ -97,6 +97,31 @@ public class FaqsActivity extends BaseActivity {
 
         toolbar.getRootView().setBackgroundColor(themeBackgroundColor);
 
+        String firstRunPrefName = "_firstrun";
+        // show warning dialog about GameFAQs IP ban
+        boolean firstRun = prefs.getBoolean(firstRunPrefName, true);
+        if (firstRun){
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int position) {
+                    switch (position){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            break;
+                    }
+                }
+            };
+
+            String warningMessage = "There have been increased user reports that downloading a large number of FAQs can lead to IP ban on the GameFAQs website itself.\n\n"
+                    + "As this is a third party app not in any way affiliated with CBS Interactive I have no way to control this.\n\n"
+                    + "I will keep this app available on the store for now, but please be aware and only download the FAQs for games you are currently playing.";
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(FaqsActivity.this);
+            builder.setTitle("Warning").setCancelable(false).setMessage(warningMessage)
+                    .setPositiveButton("Ok, I understand", dialogClickListener).show();
+            // Save the state
+            prefs.edit().putBoolean(firstRunPrefName, false).apply();
+        }
+
         // set the list adapter
         adapter = new MyFaqsListAdapter();
         listView = (StickyListHeadersListView) findViewById(R.id.list);
@@ -727,7 +752,7 @@ public class FaqsActivity extends BaseActivity {
             loading.startAnimation(fadeOutAnimation);
 
             int my_faqs_pos = prefs.getInt("my_faqs_pos", 0);
-            listView.setSelection(my_faqs_pos);
+            listView.setSelection(my_faqs_pos); // causing a crash ??
 
             adapter.notifyDataSetChanged();
 

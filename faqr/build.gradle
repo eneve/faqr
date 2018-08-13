@@ -8,8 +8,8 @@ android {
         applicationId "com.faqr"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 91
-        versionName "2.3.4"
+        versionCode 93
+        versionName "2.4.0"
     }
 
     buildTypes {
@@ -31,6 +31,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-analytics:7.8.0'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile "commons-io:commons-io:+"
-    compile 'org.jsoup:jsoup:1.8.2'
+    compile 'org.jsoup:jsoup:1.10.3'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

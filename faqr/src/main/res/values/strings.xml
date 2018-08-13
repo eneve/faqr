@@ -6,7 +6,8 @@
 
     <!-- API  -->
 
-    <string name="GAMEFAQS_URL">http://m.gamefaqs.com</string>
+    <!--<string name="GAMEFAQS_URL">http://m.gamefaqs.com</string>-->
+    <string name="GAMEFAQS_URL">https://gamefaqs.gamespot.com</string>
 
     <!-- Google Analytics  -->
 

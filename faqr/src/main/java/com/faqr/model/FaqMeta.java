@@ -15,12 +15,6 @@ import java.util.Arrays;
  *  Interlude FAQ/Walkthrough --- 09/20/11 --- A Backdated Future --- 1.04 --- 275K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62307 --- Final Fantasy IV: The Complete Collection (PSP) Interlude FAQ/Walkthrough by A Backdated Future
  *  Final Fantasy IV FAQ/Walkthrough --- 09/20/11 --- A Backdated Future --- 1.02 --- 1265K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62211 --- Final Fantasy IV: The Complete Collection (PSP) Final Fantasy IV FAQ/Walkthrough by A Backdated Future
  *  The After Years FAQ/Walkthrough --- 01/22/12 --- gamingrat --- 1 --- 477K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/63680 --- Final Fantasy IV: The Complete Collection (PSP) The After Years FAQ/Walkthrough by gamingrat
- *  Interlude FAQ/Walkthrough --- 09/20/11 --- A Backdated Future --- 1.04 --- 275K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62307 --- Final Fantasy IV: The Complete Collection (PSP) Interlude FAQ/Walkthrough by A Backdated Future
- *  FAQ/Walkthrough --- 10/06/14 --- noz3r0 --- 1.00 --- 1273K --- http://m.gamefaqs.com/ps3/735143-kingdom-hearts-hd-25-remix/faqs/70271 --- Kingdom Hearts HD 2.5 ReMIX (PS3) FAQ/Walkthrough by noz3r0
- *  The After Years FAQ/Walkthrough --- 01/22/12 --- gamingrat --- 1 --- 477K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/63680 --- Final Fantasy IV: The Complete Collection (PSP) The After Years FAQ/Walkthrough by gamingrat
- *  FAQ/Walkthrough --- 10/06/14 --- noz3r0 --- 1.00 --- 1273K --- http://m.gamefaqs.com/ps3/735143-kingdom-hearts-hd-25-remix/faqs/70271 --- Kingdom Hearts HD 2.5 ReMIX (PS3) FAQ/Walkthrough by noz3r0
- *  Interlude FAQ/Walkthrough --- 09/20/11 --- A Backdated Future --- 1.04 --- 275K --- http://m.gamefaqs.com/psp/615911-final-fantasy-iv-the-complete-collection/faqs/62307 --- Final Fantasy IV: The Complete Collection (PSP) Interlude FAQ/Walkthrough by A Backdated Future
- *  FAQ/Walkthrough (X360) --- 08/15/11 --- etjester --- Final --- 410K --- http://m.gamefaqs.com/ps3/689056-mass-effect/faqs/51033 --- Mass Effect FAQ/Walkthrough for PlayStation 3 by etjester - GameFAQs
  *  FAQ/Walkthrough *new*  <HTML> --- 06/08/15 --- Suikosun --- 0.1 --- 49K --- http://m.gamefaqs.com/ps4/702760-the-witcher-3-wild-hunt/faqs/71878 --- The Witcher 3: Wild Hunt FAQ/Walkthrough for PlayStation 4 by Suikosun - GameFAQs --- TYPE=HTML
  *
  */
