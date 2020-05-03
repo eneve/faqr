@@ -64,8 +64,6 @@ Update the versionCode and versionName in app/build.gradle
 
 Using Android Studio > Menu > Build > Generate Signed APK...
 
-se.johnston@gmail.com owns the app in Google Play
-
 Publish the app using the Google Play Developer Console - https://play.google.com/apps/publish
 
 
